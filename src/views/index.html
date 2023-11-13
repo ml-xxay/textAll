@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let res = {data:{data1:{age:10}}}
+    let {data:{data1}} = res
+    console.log(data1); //{age:10}
+    console.log(data1.age); //10
+  </script>
+</body>
+
+</html>
