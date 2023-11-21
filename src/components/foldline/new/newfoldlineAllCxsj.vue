@@ -74,12 +74,42 @@ export default {
       const echarts = require('echarts')
       const charts = echarts.init(this.$refs.chart)
       var markLinelistcope = this.data.markLinelist
-      var maxy = Math.trunc(Math.max(...this.data.seriesdata) * 1.5) //y轴最大值
+      // var maxy = Math.trunc(Math.max(...this.data.seriesdata) * 1.5) //y轴最大值
+      var maxy = 0
+      if (Math.max(...this.data.seriesdata) > this.data?.startupBoundary) {
+        if (Math.max(...this.data.seriesdata) > 0) {
+          maxy = Math.trunc(Math.max(...this.data.seriesdata) * 1.5)
+        } else {
+          maxy = Math.trunc(Math.max(...this.data.seriesdata) - 500)
+        }
+      } else {
+        if (this.data?.startupBoundary > 0) {
+          maxy = Math.trunc(this.data?.startupBoundary * 1.5)
+        } else {
+          maxy = Math.trunc(this.data?.startupBoundary - 500)
+        }
+      }
+
       var miny = 0
       if (Math.min(...this.data.seriesdata) < this.data?.startupBoundary) {
-        miny = Math.min(...this.data.seriesdata) * 0.8
+        if (Math.min(...this.data.seriesdata) < 0) {
+          miny = Math.min(...this.data.seriesdata) - 500
+        } else {
+          miny = Math.min(...this.data.seriesdata) * 0.8
+        }
       } else {
-        miny = this.data?.startupBoundary * 0.8
+        if (this.data?.startupBoundary < 0) {
+          miny = this.data?.startupBoundary - 500
+        } else {
+          miny = this.data?.startupBoundary * 0.8
+        }
+      }
+      var intval = 0
+      if (miny <= 0) {
+        let h = maxy - miny
+        intval = Math.abs(h / 2.5)
+      } else {
+        intval = maxy / 5
       }
 
       var option = {
@@ -181,9 +211,10 @@ export default {
         yAxis: {
           z: 999,
           type: 'value',
+          // splitNumber:5,
           min: miny, // 最小刻度值
           max: maxy, // 最大刻度值
-          interval: 200, // 刻度间隔为10,
+          interval: Math.trunc(intval), // 刻度间隔为10,
           axisLabel: {
             textStyle: {
               color: '#999999', //yy轴字体颜色

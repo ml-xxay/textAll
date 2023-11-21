@@ -1,5 +1,23 @@
 <template>
   <div>
+    <!-- 测试表单效验 -->
+  <div style="margin-left:48%">
+      <br>
+    <!-- 只能数字 -->
+    <el-input v-input.num v-model="input" style="width: 400px" placeholder="只能数字"></el-input><br><br>
+    <!-- 只能数字+小数点 -->
+    <el-input v-input.num_point v-model="input1" style="width: 400px" placeholder="只能数字+小数点(可以多个小数点)"></el-input><br><br>
+    <!-- 只能整数 -->
+    <el-input v-input.int v-model="input2" style="width: 400px" placeholder="只能整数-可以单独一个0,但不能以0开头"></el-input><br><br>
+    <!-- 只能正整数 -->
+    <el-input v-input.intp v-model="input2" style="width: 400px" placeholder="只能正整数(不包含0)"></el-input><br><br>
+    <!-- 浮点型后面限制2位 -->
+    <el-input v-input.float="2" v-model="input3" style="width: 400px" placeholder="浮点型小数后面限制2位"></el-input><br><br>
+    <!-- 只能英文 -->
+    <el-input v-input.alp v-model="input4" style="width: 400px" placeholder="只能英文"></el-input><br><br><br>
+</div>
+    <!-- 测试表单效验 -->
+
     <!-- 搜索表单 -->
     <page-search
       :searchFormConfig="searchFormConfig"
@@ -13,7 +31,6 @@
       :contentTableConfig="contentTableConfig"
       :listDate="listDate"
       :total="total"
-      @EditClick="EditClick"
       @handleSelectionChange="handleSelectionChange"
       @deleatl="deleatl"
       @getPageListDate="getPageListDate"
@@ -24,6 +41,7 @@
         >
         <el-button type="parimary" size="medium">多选删除</el-button>
       </template>
+      <template #rowTwo> 你好 </template>
       <template #handler="scope">
         <!-- <slot name="caozuo"></slot> -->
         <el-button
@@ -118,6 +136,13 @@ export default {
   props: {},
   data() {
     return {
+      weishu:'1',
+      input: '',
+      input1: '',
+      input2: '',
+      input3: '',
+      input4: '',
+      input5: '',
       // 搜索需要双向绑定的字段
       //formDate: {}, // 想要封装的很灵活  这里就不能手动去写字段  应该由配置文件的 field 来决定
       // formDate: {
@@ -163,37 +188,37 @@ export default {
             placeholder: '请输入手机号码',
           },
           // 单选下拉
-          {
-            field: 'status',
-            linHeight: {
-              lineHeight: '20px',
-            },
-            type: 'select',
-            // value: '自己决定默认值',
-            label: '用户状态用户状态用户状态',
-            placeholder: '请选择用户状态',
-            options: [
-              { title: '全部', value: ' ' },
-              { title: '启用', value: 1 },
-              { title: '禁用', value: 0 },
-            ],
-          },
-          // 多选下拉
           // {
           //   field: 'status',
           //   linHeight: {
           //     lineHeight: '20px',
           //   },
-          //   type: 'multiple',
-          //   value: '自己决定默认值',
+          //   type: 'select',
+          //   // value: '自己决定默认值',
           //   label: '用户状态用户状态用户状态',
           //   placeholder: '请选择用户状态',
           //   options: [
-          //     { title: '全部', value: '' },
+          //     { title: '全部', value: ' ' },
           //     { title: '启用', value: 1 },
           //     { title: '禁用', value: 0 },
           //   ],
           // },
+          // 多选下拉
+          {
+            field: 'status',
+            linHeight: {
+              lineHeight: '20px',
+            },
+            type: 'multiple',
+            value: '自己决定默认值',
+            label: '用户状态用户状态用户状态',
+            placeholder: '请选择用户状态',
+            options: [
+              { title: '全部', value: '' },
+              { title: '启用', value: 1 },
+              { title: '禁用', value: 0 },
+            ],
+          },
           // 有开始和结束日期
           // {
           //
@@ -357,7 +382,7 @@ export default {
             value: '自己决定默认值',
             label: '用户状态',
             placeholder: '请选择用户状态',
-            isHidden: true,
+            isHidden: false,
             options: [
               // 这里有的时候需要别的灵活的数据 自己发请求赋值给它就好
               { title: '启用', value: 1 },
@@ -376,6 +401,8 @@ export default {
       },
       // 弹框编辑时要操作的数据
       defaultInfo: {},
+
+      entity: {},
     }
   },
   computed: {},
@@ -383,16 +410,22 @@ export default {
   created() {},
   methods: {
     // 直接在页面插入的编辑操作
-    // handleEditClick(row) {
-    //   alert('点击了操作')
-    //   console.log(row)
-    //   this.defaultInfo = { ...row } //点击编辑时  把子编辑的数据给defaultInfo  方便做数据的回显
-    //   this.$refs.pageModalRef.dialogVisible = true
-    // },
+    handleEditClick(row) {
+      console.log(row)
+      this.defaultInfo = { ...row } //点击编辑时  把子编辑的数据给defaultInfo  方便做数据的回显
+      this.$refs.pageModalRef.dialogVisible = true
+    },
     // 监听搜索组件传出来的搜索事件  formData 搜索对象参数-->组件传出来的
     queryBtnClick(formData) {
       console.log(formData)
-      alert('点搜索了')
+
+      Object.keys(formData).forEach((item) => {
+        console.log(item) //id name iphone status createdTime
+        this.entity[item] = formData[item]
+        //  if(item == 'status' ){ //这个时多选时候赋值
+        //   console.log(formData[item].join(' '));
+        //  }
+      })
       // 搜索时页码也要重置
       this.$refs.pageContentRef.pageInfo.pageNum = 1
       this.$refs.pageContentRef.pageInfo.pageSize = 10
@@ -410,11 +443,11 @@ export default {
     },
 
     // 监听table编辑操作   这个被直接在页面插入代替了
-    EditClick(item) {
-      // console.log(item)
-      this.defaultInfo = { ...item } //点击编辑时  把子编辑的数据给defaultInfo  方便做数据的回显
-      this.$refs.pageModalRef.dialogVisible = true
-    },
+    // EditClick(item) {
+    //   // console.log(item)
+    //   this.defaultInfo = { ...item } //点击编辑时  把子编辑的数据给defaultInfo  方便做数据的回显
+    //   this.$refs.pageModalRef.dialogVisible = true
+    // },
     // 监听table表格删除操作
     deleatl(row) {
       alert('点击了删除操作')

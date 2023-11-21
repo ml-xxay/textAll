@@ -289,14 +289,15 @@ export default {
         ],
         // 每个时间段的数据
         seriesdata: [
-          700, 639, 534, 639, 700, 160, 520, 534, null, 534, 639, 534, 639,
+          700, 639, 534, 639, 700, 40000, 520, 534, 600, 534, 639, 534, 639,
         ],
         // 测试开始  测试结束
         testTimeGroup: {
           start: '16:00', // 测试开始字段
           end: '17:45', // 测试结束字段
         },
-        startupBoundary: 150, // 调节启动边界 向上
+        startupBoundary: 30000, // 调节启动边界 向上         
+        // startupBoundary: 150, // 调节启动边界 向上
         startendBoundary: 700, // 调节启动边界 向下
         pTarget: 580, // p 达标
         pStandard: 620, // p 目标

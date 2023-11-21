@@ -5,6 +5,14 @@ import './plugins/element.js'
 // import '../mock/index'
 import store from './store/index.js'
 import axios from 'axios'
+// 导入自定义属性--指令
+import * as directives from '@/directives' //directives 是导出所有对象的集合  格式如下 { imgerror:{} }
+Object.keys(directives).forEach(key => {
+  Vue.directive(key, directives[key])
+})
+// import * as directives from '@/directives'
+// Vue.directive('input',directives)
+
 // 处理日期插件  moment
 import moment from 'moment'
 Vue.config.productionTip = false
