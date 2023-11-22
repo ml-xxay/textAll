@@ -1,21 +1,57 @@
 <template>
   <div>
     <!-- 测试表单效验 -->
-  <div style="margin-left:48%">
-      <br>
-    <!-- 只能数字 -->
-    <el-input v-input.num v-model="input" style="width: 400px" placeholder="只能数字"></el-input><br><br>
-    <!-- 只能数字+小数点 -->
-    <el-input v-input.num_point v-model="input1" style="width: 400px" placeholder="只能数字+小数点(可以多个小数点)"></el-input><br><br>
-    <!-- 只能整数 -->
-    <el-input v-input.int v-model="input2" style="width: 400px" placeholder="只能整数-可以单独一个0,但不能以0开头"></el-input><br><br>
-    <!-- 只能正整数 -->
-    <el-input v-input.intp v-model="input2" style="width: 400px" placeholder="只能正整数(不包含0)"></el-input><br><br>
-    <!-- 浮点型后面限制2位 -->
-    <el-input v-input.float="2" v-model="input3" style="width: 400px" placeholder="浮点型小数后面限制2位"></el-input><br><br>
-    <!-- 只能英文 -->
-    <el-input v-input.alp v-model="input4" style="width: 400px" placeholder="只能英文"></el-input><br><br><br>
-</div>
+    <div style="margin-left: 48%">
+      <br />
+      <!-- 只能数字 -->
+      <el-input
+        v-input.num
+        v-model="input"
+        style="width: 400px"
+        placeholder="只能数字"
+      ></el-input
+      ><br /><br />
+      <!-- 只能数字+小数点 -->
+      <el-input
+        v-input.num_point
+        v-model="input1"
+        style="width: 400px"
+        placeholder="只能数字+小数点(可以多个小数点)"
+      ></el-input
+      ><br /><br />
+      <!-- 只能整数 -->
+      <el-input
+        v-input.int
+        v-model="input2"
+        style="width: 400px"
+        placeholder="只能整数-可以单独一个0,但不能以0开头"
+      ></el-input
+      ><br /><br />
+      <!-- 只能正整数 -->
+      <el-input
+        v-input.intp
+        v-model="input2"
+        style="width: 400px"
+        placeholder="只能正整数(不包含0)"
+      ></el-input
+      ><br /><br />
+      <!-- 浮点型后面限制2位 -->
+      <el-input
+        v-input.float="2"
+        v-model="input3"
+        style="width: 400px"
+        placeholder="浮点型小数后面限制2位"
+      ></el-input
+      ><br /><br />
+      <!-- 只能英文 -->
+      <el-input
+        v-input.alp
+        v-model="input4"
+        style="width: 400px"
+        placeholder="只能英文"
+      ></el-input
+      ><br /><br /><br />
+    </div>
     <!-- 测试表单效验 -->
 
     <!-- 搜索表单 -->
@@ -136,7 +172,7 @@ export default {
   props: {},
   data() {
     return {
-      weishu:'1',
+      weishu: '1',
       input: '',
       input1: '',
       input2: '',
@@ -188,21 +224,21 @@ export default {
             placeholder: '请输入手机号码',
           },
           // 单选下拉
-          // {
-          //   field: 'status',
-          //   linHeight: {
-          //     lineHeight: '20px',
-          //   },
-          //   type: 'select',
-          //   // value: '自己决定默认值',
-          //   label: '用户状态用户状态用户状态',
-          //   placeholder: '请选择用户状态',
-          //   options: [
-          //     { title: '全部', value: ' ' },
-          //     { title: '启用', value: 1 },
-          //     { title: '禁用', value: 0 },
-          //   ],
-          // },
+          {
+            field: 'status',
+            linHeight: {
+              lineHeight: '20px',
+            },
+            type: 'select',
+            // value: '自己决定默认值',
+            label: '用户状态用户状态用户状态',
+            placeholder: '请选择用户状态',
+            options: [
+              { title: '全部', value: ' ' },
+              { title: '启用', value: 1 },
+              { title: '禁用', value: 0 },
+            ],
+          },
           // 多选下拉
           {
             field: 'status',

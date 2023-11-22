@@ -76,6 +76,7 @@ export default {
       const echarts = require('echarts')
       const charts = echarts.init(this.$refs.chart)
       var maxy = Math.max(...this.data.seriesdata) * 1.5 //y轴最大值
+      // up 向上调节起的边界  end 向下调节起动边界
       var option = {
         // 缩略图
         dataZoom: [
@@ -160,6 +161,7 @@ export default {
           type: 'value',
           min: 0, // 最小刻度值
           max: maxy, // 最大刻度值
+          // interval: Math.trunc(intval), // 刻度间隔为10,
           interval: 200, // 刻度间隔为10,
           axisLabel: {
             textStyle: {

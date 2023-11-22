@@ -39,6 +39,7 @@
                   :placeholder="item.placeholder"
                   style="width: 100%"
                   clearable
+                  filterable
                 >
                   <el-option
                     v-for="options in item.options"
@@ -52,6 +53,7 @@
               <template v-else-if="item.type == 'multiple'">
                 <el-select
                   multiple
+                  filterable
                   :value="value[item.field]"
                   @input="handleValueChange($event, item.field)"
                   :placeholder="item.placeholder"

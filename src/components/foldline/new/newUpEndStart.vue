@@ -172,7 +172,7 @@ export default {
         yAxis: {
           z: 999,
           type: 'value',
-          min: 0, // 最小刻度值
+          min: Math.min(...this?.data.seriesdata), // 最小刻度值
           max: maxy, // 最大刻度值
           interval: 200, // 刻度间隔为10,
           axisLabel: {

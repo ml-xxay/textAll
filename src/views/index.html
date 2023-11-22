@@ -9,10 +9,56 @@
 
 <body>
   <script>
-    let res = {data:{data1:{age:10}}}
-    let {data:{data1}} = res
+    // 解构在解构
+    let res = { data: { data1: { age: 10 } } }
+    let { data: { data1 } } = res
     console.log(data1); //{age:10}
-    console.log(data1.age); //10
+    // console.log(data1.age); //10
+
+    // 取三个数值中的最大值
+    let a = 10
+    let b = 20
+    let c = 30
+    let max = Math.max(a, b, c)
+    console.log(max);
+
+    let num = 20499.00
+    let h = Math.ceil(num)
+    console.log(h);
+
+
+    // 取整函数
+    function roundToNearest5Or0(number) {
+      // 将数值向上取整
+      // var rounded = Math.ceil(number);
+      // var num = Math.trunc(rounded).toString().split("")//['4', '2'] '---------'
+      // console.log(num, 'num');
+      // var a = num[num.length - 1]
+      // var b =num[num.length - 2]
+      // if (Number(a) >= 1) {
+      //   num[num.length - 1] = 0
+      //   num[num.length - 2] = Number(b) + 1
+      //   console.log(num, 'num');
+      // } else if (Number(a) < 1) {
+      //   num[num.length - 1] = 0
+      //   num[num.length - 2] = Number(num[num.length - 2]) + 1
+      // }
+      // var sum = Number(num.join(''))
+
+      // console.log(sum, '---------');
+      return Math.ceil(number/1000)*1000;
+      //4.4 '---------'
+      //33 5.2 '---------'
+      // 33 42.4 '---------'
+      // 33 50.2 '---------'
+      // 如果数值不是5的倍数，取下一个5的倍数
+      // if (rounded % 5 !== 0) {
+      //   rounded = Math.ceil(number / 5) * 5;
+      // }
+
+    }
+    console.log(roundToNearest5Or0(20499));
+
   </script>
 </body>
 
