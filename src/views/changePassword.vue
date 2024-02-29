@@ -1,6 +1,6 @@
 <template>
   <div class="change_password">
-    <textpsd></textpsd>
+    <textpsd @save="save" :i8="'123'"></textpsd>
   </div>
 </template>
 
@@ -14,6 +14,11 @@ export default {
   data() {
     return {};
   },
+  methods:{
+    save(){
+      console.log('我监听子组件的保存方法了');
+    }
+  }
 };
 </script>
 <style scoped>
