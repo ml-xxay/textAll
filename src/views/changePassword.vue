@@ -15,8 +15,8 @@ export default {
     return {};
   },
   methods:{
-    save(){
-      console.log('我监听子组件的保存方法了');
+    save(sonporxy){
+      console.log('我监听子组件的保存方法了',sonporxy);
     }
   }
 };

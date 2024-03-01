@@ -24,11 +24,14 @@
             <div>
               <h4 class="tit">您的密码必须满足:</h4>
               <div class="p_dialog">
-                <div class="item"><i :class="{'active':minSix}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':minSix}">密码最小长度6位</span></div>
+                <!-- <div class="item"><i :class="{'active':minSix}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':minSix}">密码最小长度6位</span></div>
                 <div class="item"><i :class="{'active':containsUppercaseLetters}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':containsUppercaseLetters}">必须包含大写字母</span></div>
                 <div class="item"><i :class="{'active':containsLowercaseLetters}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':containsLowercaseLetters}">必须包含小写字母</span></div>
                 <div class="item"><i :class="{'active':containsNumericCharacters}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':containsNumericCharacters}">必须包含数字字符</span></div>
-                <div class="item"><i :class="{'active':containsSpecialCharacters}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':containsSpecialCharacters}">必须包含特殊字符</span></div>
+                <div class="item"><i :class="{'active':containsSpecialCharacters}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':containsSpecialCharacters}">必须包含特殊字符</span></div> -->
+                
+                <!-- 改用后端顶的校验贵则 -->
+                <div class="item" v-for="(item,index) in text"><i :class="{'active':rulesAll[index][index]}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':rulesAll[index][index]}">{{item.desc}}</span></div>
               </div>
               <h4 class="tit">密码强度:</h4>
               <div class="strength">
@@ -49,8 +52,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  console.log('axios',axios);
+import axios from 'axios'
 export default {
   name: "psd",
   props: {
@@ -71,11 +73,11 @@ export default {
       callback()
     }
     return {
-      minSix:false,//最小长度为6
-      containsUppercaseLetters:false,//必须包含大写字母
-      containsLowercaseLetters:false,//必须包含小写字母
-      containsNumericCharacters:false,//必须包含数字字符 0-9的数字
-      containsSpecialCharacters:false,//必须包含特殊字符
+      // minSix:false,//最小长度为6
+      // containsUppercaseLetters:false,//必须包含大写字母
+      // containsLowercaseLetters:false,//必须包含小写字母
+      // containsNumericCharacters:false,//必须包含数字字符 0-9的数字
+      // containsSpecialCharacters:false,//必须包含特殊字符
       weakFlag:false,
       centreFlag:false,
       strongFlag:false,
@@ -87,32 +89,66 @@ export default {
       rules: {
         newPassword: [
           { required: true, message: "请输入新密码", trigger: "blur" },
+          { min: 6, max: 10, message: '长度在 6 到 10 个字符', trigger: 'blur' }
         ],
         confirmPassword: [
           { required: true, message: "请确认密码", trigger: "blur" },
-          {validator: checkPassword, trigger: 'blur'}
+          { validator: checkPassword, trigger: 'blur' }
         ],
       },
-    };
+      rulesAll:[],
+      text: [
+              {
+                  "descriptionMsgKey": "msg.password.length.required.8.characters",
+                  "regexExpression": "^.{8,}$",
+                  "desc": "密码最小长度8位",
+                  "i18nDesc": "密码最小长度8位"
+              },
+              {
+                  "descriptionMsgKey": "msg.password.must.contain.uppercase.char",
+                  "regexExpression": "[A-Z]",
+                  "desc": "密码必须包含大写字母",
+                  "i18nDesc": "密码必须包含大写字母"
+              },
+              {
+                  "descriptionMsgKey": "msg.password.must.contain.lowercase.char",
+                  "regexExpression": "[a-z]",
+                  "desc": "密码必须包含小写字母",
+                  "i18nDesc": "密码必须包含小写字母"
+              },
+              {
+                  "descriptionMsgKey": "msg.password.must.contain.numbers",
+                  "regexExpression": "[0-9]",
+                  "desc": "密码必须包含数字",
+                  "i18nDesc": "密码必须包含数字"
+              },
+              {
+                  "descriptionMsgKey": "msg.password.must.contain.special.char",
+                  "regexExpression": "[!@#\\$%\\^&\\*\\(\\)\\-\\+=_{}\\[\\]:;'\"<>,.?/]",
+                  "desc": "密码必须包含特殊字符",
+                  "i18nDesc": "密码必须包含特殊字符"
+              }
+          ]
+    }
   },
   created(){
-    this.getI8Data(this.i8)
+    // this.getI8Data(this.i8)
+    this.getRules()
   },
   watch:{
     'form.newPassword':{
       deep: true,
       handler:function(newValue,oldValue) {
-        // console.log('我监听到了密码改变',newValue);
-        // console.log(/^.{6,}$/.test(newValue));
-        // console.log(/[A-Z]/.test(newValue));
-        // console.log(/[a-z]/.test(newValue));
-        // console.log(/[0-9]/.test(newValue));
-        // console.log(/(?=.*[!@#$%^&*])/.test(newValue));
-        this.minSix = /^.{6,}$/.test(newValue);
-        this.containsUppercaseLetters = /[A-Z]/.test(newValue)
-        this.containsLowercaseLetters = /[a-z]/.test(newValue)
-        this.containsNumericCharacters = /[0-9]/.test(newValue)
-        this.containsSpecialCharacters = /(?=.*[!@#$%^&*])/.test(newValue)
+        // this.minSix = /^.{6,}$/.test(newValue);
+        // this.containsUppercaseLetters = /[A-Z]/.test(newValue)
+        // this.containsLowercaseLetters = /[a-z]/.test(newValue)
+        // this.containsNumericCharacters = /[0-9]/.test(newValue)
+        // this.containsSpecialCharacters = /(?=.*[!@#$%^&*])/.test(newValue)
+
+        // 用后端订的校验规则
+        this.text.forEach((item,index) => {
+        this.rulesAll[index][index] = item.regexExpression.test(newValue)
+        })
       }
     }
   },
@@ -120,6 +156,23 @@ export default {
     // 请求国际化数据
     getI8Data(porxy){
       console.log(porxy,'----------');
+      axios.post(`/${porxy}`, {}).then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        this.$message.error(error)
+     });
+    },
+    // 请求密码规则校验
+    getRules(){
+      this.text.forEach((item,index) => {
+        item.regexExpression = new RegExp(item.regexExpression)
+        this.rulesAll.push({[index]:false})
+      });
+      // axios.post(``, {}).then(function (response) {
+      //   console.log(response);
+      // }).catch(function (error) {
+      //   this.$message.error(error)
+      // });
     },
     save(){
       this.$refs.ruleForm.validate(async valid => {
@@ -127,7 +180,7 @@ export default {
           message: '请正确填写密码',
           type: 'warning'
         });
-        this.$emit('save',111)
+        this.$emit('save',this.form)
       })
     }
   },
@@ -169,6 +222,8 @@ export default {
   margin-top: 30px;
   border-radius: 5px;
   background-color: orange;
+  /* 需使用项目配置色  先预留 */
+  /* background-color: var(--color-background); */ 
   color: #fff;
 }
 .p_dialog {
