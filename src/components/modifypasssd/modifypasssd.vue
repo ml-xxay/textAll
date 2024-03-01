@@ -24,12 +24,6 @@
             <div>
               <h4 class="tit">您的密码必须满足:</h4>
               <div class="p_dialog">
-                <!-- <div class="item"><i :class="{'active':minSix}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':minSix}">密码最小长度6位</span></div>
-                <div class="item"><i :class="{'active':containsUppercaseLetters}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':containsUppercaseLetters}">必须包含大写字母</span></div>
-                <div class="item"><i :class="{'active':containsLowercaseLetters}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':containsLowercaseLetters}">必须包含小写字母</span></div>
-                <div class="item"><i :class="{'active':containsNumericCharacters}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':containsNumericCharacters}">必须包含数字字符</span></div>
-                <div class="item"><i :class="{'active':containsSpecialCharacters}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':containsSpecialCharacters}">必须包含特殊字符</span></div> -->
-                
                 <!-- 改用后端顶的校验贵则 -->
                 <div class="item" v-for="(item,index) in text"><i :class="{'active':rulesAll[index][index]}" class="el-icon-circle-check"></i><span class="m_left" :class="{'active':rulesAll[index][index]}">{{item.desc}}</span></div>
               </div>
@@ -73,11 +67,6 @@ export default {
       callback()
     }
     return {
-      // minSix:false,//最小长度为6
-      // containsUppercaseLetters:false,//必须包含大写字母
-      // containsLowercaseLetters:false,//必须包含小写字母
-      // containsNumericCharacters:false,//必须包含数字字符 0-9的数字
-      // containsSpecialCharacters:false,//必须包含特殊字符
       weakFlag:false,
       centreFlag:false,
       strongFlag:false,
@@ -89,7 +78,7 @@ export default {
       rules: {
         newPassword: [
           { required: true, message: "请输入新密码", trigger: "blur" },
-          { min: 6, max: 10, message: '长度在 6 到 10 个字符', trigger: 'blur' }
+          // { min: 6, max: 10, message: '长度在 6 到 10 个字符', trigger: 'blur' }
         ],
         confirmPassword: [
           { required: true, message: "请确认密码", trigger: "blur" },
@@ -138,17 +127,28 @@ export default {
   watch:{
     'form.newPassword':{
       deep: true,
-      handler:function(newValue,oldValue) {
-        // this.minSix = /^.{6,}$/.test(newValue);
-        // this.containsUppercaseLetters = /[A-Z]/.test(newValue)
-        // this.containsLowercaseLetters = /[a-z]/.test(newValue)
-        // this.containsNumericCharacters = /[0-9]/.test(newValue)
-        // this.containsSpecialCharacters = /(?=.*[!@#$%^&*])/.test(newValue)
-
+      handler:async function(newValue,oldValue) {
         // 用后端订的校验规则
-        this.text.forEach((item,index) => {
-        this.rulesAll[index][index] = item.regexExpression.test(newValue)
+       await this.text.forEach((item,index) => {
+          this.rulesAll[index][index] = item.regexExpression.test(newValue)
         })
+        
+        let countTrue = this.rulesAll.reduce((count, item, index) => count + (item[index] === true ? 1 : 0), 0);
+        // console.log(countTrue);
+        if(countTrue == 0){
+          this.weakFlag = false
+          this.centreFlag = false
+          this.strongFlag = false
+        }else if(countTrue / this.text.length * 100 < 33) {
+          this.weakFlag = true
+          this.centreFlag = false
+          this.strongFlag = false
+        }else if(countTrue / this.text.length * 100 >= 33 && countTrue / this.text.length * 100 < 66) {
+          this.centreFlag = true
+          this.strongFlag = false
+        }else {
+          this.strongFlag = true
+        }
       }
     }
   },
@@ -164,11 +164,17 @@ export default {
     },
     // 请求密码规则校验
     getRules(){
+      // 测试用例
       this.text.forEach((item,index) => {
         item.regexExpression = new RegExp(item.regexExpression)
         this.rulesAll.push({[index]:false})
       });
+      // 真正调接口使用
       // axios.post(``, {}).then(function (response) {
+      //   response.data.forEach((item,index) => {
+      //    item.regexExpression = new RegExp(item.regexExpression)
+      //    this.rulesAll.push({[index]:false})
+      //   });
       //   console.log(response);
       // }).catch(function (error) {
       //   this.$message.error(error)
@@ -203,6 +209,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 28%;
+  min-width: 350px;
   min-height: 320px;
   border-radius: 10px;
   background-color: #fff;
