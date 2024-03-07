@@ -1,9 +1,31 @@
+// const path = require('path');
 module.exports = {
+  // entry: './src/components/modifypasssd.vue', // 指定你的组件入口文件路径
+  // output: {
+  //   filename: 'modifypasssd.vue', // 输出的打包文件名
+  //   path: path.resolve(__dirname, 'dist'), // 输出目录
+  // },
   lintOnSave: false, //关闭eslint
   publicPath: './',
   devServer: {
     disableHostCheck: true
   },
+  // module: {
+  //   rules: [
+  //     {
+  //       test: /\.js$/,
+  //       exclude: /node_modules/,
+  //       use: {
+  //         loader: 'babel-loader', // 假设你需要使用Babel来转译ES6+代码
+  //       },
+  //     },
+  //     {
+  //       test: /\.vue$/,
+  //       use: ['vue-loader'], // 如果是Vue单文件组件，则需要Vue Loader
+  //     },
+  //     // 其他loader配置，如CSS、图片等
+  //   ],
+  // },
   // configureWebpack  表示你准备配置webpack
   configureWebpack: {
     resolve: {
