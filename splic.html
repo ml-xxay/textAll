@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+        // let textObj = {"code":"S-B-A1-90107\n共享办公桌\nA1\n1600*800\n"}
+        let obj = {"code":"S-B-A1-90107123\n共享办公桌\nA1\n1600*800\n"}
+    //   var obj = JSON.parse(textObj);
+      var code = obj.code.substring(0, obj.code.indexOf("\n"));
+      console.log(code); // 输出: "S-B-A1-90107"
+    </script>
+  </body>
+</html>
