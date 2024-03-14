@@ -15,6 +15,7 @@ export default {
   name: "",
   data() {
     return {
+      inputValue:'',
       focusType: true, //控制输入框聚焦  初始必须是true
     };
   },
