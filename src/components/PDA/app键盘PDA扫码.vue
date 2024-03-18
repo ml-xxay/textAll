@@ -1,5 +1,5 @@
 <template>
-  <!-- 扫码input -->
+  <!-- 扫码input    唯一存在的问题就是输入框在每次聚焦时软键盘都会弹起，后期可以选择优化-->
   <!-- style="opacity: 0;
   position: absolute" 这个样式可以隐藏元素，但功能还在 -->
   <!-- 外层还有个盒子的时候   点击别的地方也会使输入框失去焦点 绑定失去焦点事件会在获取焦点-->
@@ -89,6 +89,8 @@ export default {
 		// 				refreshPage: () => { //refreshPage  为事件名称
 		// 					// 刷新dom
 		// 					this.flag = true;//显示dom
+    //          //在调用一次失焦的方法， 确保焦点能够正常的显示
+                // this.setfocus()
 		// 				},
 		// 			},
 		// 		})

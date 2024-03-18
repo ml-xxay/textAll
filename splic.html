@@ -12,6 +12,19 @@
     //   var obj = JSON.parse(textObj);
       var code = obj.code.substring(0, obj.code.indexOf("\n"));
       console.log(code); // 输出: "S-B-A1-90107"
+
+
+      let dictionary = document.querySelectorAll('.label-row-list .collapse-content .tag-info .select-tag')
+      dictionary.forEach(item =>{
+        item.style.padding = 0
+        item.style.boxSizing = 'border-box'
+      })
+
+
+      let itemdom = document.querySelectorAll('.x-form-build-render .form-item-list .form-item-wrapper')
+      itemdom.forEach(item =>{
+        
+      })
     </script>
   </body>
 </html>
