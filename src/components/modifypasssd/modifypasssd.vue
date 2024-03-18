@@ -13,6 +13,15 @@
         label-position="top"
         class="demo-ruleForm"
       >
+        <!-- 原密码 -->
+        <el-form-item v-if="showOriPassword"
+          :label="obj['msg.modify.password.oriPassword'] || '原密码'"
+          prop="oldPassword"
+        >
+          <el-input
+            v-model.trim="form.oldPassword"
+          ></el-input>
+        </el-form-item>
         <!-- 新密码 -->
         <el-form-item
           :label="obj['msg.modify.password.newPassword'] || '新密码'"
@@ -100,6 +109,12 @@ export default {
         return "zh_CN";
       },
     },
+    showOriPassword: {
+      type: Boolean,
+      default: function(){
+        return false
+      },
+    },
   },
   data() {
     var checkPassword = (rule, value, callback) => {
@@ -119,6 +134,7 @@ export default {
       form: {
         newPassword: "",
         confirmPassword: "",
+        oldPassword:""//原密码
       },
       rules: {
         newPassword: [],
@@ -170,6 +186,13 @@ export default {
   methods: {
     // 初始化校验
     initRules() {
+      this.rules.oldPassword = [
+        {
+          required: this.showOriPassword,
+          message: this.obj["msg.modify.password.p_oriPassword"],
+          trigger: "blur",
+        },
+      ];
       this.rules.newPassword = [
         {
           required: true,
@@ -189,6 +212,7 @@ export default {
       var params = {
         locale: language,
         i18nKeys: [
+          "msg.modify.password.oriPassword", //原密码
           "msg.modify.password.title", //重置密码
           "msg.modify.password.newPassword", //新密码
           "msg.modify.password.confirmPassword", //确认密码
@@ -241,6 +265,7 @@ export default {
             message: this.obj["msg.modify.password.p_fillInPassword"],
             type: "warning",
           });
+          console.log('ikosdoihaoishfou--------------');
         this.$emit("save", this.form);
       });
     },

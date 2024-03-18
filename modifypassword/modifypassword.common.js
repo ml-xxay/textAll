@@ -1888,6 +1888,17 @@ module.exports = NATIVE_SYMBOL && !!Symbol['for'] && !!Symbol.keyFor;
 
 /***/ }),
 
+/***/ "3ef2":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modifypasssd_vue_vue_type_style_index_0_id_417e19a0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("6683");
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modifypasssd_vue_vue_type_style_index_0_id_417e19a0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modifypasssd_vue_vue_type_style_index_0_id_417e19a0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+
+
+/***/ }),
+
 /***/ "3f8c":
 /***/ (function(module, exports) {
 
@@ -3472,6 +3483,13 @@ module.exports = function (originalArray, length) {
 
 /***/ }),
 
+/***/ "6683":
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "68ee":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3682,13 +3700,6 @@ module.exports = function (NAME) {
   });
 };
 
-
-/***/ }),
-
-/***/ "74b0":
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
 
 /***/ }),
 
@@ -5156,17 +5167,6 @@ module.exports = function (Target, Source, key) {
     set: function (it) { Source[key] = it; }
   });
 };
-
-
-/***/ }),
-
-/***/ "aeb6":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modifypasssd_vue_vue_type_style_index_0_id_4a010144_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("74b0");
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modifypasssd_vue_vue_type_style_index_0_id_4a010144_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_ref_7_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_7_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_oneOf_1_2_node_modules_cache_loader_dist_cjs_js_ref_1_0_node_modules_vue_loader_lib_index_js_vue_loader_options_modifypasssd_vue_vue_type_style_index_0_id_4a010144_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
 
 
 /***/ }),
@@ -10309,12 +10309,12 @@ var web_dom_collections_for_each = __webpack_require__("159b");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__("b0c0");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1a7a1bc8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/modifypasssd/modifypasssd.vue?vue&type=template&id=4a010144&scoped=true&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"password"},[_c('div',{staticClass:"content"},[_c('h2',{staticClass:"title"},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.title"] || "重置密码")+" ")]),_c('el-form',{ref:"ruleForm",staticClass:"demo-ruleForm",attrs:{"model":_vm.form,"rules":_vm.rules,"label-width":"100px","label-position":"top"}},[_c('el-form-item',{attrs:{"label":_vm.obj['msg.modify.password.newPassword'] || '新密码',"prop":"newPassword"}},[_c('el-popover',{attrs:{"placement":"bottom","width":"250","trigger":"manual"},model:{value:(_vm.visible),callback:function ($$v) {_vm.visible=$$v},expression:"visible"}},[_c('el-input',{attrs:{"slot":"reference"},on:{"focus":function($event){_vm.visible = true},"blur":function($event){_vm.visible = false}},slot:"reference",model:{value:(_vm.form.newPassword),callback:function ($$v) {_vm.$set(_vm.form, "newPassword", (typeof $$v === 'string'? $$v.trim(): $$v))},expression:"form.newPassword"}}),_c('div',[_c('h4',{staticClass:"tit"},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.passwordMustMeet"])+": ")]),(_vm.text.length > 0)?_c('div',{staticClass:"p_dialog"},_vm._l((_vm.text),function(item,index){return _c('div',{key:index,staticClass:"item"},[_c('i',{staticClass:"el-icon-circle-check",class:{ active: _vm.rulesAll[index][index] }}),_c('span',{staticClass:"m_left",class:{ active: _vm.rulesAll[index][index] }},[_vm._v(_vm._s(item.i18nDesc))])])}),0):_vm._e(),_c('h4',{staticClass:"tit"},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.passwordStrength"])+": ")]),_c('div',{staticClass:"strength"},[_c('div',{staticClass:"weak",class:{ weakactive: _vm.weakFlag }},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.weak"])+" ")]),_c('div',{staticClass:"centre",class:{ centreactive: _vm.centreFlag }},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.centre"])+" ")]),_c('div',{staticClass:"strong",class:{ strongactive: _vm.strongFlag }},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.strong"])+" ")])])])],1)],1),_c('el-form-item',{attrs:{"label":_vm.obj['msg.modify.password.confirmPassword'] || '确认密码',"prop":"confirmPassword"}},[_c('el-input',{nativeOn:{"press":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.passwordSave.apply(null, arguments)}},model:{value:(_vm.form.confirmPassword),callback:function ($$v) {_vm.$set(_vm.form, "confirmPassword", (typeof $$v === 'string'? $$v.trim(): $$v))},expression:"form.confirmPassword"}})],1)],1),_c('div',{staticClass:"btn",on:{"click":_vm.save}},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.set_up"] || "设置")+" ")])],1)])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1a7a1bc8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/modifypasssd/modifypasssd.vue?vue&type=template&id=417e19a0&scoped=true&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"password"},[_c('div',{staticClass:"content"},[_c('h2',{staticClass:"title"},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.title"] || "重置密码")+" ")]),_c('el-form',{ref:"ruleForm",staticClass:"demo-ruleForm",attrs:{"model":_vm.form,"rules":_vm.rules,"label-width":"100px","label-position":"top"}},[(_vm.showOriPassword)?_c('el-form-item',{attrs:{"label":_vm.obj['msg.modify.password.oriPassword'] || '原密码',"prop":"oldPassword"}},[_c('el-input',{model:{value:(_vm.form.oldPassword),callback:function ($$v) {_vm.$set(_vm.form, "oldPassword", (typeof $$v === 'string'? $$v.trim(): $$v))},expression:"form.oldPassword"}})],1):_vm._e(),_c('el-form-item',{attrs:{"label":_vm.obj['msg.modify.password.newPassword'] || '新密码',"prop":"newPassword"}},[_c('el-popover',{attrs:{"placement":"bottom","width":"250","trigger":"manual"},model:{value:(_vm.visible),callback:function ($$v) {_vm.visible=$$v},expression:"visible"}},[_c('el-input',{attrs:{"slot":"reference"},on:{"focus":function($event){_vm.visible = true},"blur":function($event){_vm.visible = false}},slot:"reference",model:{value:(_vm.form.newPassword),callback:function ($$v) {_vm.$set(_vm.form, "newPassword", (typeof $$v === 'string'? $$v.trim(): $$v))},expression:"form.newPassword"}}),_c('div',[_c('h4',{staticClass:"tit"},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.passwordMustMeet"])+": ")]),(_vm.text.length > 0)?_c('div',{staticClass:"p_dialog"},_vm._l((_vm.text),function(item,index){return _c('div',{key:index,staticClass:"item"},[_c('i',{staticClass:"el-icon-circle-check",class:{ active: _vm.rulesAll[index][index] }}),_c('span',{staticClass:"m_left",class:{ active: _vm.rulesAll[index][index] }},[_vm._v(_vm._s(item.i18nDesc))])])}),0):_vm._e(),_c('h4',{staticClass:"tit"},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.passwordStrength"])+": ")]),_c('div',{staticClass:"strength"},[_c('div',{staticClass:"weak",class:{ weakactive: _vm.weakFlag }},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.weak"])+" ")]),_c('div',{staticClass:"centre",class:{ centreactive: _vm.centreFlag }},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.centre"])+" ")]),_c('div',{staticClass:"strong",class:{ strongactive: _vm.strongFlag }},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.strong"])+" ")])])])],1)],1),_c('el-form-item',{attrs:{"label":_vm.obj['msg.modify.password.confirmPassword'] || '确认密码',"prop":"confirmPassword"}},[_c('el-input',{nativeOn:{"press":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.passwordSave.apply(null, arguments)}},model:{value:(_vm.form.confirmPassword),callback:function ($$v) {_vm.$set(_vm.form, "confirmPassword", (typeof $$v === 'string'? $$v.trim(): $$v))},expression:"form.confirmPassword"}})],1)],1),_c('div',{staticClass:"btn",on:{"click":_vm.save}},[_vm._v(" "+_vm._s(_vm.obj["msg.modify.password.set_up"] || "设置")+" ")])],1)])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/modifypasssd/modifypasssd.vue?vue&type=template&id=4a010144&scoped=true&
+// CONCATENATED MODULE: ./src/components/modifypasssd/modifypasssd.vue?vue&type=template&id=417e19a0&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
 function _defineProperty(obj, key, value) {
@@ -10920,6 +10920,15 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ var modifypasssdvue_type_script_lang_js_ = ({
   name: "ModifyPassword",
@@ -10933,6 +10942,12 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
       type: String,
       default: function _default() {
         return "zh_CN";
+      }
+    },
+    showOriPassword: {
+      type: Boolean,
+      default: function _default() {
+        return false;
       }
     }
   },
@@ -10955,7 +10970,9 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
       visible: false,
       form: {
         newPassword: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        oldPassword: "" //原密码
+
       },
       rules: {
         newPassword: [],
@@ -11029,6 +11046,11 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
   methods: {
     // 初始化校验
     initRules: function initRules() {
+      this.rules.oldPassword = [{
+        required: this.showOriPassword,
+        message: this.obj["msg.modify.password.p_oriPassword"],
+        trigger: "blur"
+      }];
       this.rules.newPassword = [{
         required: true,
         message: this.obj["msg.modify.password.p_newPassword"],
@@ -11045,7 +11067,8 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
       var that = this;
       var params = {
         locale: language,
-        i18nKeys: ["msg.modify.password.title", //重置密码
+        i18nKeys: ["msg.modify.password.oriPassword", //原密码
+        "msg.modify.password.title", //重置密码
         "msg.modify.password.newPassword", //新密码
         "msg.modify.password.confirmPassword", //确认密码
         "msg.modify.password.set_up", //设置
@@ -11108,9 +11131,11 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
                   }));
 
                 case 2:
+                  console.log('ikosdoihaoishfou--------------');
+
                   _this3.$emit("save", _this3.form);
 
-                case 3:
+                case 4:
                 case "end":
                   return _context2.stop();
               }
@@ -11127,8 +11152,8 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 });
 // CONCATENATED MODULE: ./src/components/modifypasssd/modifypasssd.vue?vue&type=script&lang=js&
  /* harmony default export */ var modifypasssd_modifypasssdvue_type_script_lang_js_ = (modifypasssdvue_type_script_lang_js_); 
-// EXTERNAL MODULE: ./src/components/modifypasssd/modifypasssd.vue?vue&type=style&index=0&id=4a010144&scoped=true&lang=css&
-var modifypasssdvue_type_style_index_0_id_4a010144_scoped_true_lang_css_ = __webpack_require__("aeb6");
+// EXTERNAL MODULE: ./src/components/modifypasssd/modifypasssd.vue?vue&type=style&index=0&id=417e19a0&scoped=true&lang=css&
+var modifypasssdvue_type_style_index_0_id_417e19a0_scoped_true_lang_css_ = __webpack_require__("3ef2");
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
@@ -11245,7 +11270,7 @@ var component = normalizeComponent(
   staticRenderFns,
   false,
   null,
-  "4a010144",
+  "417e19a0",
   null
   
 )
