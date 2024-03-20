@@ -98,6 +98,7 @@ import axios from "axios";
 export default {
   name: "ModifyPassword",
   props: {
+    // 请求域名
     admin: {
       type: String,
       default: "https://sso-sit.sungrow.cn",
@@ -109,12 +110,19 @@ export default {
         return "zh_CN";
       },
     },
+    // 原密码展示
     showOriPassword: {
       type: Boolean,
       default: function(){
         return false
       },
     },
+    showOneLogin:{
+      type:Boolean,
+      default:function(){
+        return false
+      }
+    }
   },
   data() {
     var checkPassword = (rule, value, callback) => {
@@ -144,10 +152,13 @@ export default {
       text: [],
     };
   },
-  created() {
-    this.getI8Data(this.language);
+ async created() {
+    await this.getI8Data(this.language);
     this.getRules();
     this.initRules();
+    if(this.showOneLogin){
+      this.$message.warning(this.obj["msg.first.modify.password.note"] || '首次登录，请修改密码')
+    }
   },
   watch: {
     "form.newPassword": {
@@ -209,9 +220,11 @@ export default {
     // 请求国际化数据
     getI8Data(language) {
       let that = this;
+      var result =  that.showOneLogin ? "msg.first.modify.password.note" : ''
       var params = {
         locale: language,
         i18nKeys: [
+          result,//首登的提示动态显示
           "msg.modify.password.oriPassword", //原密码
           "msg.modify.password.title", //重置密码
           "msg.modify.password.newPassword", //新密码

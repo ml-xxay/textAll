@@ -1,6 +1,6 @@
 {
   "name": "modifypassword",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "modifypassword.common.js",
   "scripts": {
