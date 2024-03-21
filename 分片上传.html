@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://cdn.bootcdn.net/ajax/libs/spark-md5/3.0.2/spark-md5.min.js"></script>
+
+    <!-- multiple 多选 -->
+    <!-- <input type="file" @change="changeFile" multiple/> -->
+    <input type="file" @change="changeFile" />
+
+    <!-- <script>
+        //简单测试
+      const inputDom = document.querySelector("input"); // 获取input文件标签的dom元素
+      inputDom.onchange = (e) => {
+        console.log(e.target.result);
+        // console.log(inputDom.files,'--------------inputDom.files-----------');
+
+        let file = inputDom.files[0]; // 拿到文件 这个写法是固定的  file包含文件名name 和文件大小size
+        let spark = new SparkMD5.ArrayBuffer(); // 实例化spark-md5
+        let fileReader = new FileReader(); // 实例化文件阅读器
+        fileReader.onload = (e) => {
+          spark.append(e.target.result); // 添加到spark算法中计算
+          let hash = spark.end(); // 计算完成得到hash结果
+          console.log("文件的hash值为:", hash);
+        };
+        fileReader.readAsArrayBuffer(file); // 开始阅读这个文件，阅读完成触发onload方法
+      };
+    </script> -->
+
+    <script>
+      const inputDom = document.querySelector("input"); // 获取input文件标签的dom元素
+
+      inputDom.onchange = (e) => {
+        let file = inputDom.files[0]; // 拿到文件
+        function sliceFn(file, chunkSize = 1 * 1024 * 1024) {//(1 * 1024 * 1024 就是1048576-->1MB)
+          const result = [];
+          // 从第0字节开始切割，一次切割1 * 1024 * 1024字节 (就是1MB 1048576)
+          for (let i = 0; i < file.size; i = i + chunkSize) {
+            result.push(file.slice(i, i + chunkSize));
+          }
+          return result;
+        }
+        const chunks = sliceFn(file);
+        console.log("文件分片成数组", chunks);
+      };
+    </script>
+  </body>
+</html>

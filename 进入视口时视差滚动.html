@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll Position Detection</title>
+<style>
+  /* 用于显示当前处于视口中的数据元素的样式 */
+  .active {
+    background-color: yellow;
+  }
+</style>
+</head>
+<body>
+
+<!-- 一些数据元素 -->
+<div class="data" style="height: 200px;">Data 1</div>
+<div class="data" style="height: 300px;">Data 2</div>
+<div class="data" style="height: 400px;">Data 3</div>
+<div class="data" style="height: 250px;">Data 4</div>
+<div class="data" style="height: 350px;">Data 5</div>
+<div class="data" style="height: 350px;">Data 5</div>
+<div class="data" style="height: 350px;">Data 5</div>
+<div class="data" style="height: 350px;">Data 5</div>
+<div class="data" style="height: 350px;">Data 5</div>
+<div class="data" style="height: 350px;">Data 5</div>
+
+<div class="data" style="height: 350px;">Data 5</div>
+<script>
+// 获取所有数据元素
+var dataElements = document.querySelectorAll('.data');
+// 初始化当前活动的数据元素
+var activeElement = null;
+
+// 添加滚动事件监听器
+window.addEventListener('scroll', function() {
+    // 遍历每个数据元素
+    dataElements.forEach(function(dataElement,index) {
+        // 获取数据元素相对于视口的位置信息
+        var rect = dataElement.getBoundingClientRect();
+        
+        // 检查数据元素是否进入视口
+        if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+            // 如果当前元素不是活动元素，则移除上一个活动元素的活动类，并将当前元素设为活动元素
+            if (dataElement !== activeElement) {
+                if (activeElement !== null) {
+                    activeElement.classList.remove('active');
+                }
+                dataElement.classList.add('active');
+                activeElement = dataElement;
+                console.log('Active element index:', index);
+            }
+           
+
+        }
+    });
+});
+
+
+
+
+
+</script>
+
+</body>
+</html>
