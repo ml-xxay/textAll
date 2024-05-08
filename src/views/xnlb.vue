@@ -16,7 +16,7 @@
         {{ item.content }}
       </div>
       <!-- 用于撑开高度的元素 -->
-      <div class="bar" :style="{ height: barHeight }" />
+      <div class="bar" :style="{ height: barHeight }" ></div>
     </div>
   </div>
 </template>

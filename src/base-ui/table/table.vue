@@ -21,7 +21,7 @@
         stripe
         :max-height="maxheight"
         style="width: 100%"
-        
+        show-overflow-tooltip
         v-bind="childrenProps"
         @selection-change="handleSelectionChange"
       >

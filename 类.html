@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /* 继承 */
+      class Animal {
+        constructor(num) {
+          this.num = num;
+        }
+        run(ploady) {
+          console.log(`跑的${ploady}`);
+        }
+      }
+
+      class Person extends Animal {
+        constructor(name, number = 2) {
+          super(number); //在继承中，子类中如果有constructor构造器  则必须执行super()执行父类构造器   否则构造器里面得代码则不生效
+          this.name = name;
+        }
+        run() {
+          console.log("我是子类的方法，可以写在 super 前面");
+
+          super.run("快"); // 调用父类中的方法
+        }
+      }
+
+      const person = new Person("Jay");
+      console.log(person.num);
+      console.log(person.name);
+      person.run();
+      // 打印结果
+      // 2
+      // Jay
+      // 我是子类的方法，可以写在 super 前面
+      // 跑的快
+
+      /* 多态 */
+      // 定义：父类型的引用指向了子类型的对象，不同类型的对象(有继承关系)针对相同的方法，有不同的表现
+
+      // 定义父类
+      class Father {
+        constructor(n) {
+          this.name = n;
+        }
+        // 方法
+        work(days = 5) {
+          console.log(`${this.name}一周工作${days}天`);
+        }
+      }
+      // 定义子类
+      class Son extends Father {
+        constructor(n) {
+          super(n);
+        }
+        work(days = 3) {
+          console.log(`${this.name}是男孩子，一周需要工作${days}天`);
+        }
+      }
+
+      // 定义子类
+      class Daughter extends Father {
+        constructor(n) {
+          super(n);
+        }
+        work(days = 1) {
+          console.log(`${this.name}是女孩子，一周只需要工作${days}天`);
+        }
+      }
+      const chaim = new Father("Chaim");
+      chaim.work();//Chaim一周工作5天
+      const jay = new Son("Jay");
+      jay.work();//Jay是男孩子，一周需要工作3天
+      const linda = new Daughter("Linda");
+      linda.work();//Linda是女孩子，一周只需要工作1天
+    </script>
+  </body>
+</html>

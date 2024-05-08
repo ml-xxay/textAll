@@ -352,7 +352,7 @@ export default {
         // title: '用户列表',
         propList: [
           { prop: 'id', label: 'id', minWidth: '200' },
-          { prop: 'name', label: '用户名', minWidth: '100' },
+          { prop: 'name', label: '用户名用户名用户名用户名用户名用户名用户名', minWidth: '100' },
           { prop: 'iphone', label: '手机号码', minWidth: '100' },
           { prop: 'imgurl', label: '图片', minWidth: '100', slotName: 'image' },
           {
