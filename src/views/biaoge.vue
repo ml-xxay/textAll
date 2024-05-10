@@ -199,7 +199,7 @@ export default {
         },
 
         colLayout: {
-          span: 6,
+          span: 8,
         },
         formItems: [
           //field 是要双向绑定所对应上去的字段  type 输入框类型  label 标头名称  value是输入框默认值
@@ -230,7 +230,7 @@ export default {
               lineHeight: '20px',
             },
             type: 'select',
-            // value: '自己决定默认值',
+            value: '自己决定默认值',
             label: '用户状态用户状态用户状态',
             placeholder: '请选择用户状态',
             options: [
@@ -427,7 +427,7 @@ export default {
           },
         ],
         colLayout: {
-          span: 24,
+          span: 12,
         },
         rules: {
           name: [

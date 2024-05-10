@@ -3,12 +3,12 @@
         
         <div class="set-up-box">
             <!-- 新增按钮 -->
-            <el-button @click="addRow" :disabled="isDisabled" class="add-btn" type="primary" size="medium">新增</el-button>
+            <el-button icon="el-icon-circle-plus-outline" @click="addRow" :disabled="isDisabled" class="add-btn" type="primary" size="small">新增</el-button>
             <!-- 拖拽表头 -->
             <div class="set-up">
                 <div class="p-box">表头设置</div>
                 <el-popover
-                    placement="bottom"
+                    placement="top"
                     width="150"
                     trigger="click"
                     popper-class="custom-popover"
@@ -35,8 +35,8 @@
             </div>
         </div>
         <!-- 表格 -->
-        <el-table  @header-dragend="headerDragend" @select="handleSelectionChange" ref="elTable" border stripe :data="tableData" style="width: 100%" :key="headKey">
-            <!-- 多选项  可以传控制变量控制显示与隐藏 -->
+        <el-table :header-cell-style="{ background: '#f4f6f8' }"  @header-dragend="headerDragend" @select="handleSelectionChange" ref="elTable" border stripe :data="tableData" style="width: 100%" :key="headKey">
+            <!-- 多选项-->
             <el-table-column
             v-if="showSelectColumn"
             type="selection"
@@ -82,9 +82,13 @@ export default {
         draggable
     },
     props:{
-        tableHead:{
+        tableHeadSource:{
             type:Array,
             default: () => ([]),
+        },
+        tableDataSource:{
+            type: Array,
+            required: true,
         },
         // 序号显示与隐藏
         showSelectColumn: {
@@ -96,39 +100,11 @@ export default {
         return {
             dialogVisible: false,
             headKey: "dragHead", // 表头数组变换位置时，重绘table（不更新该值，表头数组变化时，页面不会改变）
-            tableData: [
-                {
-                    id:1,
-                    v0: "2016-05-02",
-                    v1: "王1",
-                    v2: "上海",
-                    v3: "普陀区",
-                    v4: "上海市普陀区金沙江路 1518 弄",
-                    v5: 200333,
-                    v6: "2016-05-02",
-                    v7: "王小虎",
-                    v8: "上海",
-                    v9: "普陀区",
-                    v10: "普陀区",
-                },
-                {
-                    id:2,
-                    v0: "2016-05-02",
-                    v1: "2",
-                    v2: "上海",
-                    v3: "普陀区",
-                    v4: "上海市普陀区金沙江路 1518 弄",
-                    v5: 200333,
-                    v6: "2016-05-02",
-                    v7: "王小虎",
-                    v8: "上海",
-                    v9: "普陀区",
-                    v10: "普陀区",
-                }
-            ],
             timer: null,
-            selectTableRow:[],
-            isDisabled:true,
+            selectTableRow:[],//选中行
+            isDisabled:true,//
+            tableHead:[...this.tableHeadSource],
+            tableData: [...this.tableDataSource]
         };
     },
     watch: {
@@ -138,7 +114,7 @@ export default {
                 this.$nextTick(() => {
                 this.headKey = new Date().getTime() + ""; // 更新table key值
                 this.$refs['elTable'].doLayout(); //重新渲染表格
-                localStorage.setItem('tableHead', JSON.stringify(newVal))
+                // localStorage.setItem('tableHead', JSON.stringify(newVal))
                 this.tableHead = newVal
             })
             },
@@ -152,7 +128,7 @@ export default {
     beforeUpdate() {
     },
     created() {
-        this.tableHead = localStorage.getItem('tableHead') ? JSON.parse(localStorage.getItem('tableHead')) : this.tableHead
+        // this.tableHead = localStorage.getItem('tableHead') ? JSON.parse(localStorage.getItem('tableHead')) : this.tableHead
     },
     methods: {
         handleClose() {
@@ -178,7 +154,7 @@ export default {
         },
         // 保存表头设置以及拖拽顺序配置
         saveTableHerderSetUp(){
-            console.log('-----saveTableHerderSetUp------');
+            this.$emit('updatetableHead',this.tableHead)
         },
         // 多选
         handleSelectionChange(val){
@@ -220,8 +196,9 @@ export default {
                 this.$refs.elTable.toggleRowSelection(this.tableData[copiedRowIndex], true);
             });
         },
+        // 编辑
         handleCopyRowEdit(row){
-            console.log(row,'----');
+            this.$emit('updatetableData',row)
         }
     }
 };
@@ -265,6 +242,8 @@ export default {
     el-dialog .el-dialog__header {
         padding: 0 0 10px 0 !important;
     }
+
+    /* 表格右侧定位占满高度 */
     .el-table__fixed,.el-table__fixed-right{
         height:100% !important;
     }
@@ -272,6 +251,7 @@ export default {
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        padding: 5px 10px;
     }
     .set-up {
         display: flex;
@@ -300,16 +280,16 @@ export default {
         display: none;
     }
     .p-box::before {
-            position: absolute;
-            top: 50%;
-            left: 100px;
-            content: "";
-            width: 0;
-            height: 0;
-            transform:translateY(-50%) ;
-            border-top: solid 5px transparent;
-            border-left: solid 5px black;
-            border-bottom: solid 5px transparent;
+        position: absolute;
+        top: 50%;
+        left: 100px;
+        content: "";
+        width: 0;
+        height: 0;
+        transform:translateY(-50%) ;
+        border-top: solid 5px transparent;
+        border-left: solid 5px black;
+        border-bottom: solid 5px transparent;
     }
     .custom-popover{
         height: 200px;
