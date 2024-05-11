@@ -10,7 +10,7 @@
       >
         <el-row >
           <!-- 循环所有搜索表单项数据 -->
-          <template v-for="item in formItems">
+          <template v-for="(item,index) in formItems">
             <el-col v-bind="colLayout">
               <el-form-item
                 v-if="!item.isHidden"
@@ -24,13 +24,14 @@
                   <span >{{item.label}}</span>
                 </el-tooltip>
               </template>
-                <!-- 配置文件类型是 input 和 password 显示input框-->
+                <!-- 配置文件类型是 input-->
                 <template v-if="item.type == 'input'">
                   <el-input
                     :value="formDate[item.field]"
                     @input="handleValueChange($event, item.field)"
                     :placeholder="item.placeholder"
                     :show-password="item.type == 'password'"
+                    :class="{ 'active': item.active  && disableRole}"
                     clearable
                   ></el-input>
                 </template>
@@ -41,6 +42,7 @@
                     @input="handleValueChange($event, item.field)"
                     :placeholder="item.placeholder"
                     style="width: 100%"
+                    :class="{ 'active': resultArray[index] && disableRole}"
                     clearable
                     filterable
                   >
@@ -81,6 +83,11 @@
 export default {
   name: "",
   props: {
+    // 表格数据
+    tableData:{
+      type: Array,
+      default: () => [],
+    },
     // 下面这是 v-bind="searchFormConfig" 传过来的数据
     formItems: {
       type: Array,
@@ -90,6 +97,13 @@ export default {
    dInfo: {
       type: Object,
       default: () => ({}),
+    },
+    // 弹窗时不显示飘红
+    disableRole:{
+      type:Boolean,
+      default: () => {
+        return false
+      }
     },
     rules: {
       type: Object,
@@ -127,6 +141,8 @@ export default {
         formOriginData: {},
         iconDisable:false,
         isUpdate:false,// 是否是修改还是添加
+        isMismatch:true,// 是否是修改还是添加
+        resultArray:[]
     };
   },
   watch: {
@@ -134,7 +150,7 @@ export default {
     formItems: {
       deep: true,
       immediate: true,
-      handler: function () {
+      handler: function (val) {
         this.formDateMets('formItems')
       },
     },
@@ -142,7 +158,7 @@ export default {
       deep: true,
       immediate: true,
       handler:function(newVal){
-        console.log(newVal,'我是监听回显数据---------');
+        // console.log(newVal,'我是监听回显数据---------');
       if (this.dInfo) {
         this.formDateMets('defaultInfo')
         this.isUpdate = true;
@@ -166,17 +182,14 @@ export default {
   methods: {
     formDateMets(plyload) {
       if(plyload == 'formItems'){
-        const formItem = this.formItems ?? []
+        const formItem = this.formItems
         const formOriginData = {}
         for (const item of formItem) {
-          if (item.field == 'status') {
-            formOriginData[item.field] = item.value ?? '' //默认下拉框内容
-          } else {
-            formOriginData[item.field] = ''
-          }
+          formOriginData[item.field] = ''
         }
-        this.formDate = formOriginData //动态搜索字段
         this.formOriginData = formOriginData //多保存一份数据 方便重置
+        this.formDate = formOriginData //动态搜索字段
+
       }else {
         const dialogformDate = {}
         for (const item of this.formItems ?? []) {
@@ -193,13 +206,45 @@ export default {
     },
     // 重置
     handelReset(){
-        this.formDate = this.formOriginData
+        Object.keys(this.formDate).forEach(key => {
+          this.formDate[key] = ''
+        })
+        this.$emit('formRest', this.formDate)
     },
     // 搜索
     handelQuery(){
         this.$emit('queryBtnClick', this.formDate) //搜索事件发出去
     },
-    
+    //处理飘红的方法
+    handelColor(tabDate,obj){
+      // const item = tabDate[0]
+      // this.formItems.forEach((it, idx) => {
+      //   if (this.formData[it.field] && this.formData[it.field] !== item[it.field]) {
+      //     it.active = true
+      //   } else {
+      //     it.active = false
+      //   }
+      // })
+      console.log(obj,'789');
+      // this.formData = obj
+      
+
+      // let resul = tabDate.map(item => {
+      // // 对比每个键值对
+      // const isActive = Object.keys(this.formDate).every(key => {
+      //     return this.formDate[key] !== item[key];
+      // });
+      // return isActive
+      // });
+      // Object.keys(this.formDate).forEach(key=>{
+      //   if(this.formDate[key] !== 'undefined '){
+      //     console.log(this.formDate[key],'我是每个搜索字段的值');
+      //   }
+      // })
+
+      // this.resultArray = resul
+      // console.log(resul,'我是处理完的数组');
+    }
   },
 };
 </script>
@@ -207,7 +252,6 @@ export default {
 /* 输入框的高 */
 /deep/.el-input__inner {
     height: 33px !important;
-    color: v-bind(getColor);
 }
 /deep/.el-form-item__label {  
   overflow: hidden;
@@ -243,7 +287,7 @@ export default {
     margin: 10px 0 10px 10px;
 }
 /* 输入框检索不正确的时候文字高亮 */
-.active {
+/deep/ .el-form-item .active .el-input__inner {
   color: red !important;
 }
 </style>
