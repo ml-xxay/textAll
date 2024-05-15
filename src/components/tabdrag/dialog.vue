@@ -64,7 +64,7 @@ export default {
       if (Object.keys(this.defaultInfo).length) {
         console.log('编辑')
         console.log(this.formDate, '编辑')
-        // this.$emit('dialogEdit',this.formDate)
+        this.$emit('dialogEdit',this.formDate)
       } else {
         console.log('新建')
         console.log(this.formDate, '新建')

@@ -19,7 +19,6 @@
               >
               <!-- 对label进行处理 -->
               <template slot="label">
-                <!-- {{item.label}} -->
                 <el-tooltip :content="item.label" placement="top">
                   <span >{{item.label}}</span>
                 </el-tooltip>
@@ -31,7 +30,7 @@
                     @input="handleValueChange($event, item.field)"
                     :placeholder="item.placeholder"
                     :show-password="item.type == 'password'"
-                    :class="{ 'active': item.active  && disableRole}"
+                    :class="{ 'active': activeObj[item.field]  && role}"
                     clearable
                   ></el-input>
                 </template>
@@ -42,7 +41,7 @@
                     @input="handleValueChange($event, item.field)"
                     :placeholder="item.placeholder"
                     style="width: 100%"
-                    :class="{ 'active': resultArray[index] && disableRole}"
+                    :class="{ 'active': activeObj[item.field] && role}"
                     clearable
                     filterable
                   >
@@ -99,7 +98,7 @@ export default {
       default: () => ({}),
     },
     // 弹窗时不显示飘红
-    disableRole:{
+    role:{
       type:Boolean,
       default: () => {
         return false
@@ -142,7 +141,7 @@ export default {
         iconDisable:false,
         isUpdate:false,// 是否是修改还是添加
         isMismatch:true,// 是否是修改还是添加
-        resultArray:[]
+        activeObj:{}
     };
   },
   watch: {
@@ -184,16 +183,20 @@ export default {
       if(plyload == 'formItems'){
         const formItem = this.formItems
         const formOriginData = {}
+        let arr = {}
         for (const item of formItem) {
           formOriginData[item.field] = ''
+          arr[item.field] = false
         }
-        this.formOriginData = formOriginData //多保存一份数据 方便重置
         this.formDate = formOriginData //动态搜索字段
+        this.formOriginData = formOriginData //多保存一份数据 方便重置
 
+        // 给一份数组保存key：false
+        this.activeObj = arr
       }else {
         const dialogformDate = {}
         for (const item of this.formItems ?? []) {
-          dialogformDate[item.field] = this.dInfo[item.field]
+          dialogformDate[item.field] = this.dInfo[item.field] || ''
         }
         this.formDate = dialogformDate
       }
@@ -208,6 +211,7 @@ export default {
     handelReset(){
         Object.keys(this.formDate).forEach(key => {
           this.formDate[key] = ''
+          this.activeObj[key] = false
         })
         this.$emit('formRest', this.formDate)
     },
@@ -217,33 +221,16 @@ export default {
     },
     //处理飘红的方法
     handelColor(tabDate,obj){
-      // const item = tabDate[0]
-      // this.formItems.forEach((it, idx) => {
-      //   if (this.formData[it.field] && this.formData[it.field] !== item[it.field]) {
-      //     it.active = true
-      //   } else {
-      //     it.active = false
-      //   }
-      // })
-      console.log(obj,'789');
-      // this.formData = obj
-      
-
-      // let resul = tabDate.map(item => {
-      // // 对比每个键值对
-      // const isActive = Object.keys(this.formDate).every(key => {
-      //     return this.formDate[key] !== item[key];
-      // });
-      // return isActive
-      // });
-      // Object.keys(this.formDate).forEach(key=>{
-      //   if(this.formDate[key] !== 'undefined '){
-      //     console.log(this.formDate[key],'我是每个搜索字段的值');
-      //   }
-      // })
-
-      // this.resultArray = resul
-      // console.log(resul,'我是处理完的数组');
+        const item = tabDate[0]// 销售搜索出来的值只会有一项
+         Object.keys(obj).forEach(key=>{
+          // console.log(obj[key],'-------------key------');
+          if(obj[key] && obj[key] != item[key]) {
+            console.log(item[key],'--------我是不正确的值');
+              this.activeObj[key] = true  //销售只飘红
+          }else if(obj[key] && obj[key] == item[key]) {
+              this.activeObj[key] = false
+          }
+       })
     }
   },
 };
