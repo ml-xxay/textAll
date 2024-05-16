@@ -26,7 +26,7 @@ export const BASE_TYPE = {
   inverterDcInputChannels: "", // 逆变器直流输入路数
   inverterMpptChannels: "", // 逆变器MPPT路数
   inverterFuseSpecification: "", // 逆变器熔丝规格
-  inverterNegativeGroundFloat: "INVERTER_NEGATIVE_GROUND", // 逆变器负极接地或浮地  
+  inverterNegativeGroundFloat: "INVERTER_NEGATIVE_GROUND", // 逆变器负极接地或浮地
   inverterDcBreakerLoadSwitch: "", // 逆变器直流断路器负荷开关
   inverterDcCableClamp: "dic_inverter_dc_clip", // 逆变器直流线缆固定夹               --> 字典项
   inverterPidControl: "", // 逆变器PID
@@ -114,496 +114,488 @@ export const BASE_TYPE = {
   pdCabinetAuxTransformerSpec: "", // 配电柜辅变规格
 };
 
+
 export const formatFormItemConfig = (baseData) => {
-  console.log(222222222222222222);
   return [
     //field 是要双向绑定所对应上去的字段  type 输入框类型  label 标头名称  value是输入框默认值
-    {
-      field: "area",
-      type: "select",
-      label: "区域",
-      placeholder: "请选择区域",
-      active: false,
-      // options: this.filterBaseData(BASE_TYPE.pid),
-      options: [],
-    },
+  
     {
       field: "projectLocation",
       type: "input",
       label: "项目地",
       placeholder: "请输入项目地",
-      active: false
+      active: false,
     },
-    
+
     {
       field: "fullMachineSerialNumber",
       type: "input",
       label: "整机编号",
       placeholder: "请输入整机编号",
-      active: false
+      active: false,
     },
     {
       field: "fullMachineVersion",
       type: "input",
       label: "整机版本",
       placeholder: "请输入整机版本",
-      active: false
+      active: false,
     },
     {
       field: "fullMachineTemperature",
       type: "input",
       label: "整机温度",
       placeholder: "请输入整机温度",
-      active: false
+      active: false,
     },
     {
       field: "fullMachineAltitude",
       type: "input",
       label: "整机海拔",
       placeholder: "请输入整机海拔",
-      active: false
+      active: false,
     },
     {
       field: "fullMachineProtectionRating",
       type: "input",
       label: "整机防护等级",
       placeholder: "请输入整机防护等级",
-      active: false
+      active: false,
     },
-   
+
     {
       field: "fullMachineTempControlHeat",
       type: "input",
       label: "整机温度控制加热",
       placeholder: "请输入整机温度控制加热",
-      active: false
+      active: false,
     },
     {
       field: "fullMachineTestTerminals",
       type: "input",
       label: "整机测试端子",
       placeholder: "请输入整机测试端子",
-      active: false
+      active: false,
     },
     {
       field: "fullMachineLoTo",
       type: "input",
       label: "整机LOTO",
       placeholder: "请输入整机LOTO",
-      active: false
+      active: false,
     },
     {
       field: "fullMachineOilReservoir",
       type: "input",
       label: "整机油槽",
       placeholder: "请输入整机油槽",
-      active: false
+      active: false,
     },
     {
       field: "fullMachineSunshadeMountHole",
       type: "input",
       label: "整机遮阳棚安装孔",
       placeholder: "请输入整机遮阳棚安装孔",
-      active: false
+      active: false,
     },
     {
       field: "fullMachineFirewall",
       type: "input",
       label: "整机防火墙",
       placeholder: "请输入整机防火墙",
-      active: false
+      active: false,
     },
     {
       field: "fullMachineIntegratedPlatform",
       type: "input",
       label: "整机一体化平台",
       placeholder: "请输入整机一体化平台",
-      active: false
+      active: false,
     },
     {
       field: "fullMachineDifferentProtect",
       type: "input",
       label: "整机差动保护",
       placeholder: "请输入整机差动保护",
-      active: false
+      active: false,
     },
     {
       field: "fullMachineOtherNonStandard",
       type: "input",
       label: "整机其他非标",
       placeholder: "请输入整机其他非标",
-      active: false
+      active: false,
     },
     {
       field: "inverterMaterialNumber",
       type: "input",
       label: "逆变器料号",
       placeholder: "请输入逆变器料号",
-      active: false
+      active: false,
     },
     {
       field: "inverterSelfDischargeVoltage",
       type: "input",
       label: "逆变器自流电压",
       placeholder: "请输入逆变器自流电压",
-      active: false
+      active: false,
     },
     {
       field: "inverterDcInputChannels",
       type: "input",
       label: "逆变器直流输入路数",
       placeholder: "请输入逆变器直流输入路数",
-      active: false
+      active: false,
     },
     {
       field: "inverterMpptChannels",
       type: "input",
       label: "逆变器MPPT路数",
       placeholder: "请输入逆变器MPPT路数",
-      active: false
+      active: false,
     },
     {
       field: "inverterFuseSpecification",
       type: "input",
       label: "逆变器熔丝规格",
       placeholder: "请输入逆变器熔丝规格",
-      active: false
+      active: false,
     },
     {
       field: "inverterDcBreakerLoadSwitch",
       type: "input",
       label: "逆变器直流断路器负荷开关",
       placeholder: "请输入逆变器直流断路器负荷开关",
-      active: false
+      active: false,
     },
     {
       field: "inverterPidControl",
       type: "input",
       label: "逆变器PID",
       placeholder: "请输入逆变器PID",
-      active: false
+      active: false,
     },
     {
       field: "inverterAcVoltage",
       type: "input",
       label: "逆变器交流电压",
       placeholder: "请输入逆变器交流电压",
-      active: false
+      active: false,
     },
     {
       field: "inverterAcSwitch",
       type: "input",
       label: "逆变器交流开关",
       placeholder: "请输入逆变器交流开关",
-      active: false
+      active: false,
     },
     {
       field: "inverterChannels",
       type: "input",
       label: "逆变器路数",
       placeholder: "请输入逆变器路数",
-      active: false
+      active: false,
     },
     {
       field: "inverterPvvSg",
       type: "input",
       label: "逆变器PVV SG",
       placeholder: "请输入逆变器PVV SG",
-      active: false
+      active: false,
     },
     {
       field: "inverterBlackStart",
       type: "input",
       label: "逆变器黑启动",
       placeholder: "请输入逆变器黑启动",
-      active: false
+      active: false,
     },
     {
       field: "pdCabinetMaterialNumber",
       type: "input",
       label: "配电柜料号",
       placeholder: "请输入配电柜料号",
-      active: false
+      active: false,
     },
     {
       field: "rmUnitInsulatingCap",
       type: "input",
       label: "环网柜绝缘帽",
       placeholder: "请输入环网柜绝缘帽",
-      active: false
+      active: false,
     },
     {
       field: "rmUnitLightningArrester",
       type: "input",
       label: "环网柜避雷器",
       placeholder: "请输入环网柜避雷器",
-      active: false
+      active: false,
     },
     {
       field: "rmUnitOtherNonStandard",
       type: "input",
       label: "环网柜其他非标",
       placeholder: "请输入环网柜其他非标",
-      active: false
+      active: false,
     },
     {
       field: "rmUnitGroundFaultIndicator",
       type: "input",
       label: "环网柜接地故障指示器",
       placeholder: "请输入环网柜接地故障指示器",
-      active: false
+      active: false,
     },
     {
       field: "rmUnitTemperatureControl",
       type: "input",
       label: "环网柜温度控制",
       placeholder: "请输入环网柜温度控制",
-      active: false
+      active: false,
     },
     {
       field: "rmUnitRemoteSwitching",
       type: "input",
       label: "环网柜远程分合闸",
       placeholder: "请输入环网柜远程分合闸",
-      active: false
+      active: false,
     },
     {
       field: "rmUnitUndervoltageTrip",
       type: "input",
       label: "环网柜欠压脱扣",
       placeholder: "请输入环网柜欠压脱扣",
-      active: false
+      active: false,
     },
     {
       field: "rmUnitBrandAssign",
       type: "input",
       label: "环网柜品牌指定",
       placeholder: "请输入环网柜品牌指定",
-      active: false
+      active: false,
     },
     {
       field: "rmUnitProtectionrelay",
       type: "input",
       label: "环网柜继保",
       placeholder: "请输入环网柜继保",
-      active: false
+      active: false,
     },
     {
       field: "rmUnitShortTimeWithstand",
       type: "input",
       label: "环网柜短耐",
       placeholder: "请输入环网柜短耐",
-      active: false
+      active: false,
     },
     {
       field: "rmUnitFrequencyHz",
       type: "input",
       label: "环网柜频率 Hz",
       placeholder: "请输入环网柜频率 Hz",
-      active: false
+      active: false,
     },
     {
       field: "rmUnitVoltageKv",
       type: "input",
       label: "环网柜电压 kV",
       placeholder: "请输入环网柜电压 kV",
-      active: false
+      active: false,
     },
     {
       field: "ringMainUnitMaterialNumber",
       type: "input",
       label: "环网柜料号",
       placeholder: "请输入环网柜料号",
-      active: false
+      active: false,
     },
     {
       field: "transformerMediumVoltageCable",
       type: "input",
       label: "变压器中压电缆",
       placeholder: "请输入变压器中压电缆",
-      active: false
+      active: false,
     },
     {
       field: "transformerOtherNonStandard",
       type: "input",
       label: "变压器其他非标",
       placeholder: "请输入变压器其他非标",
-      active: false
+      active: false,
     },
     {
       field: "transformerHighVoltageInput",
       type: "input",
       label: "变压器高压进线",
       placeholder: "请输入变压器高压进线",
-      active: false
+      active: false,
     },
     {
       field: "transformerInsulationLevel",
       type: "input",
       label: "变压器绝缘水平",
       placeholder: "请输入变压器绝缘水平",
-      active: false
+      active: false,
     },
     {
       field: "transformerFourPosition",
       type: "input",
       label: "变压器四工位",
       placeholder: "请输入变压器四工位",
-      active: false
+      active: false,
     },
     {
       field: "transformerCoreShieldGround",
       type: "input",
       label: "变压器铁芯&屏蔽层接地",
       placeholder: "请输入变压器铁芯&屏蔽层接地",
-      active: false
+      active: false,
     },
     {
       field: "transformerFragmentedFixed",
       type: "input",
       label: "变压器片散固定",
       placeholder: "请输入变压器片散固定",
-      active: false
+      active: false,
     },
     {
       field: "transformerSpecialHeatRise",
       type: "input",
       label: "变压器特殊温升",
       placeholder: "请输入变压器特殊温升",
-      active: false
+      active: false,
     },
     {
       field: "transformerBushingTube",
       type: "input",
       label: "变压器引流管",
       placeholder: "请输入变压器引流管",
-      active: false
+      active: false,
     },
     {
       field: "transformerLoadSwitchOperate",
       type: "input",
       label: "变压器负荷开关+电操",
       placeholder: "请输入变压器负荷开关+电操",
-      active: false
+      active: false,
     },
     {
       field: "transformerConnectionGroup",
       type: "input",
       label: "变压器联结组别",
       placeholder: "请输入变压器联结组别",
-      active: false
+      active: false,
     },
     {
       field: "transformerBrazilStandard",
       type: "input",
       label: "变压器巴西标",
       placeholder: "请输入变压器巴西标",
-      active: false
+      active: false,
     },
     {
       field: "transformerOilGasCollector",
       type: "input",
       label: "变压器集气盒",
       placeholder: "请输入变压器集气盒",
-      active: false
+      active: false,
     },
     {
       field: "transformerLockingDevice",
       type: "input",
       label: "变压器加锁",
       placeholder: "请输入变压器加锁",
-      active: false
+      active: false,
     },
     {
       field: "transformerHeatUpgradePaper",
       type: "input",
       label: "变压器热升级纸",
       placeholder: "请输入变压器热升级纸",
-      active: false
+      active: false,
     },
     {
       field: "transformerEfficiency",
       type: "input",
       label: "变压器效率",
       placeholder: "请输入变压器效率",
-      active: false
+      active: false,
     },
     {
       field: "transformerFrequencyHz",
       type: "input",
       label: "变压器频率",
       placeholder: "请输入变压器频率",
-      active: false
+      active: false,
     },
     {
       field: "transformerVoltageKv",
       type: "input",
       label: "变压器电压",
       placeholder: "请输入变压器电压",
-      active: false
+      active: false,
     },
     {
       field: "transformerCapacityKva",
       type: "input",
       label: "变压器容量",
       placeholder: "请输入变压器容量",
-      active: false
+      active: false,
     },
     {
       field: "transformerMaterialNumber",
       type: "input",
       label: "变压器料号",
       placeholder: "请输入变压器料号",
-      active: false
+      active: false,
     },
     {
       field: "pdCabinetOutdoor",
       type: "input",
       label: "配电柜户外配电柜",
       placeholder: "请输入配电柜户外配电柜",
-      active: false
+      active: false,
     },
     {
       field: "pdCabinetUpsMonitoring",
       type: "input",
       label: "配电柜UPS监控",
       placeholder: "请输入配电柜UPS监控",
-      active: false
+      active: false,
     },
     {
       field: "pdCabinetLightningProtection",
       type: "input",
       label: "配电柜防雷",
       placeholder: "请输入配电柜防雷",
-      active: false
+      active: false,
     },
     {
       field: "pdCabinetOutlet",
       type: "input",
       label: "配电柜插座",
       placeholder: "请输入配电柜插座",
-      active: false
+      active: false,
     },
     {
       field: "pdCabinetMcb",
       type: "input",
       label: "配电柜微断",
       placeholder: "请输入配电柜微断",
-      active: false
+      active: false,
     },
     {
       field: "pdCabinetUps",
       type: "input",
       label: "配电柜UPS",
       placeholder: "请输入配电柜UPS",
-      active: false
+      active: false,
     },
     {
       field: "pdCabinetAuxTransformerSpec",
       type: "input",
       label: "配电柜辅变规格",
       placeholder: "请输入配电柜辅变规格",
-      active: false
+      active: false,
     },
     // 基本数据
     {
@@ -620,7 +612,10 @@ export const formatFormItemConfig = (baseData) => {
       label: "整机防腐等级",
       placeholder: "请选择整机防腐等级",
       active: false,
-      options: filterBaseData(BASE_TYPE.fullMachineAnticorrosiveLevel, baseData),
+      options: filterBaseData(
+        BASE_TYPE.fullMachineAnticorrosiveLevel,
+        baseData
+      ),
     },
     {
       field: "fullMachineColor",
@@ -636,7 +631,7 @@ export const formatFormItemConfig = (baseData) => {
       label: "整机小语言",
       placeholder: "请选择整机小语言",
       active: false,
-      options: filterBaseData(BASE_TYPE.fullMachineLanguage),
+      options: filterBaseData(BASE_TYPE.fullMachineLanguage, baseData),
     },
     {
       field: "fullMachineInterlocking",
@@ -644,7 +639,7 @@ export const formatFormItemConfig = (baseData) => {
       label: "整机互锁",
       placeholder: "请选择整机互锁",
       active: false,
-      options: filterBaseData(BASE_TYPE.fullMachineInterlocking),
+      options: filterBaseData(BASE_TYPE.fullMachineInterlocking, baseData),
     },
     {
       field: "inverterNegativeGroundFloat",
@@ -652,301 +647,361 @@ export const formatFormItemConfig = (baseData) => {
       label: "逆变器负极接地或浮地",
       placeholder: "请选择逆变器负极接地或浮地",
       active: false,
-      options: filterBaseData(BASE_TYPE.inverterNegativeGroundFloat),
+      options: filterBaseData(BASE_TYPE.inverterNegativeGroundFloat, baseData),
     },
-    // {
-    //   field: "inverterDcLightningProtection",
-    //   type: "select",
-    //   label: "逆变器直流防雷",
-    //   placeholder: "请选择逆变器直流防雷",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.inverterDcLightningProtection),
-    // },
-    // {
-    //   field: "inverterAcLightningProtection",
-    //   type: "select",
-    //   label: "逆变器交流防雷",
-    //   placeholder: "请选择逆变器交流防雷",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.inverterAcLightningProtection),
-    // },
-    // {
-    //   field: "rmUnitCtParameters",
-    //   type: "select",
-    //   label: "环网柜互感器参数",
-    //   placeholder: "请选择环网柜互感器参数",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.rmUnitCtParameters),
-    // },
-    // {
-    //   field: "rmUnitOverallInterlock",
-    //   type: "select",
-    //   label: "环网柜整机互锁",
-    //   placeholder: "请选择环网柜整机互锁",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.rmUnitOverallInterlock),
-    // },
-    // {
-    //   field: "rmUnitArcExtinguishing",
-    //   type: "select",
-    //   label: "环网柜燃弧",
-    //   placeholder: "请选择环网柜燃弧",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.rmUnitArcExtinguishing),
-    // },
-    // {
-    //   field: "rmUnitCabinetType",
-    //   type: "select",
-    //   label: "环网柜柜型",
-    //   placeholder: "请选择环网柜柜型",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.rmUnitCabinetType),
-    // },
-    // {
-    //   field: "rmUnitBrand",
-    //   type: "select",
-    //   label: "环网柜品牌",
-    //   placeholder: "请选择环网柜品牌",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.rmUnitBrand),
-    // },
-    // {
-    //   field: "transformerColor",
-    //   type: "select",
-    //   label: "变压器颜色",
-    //   placeholder: "请选择变压器颜色",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.transformerColor),
-    // },
-    // {
-    //   field: "transformerAnticorrosiveLevel",
-    //   type: "select",
-    //   label: "变压器防腐等级",
-    //   placeholder: "请选择变压器防腐等级",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.transformerAnticorrosiveLevel),
-    // },
-    // {
-    //   field: "transformerOil",
-    //   type: "select",
-    //   label: "变压器油",
-    //   placeholder: "请选择变压器油",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.transformerOil),
-    // },
-    // {
-    //   field: "transformerMaterial",
-    //   type: "select",
-    //   label: "变压器材质",
-    //   placeholder: "请选择变压器材质",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.transformerMaterial),
-    // },
-    // {
-    //   field: "transformerBrand",
-    //   type: "select",
-    //   label: "变压器品牌",
-    //   placeholder: "请选择变压器品牌",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.transformerBrand),
-    // },
-    // {
-    //   field: "pdCabinetPanoramicMonitoring",
-    //   type: "select",
-    //   label: "配电柜全景监控",
-    //   placeholder: "请选择配电柜全景监控",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.pdCabinetPanoramicMonitoring),
-    // },
-    // {
-    //   field: "pdCabinetTerminalBox",
-    //   type: "select",
-    //   label: "配电柜终端盒",
-    //   placeholder: "请选择配电柜终端盒",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.pdCabinetTerminalBox),
-    // },
-    // {
-    //   field: "pdCabinetSwitch",
-    //   type: "select",
-    //   label: "配电柜交换机",
-    //   placeholder: "请选择配电柜交换机",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.pdCabinetSwitch),
-    // },
-    // {
-    //   field: "pdCabinetElectricMeter",
-    //   type: "select",
-    //   label: "配电柜电表",
-    //   placeholder: "请选择配电柜电表",
-    //   active: false,
-    //   options: this.filterBaseData(BASE_TYPE.pdCabinetElectricMeter),
-    // },
+    {
+      field: "inverterDcLightningProtection",
+      type: "select",
+      label: "逆变器直流防雷",
+      placeholder: "请选择逆变器直流防雷",
+      active: false,
+      options: filterBaseData(
+        BASE_TYPE.inverterDcLightningProtection,
+        baseData
+      ),
+    },
+    {
+      field: "inverterAcLightningProtection",
+      type: "select",
+      label: "逆变器交流防雷",
+      placeholder: "请选择逆变器交流防雷",
+      active: false,
+      options: filterBaseData(
+        BASE_TYPE.inverterAcLightningProtection,
+        baseData
+      ),
+    },
+    {
+      field: "rmUnitCtParameters",
+      type: "select",
+      label: "环网柜互感器参数",
+      placeholder: "请选择环网柜互感器参数",
+      active: false,
+      options: filterBaseData(BASE_TYPE.rmUnitCtParameters, baseData),
+    },
+    {
+      field: "rmUnitOverallInterlock",
+      type: "select",
+      label: "环网柜整机互锁",
+      placeholder: "请选择环网柜整机互锁",
+      active: false,
+      options: filterBaseData(BASE_TYPE.rmUnitOverallInterlock, baseData),
+    },
+    {
+      field: "rmUnitArcExtinguishing",
+      type: "select",
+      label: "环网柜燃弧",
+      placeholder: "请选择环网柜燃弧",
+      active: false,
+      options: filterBaseData(BASE_TYPE.rmUnitArcExtinguishing, baseData),
+    },
+    {
+      field: "rmUnitCabinetType",
+      type: "select",
+      label: "环网柜柜型",
+      placeholder: "请选择环网柜柜型",
+      active: false,
+      options: filterBaseData(BASE_TYPE.rmUnitCabinetType, baseData),
+    },
+    {
+      field: "rmUnitBrand",
+      type: "select",
+      label: "环网柜品牌",
+      placeholder: "请选择环网柜品牌",
+      active: false,
+      options: filterBaseData(BASE_TYPE.rmUnitBrand, baseData),
+    },
+    {
+      field: "transformerColor",
+      type: "select",
+      label: "变压器颜色",
+      placeholder: "请选择变压器颜色",
+      active: false,
+      options: filterBaseData(BASE_TYPE.transformerColor, baseData),
+    },
+    {
+      field: "transformerAnticorrosiveLevel",
+      type: "select",
+      label: "变压器防腐等级",
+      placeholder: "请选择变压器防腐等级",
+      active: false,
+      options: filterBaseData(
+        BASE_TYPE.transformerAnticorrosiveLevel,
+        baseData
+      ),
+    },
+    {
+      field: "transformerOil",
+      type: "select",
+      label: "变压器油",
+      placeholder: "请选择变压器油",
+      active: false,
+      options: filterBaseData(BASE_TYPE.transformerOil, baseData),
+    },
+    {
+      field: "transformerMaterial",
+      type: "select",
+      label: "变压器材质",
+      placeholder: "请选择变压器材质",
+      active: false,
+      options: filterBaseData(BASE_TYPE.transformerMaterial, baseData),
+    },
+    {
+      field: "transformerBrand",
+      type: "select",
+      label: "变压器品牌",
+      placeholder: "请选择变压器品牌",
+      active: false,
+      options: filterBaseData(BASE_TYPE.transformerBrand, baseData),
+    },
+    {
+      field: "pdCabinetPanoramicMonitoring",
+      type: "select",
+      label: "配电柜全景监控",
+      placeholder: "请选择配电柜全景监控",
+      active: false,
+      options: filterBaseData(BASE_TYPE.pdCabinetPanoramicMonitoring, baseData),
+    },
+    {
+      field: "pdCabinetTerminalBox",
+      type: "select",
+      label: "配电柜终端盒",
+      placeholder: "请选择配电柜终端盒",
+      active: false,
+      options: filterBaseData(BASE_TYPE.pdCabinetTerminalBox, baseData),
+    },
+    {
+      field: "pdCabinetSwitch",
+      type: "select",
+      label: "配电柜交换机",
+      placeholder: "请选择配电柜交换机",
+      active: false,
+      options: filterBaseData(BASE_TYPE.pdCabinetSwitch, baseData),
+    },
+    {
+      field: "pdCabinetElectricMeter",
+      type: "select",
+      label: "配电柜电表",
+      placeholder: "请选择配电柜电表",
+      active: false,
+      options: filterBaseData(BASE_TYPE.pdCabinetElectricMeter, baseData),
+    },
+  ];
+};
 
+export const formatFormItemConfigDcit = (baseData) => {
+  return [
     // // 字典
-    // {
-    //   field: "fullMachineEmergencyStop",
-    //   type: "select",
-    //   label: "整机急停",
-    //   placeholder: "请选择整机急停",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.fullMachineEmergencyStop),
-    // },
-    // {
-    //   field: "inverterDcCableClamp",
-    //   type: "select",
-    //   label: "逆变器直流线缆固定夹",
-    //   placeholder: "请选择逆变器直流线缆固定夹",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.inverterDcCableClamp),
-    // },
-    // {
-    //   field: "inverterDcPlc",
-    //   type: "select",
-    //   label: "逆变器直流PLC",
-    //   placeholder: "请选择逆变器直流PLC",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.inverterDcPlc),
-    // },
-    // {
-    //   field: "inverterOffGridTuning",
-    //   type: "select",
-    //   label: "逆变器离网调试",
-    //   placeholder: "请选择逆变器离网调试",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.inverterOffGridTuning),
-    // },
-    // {
-    //   field: "inverterStorageInterface",
-    //   type: "select",
-    //   label: "逆变器储能接口",
-    //   placeholder: "请选择逆变器储能接口",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.inverterStorageInterface),
-    // },
-    // {
-    //   field: "inverterLowVoltagePowerPort",
-    //   type: "select",
-    //   label: "逆变器低压取电接口",
-    //   placeholder: "请选择逆变器低压取电接口",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.inverterLowVoltagePowerPort),
-    // },
-    // {
-    //   field: "inverterAcOutputLine",
-    //   type: "select",
-    //   label: "逆变器交流出线",
-    //   placeholder: "请选择逆变器交流出线",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.inverterAcOutputLine),
-    // },
-    // {
-    //   field: "inverterNightSvg",
-    //   type: "select",
-    //   label: "逆变器夜间SVG",
-    //   placeholder: "请选择逆变器夜间SVG",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.inverterNightSvg),
-    // },
-    // {
-    //   field: "inverterHeater",
-    //   type: "select",
-    //   label: "逆变器加热器",
-    //   placeholder: "请选择逆变器加热器",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.inverterHeater),
-    // },
-    // {
-    //   field: "rmUnitFaultSignalUpload",
-    //   type: "select",
-    //   label: "环网柜继保故障信号上传",
-    //   placeholder: "请选择环网柜继保故障信号上传",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.rmUnitFaultSignalUpload),
-    // },
-    // {
-    //   field: "rmUnitOutdoor",
-    //   type: "select",
-    //   label: "环网柜户外",
-    //   placeholder: "请选择环网柜户外",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.rmUnitOutdoor),
-    // },
-    // {
-    //   field: "rmUnitCommunication",
-    //   type: "select",
-    //   label: "环网柜通讯",
-    //   placeholder: "请选择环网柜通讯",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.rmUnitCommunication),
-    // },
-    // {
-    //   field: "rmUnitLowPressureAlarm",
-    //   type: "select",
-    //   label: "环网柜低气压报警信号",
-    //   placeholder: "请选择环网柜低气压报警信号",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.rmUnitLowPressureAlarm),
-    // },
-    // {
-    //   field: "rmUnitUpDownInterlock",
-    //   type: "select",
-    //   label: "环网柜上下游互锁",
-    //   placeholder: "请选择环网柜上下游互锁",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.rmUnitUpDownInterlock),
-    // },
-    // {
-    //   field: "rmUnitElectricalOperation",
-    //   type: "select",
-    //   label: "环网柜电操",
-    //   placeholder: "请选择环网柜电操",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.rmUnitElectricalOperation),
-    // },
-    // {
-    //   field: "transformerBrandAssign",
-    //   type: "select",
-    //   label: "变压器品牌指定",
-    //   placeholder: "请选择变压器品牌指定",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.transformerBrandAssign),
-    // },
-    // {
-    //   field: "transformer11Overvoltage",
-    //   type: "select",
-    //   label: "变压器1.1倍过压",
-    //   placeholder: "请选择变压器1.1倍过压",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.transformer11Overvoltage),
-    // },
-    // {
-    //   field: "transformerWindingTemperature",
-    //   type: "select",
-    //   label: "变压器绕组温度",
-    //   placeholder: "请选择变压器绕组温度",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.transformerWindingTemperature),
-    // },
-    // {
-    //   field: "transformerType",
-    //   type: "select",
-    //   label: "变压器类型",
-    //   placeholder: "请选择变压器类型",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.transformerType),
-    // },
-    // {
-    //   field: "pdCabinetAcIsolation",
-    //   type: "select",
-    //   label: "配电柜交流ISO",
-    //   placeholder: "请选择配电柜交流ISO",
-    //   active: false,
-    //   options: this.filterBaseDataDict(BASE_TYPE.pdCabinetAcIsolation),
-    // },
+    {
+      field: "fullMachineEmergencyStop",
+      type: "select",
+      label: "整机急停",
+      placeholder: "请选择整机急停",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.fullMachineEmergencyStop, baseData),
+    },
+    {
+      field: "inverterDcCableClamp",
+      type: "select",
+      label: "逆变器直流线缆固定夹",
+      placeholder: "请选择逆变器直流线缆固定夹",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.inverterDcCableClamp, baseData),
+    },
+    {
+      field: "inverterDcPlc",
+      type: "select",
+      label: "逆变器直流PLC",
+      placeholder: "请选择逆变器直流PLC",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.inverterDcPlc, baseData),
+    },
+    {
+      field: "inverterOffGridTuning",
+      type: "select",
+      label: "逆变器离网调试",
+      placeholder: "请选择逆变器离网调试",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.inverterOffGridTuning, baseData),
+    },
+    {
+      field: "inverterStorageInterface",
+      type: "select",
+      label: "逆变器储能接口",
+      placeholder: "请选择逆变器储能接口",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.inverterStorageInterface, baseData),
+    },
+    {
+      field: "inverterLowVoltagePowerPort",
+      type: "select",
+      label: "逆变器低压取电接口",
+      placeholder: "请选择逆变器低压取电接口",
+      active: false,
+      options: filterBaseDataDict(
+        BASE_TYPE.inverterLowVoltagePowerPort,
+        baseData
+      ),
+    },
+    {
+      field: "inverterAcOutputLine",
+      type: "select",
+      label: "逆变器交流出线",
+      placeholder: "请选择逆变器交流出线",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.inverterAcOutputLine, baseData),
+    },
+    {
+      field: "inverterNightSvg",
+      type: "select",
+      label: "逆变器夜间SVG",
+      placeholder: "请选择逆变器夜间SVG",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.inverterNightSvg, baseData),
+    },
+    {
+      field: "inverterHeater",
+      type: "select",
+      label: "逆变器加热器",
+      placeholder: "请选择逆变器加热器",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.inverterHeater, baseData),
+    },
+    {
+      field: "rmUnitFaultSignalUpload",
+      type: "select",
+      label: "环网柜继保故障信号上传",
+      placeholder: "请选择环网柜继保故障信号上传",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.rmUnitFaultSignalUpload, baseData),
+    },
+    {
+      field: "rmUnitOutdoor",
+      type: "select",
+      label: "环网柜户外",
+      placeholder: "请选择环网柜户外",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.rmUnitOutdoor, baseData),
+    },
+    {
+      field: "rmUnitCommunication",
+      type: "select",
+      label: "环网柜通讯",
+      placeholder: "请选择环网柜通讯",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.rmUnitCommunication, baseData),
+    },
+    {
+      field: "rmUnitLowPressureAlarm",
+      type: "select",
+      label: "环网柜低气压报警信号",
+      placeholder: "请选择环网柜低气压报警信号",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.rmUnitLowPressureAlarm, baseData),
+    },
+    {
+      field: "rmUnitUpDownInterlock",
+      type: "select",
+      label: "环网柜上下游互锁",
+      placeholder: "请选择环网柜上下游互锁",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.rmUnitUpDownInterlock, baseData),
+    },
+    {
+      field: "rmUnitElectricalOperation",
+      type: "select",
+      label: "环网柜电操",
+      placeholder: "请选择环网柜电操",
+      active: false,
+      options: filterBaseDataDict(
+        BASE_TYPE.rmUnitElectricalOperation,
+        baseData
+      ),
+    },
+    {
+      field: "transformerBrandAssign",
+      type: "select",
+      label: "变压器品牌指定",
+      placeholder: "请选择变压器品牌指定",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.transformerBrandAssign, baseData),
+    },
+    {
+      field: "transformer11Overvoltage",
+      type: "select",
+      label: "变压器1.1倍过压",
+      placeholder: "请选择变压器1.1倍过压",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.transformer11Overvoltage, baseData),
+    },
+    {
+      field: "transformerWindingTemperature",
+      type: "select",
+      label: "变压器绕组温度",
+      placeholder: "请选择变压器绕组温度",
+      active: false,
+      options: filterBaseDataDict(
+        BASE_TYPE.transformerWindingTemperature,
+        baseData
+      ),
+    },
+    {
+      field: "transformerType",
+      type: "select",
+      label: "变压器类型",
+      placeholder: "请选择变压器类型",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.transformerType, baseData),
+    },
+    {
+      field: "pdCabinetAcIsolation",
+      type: "select",
+      label: "配电柜交流ISO",
+      placeholder: "请选择配电柜交流ISO",
+      active: false,
+      options: filterBaseDataDict(BASE_TYPE.pdCabinetAcIsolation, baseData),
+    },
+  ];
+};
+
+export const formatFormItemConfigArea = (baseData) =>{
+  return [
+    {
+      field: "area",
+      type: "select",
+      label: "区域",
+      placeholder: "请选择区域",
+      active: false,
+      options: filterBaseArea(baseData),
+    },
   ]
 }
-
+// 筛选基本数据
 const filterBaseData = (type, baseData) => {
-  return baseData[type]
+  return baseData[type];
+};
+
+// 筛选字段数据
+const filterBaseDataDict = (type, baseDataDict) => {
+  // 首先获取dictionaryValues
+  const it = baseDataDict.find((item) => item.dictionaryCode == type);
+
+  // 然后映射转换每一个对象
+  const formattedValues = it.dictionaryValues.map((item) => ({
+    title: item.valueName,
+    value: item.valueCode,
+  }));
+
+  return formattedValues;
+};
+
+
+// 筛选区域
+const filterBaseArea = (baseDataArea)=>{
+ const areaArr =  baseDataArea.map(item=>({
+    title: item.area,
+    value: item.area,
+  }))
+
+  return areaArr
 }

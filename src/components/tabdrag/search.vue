@@ -48,7 +48,7 @@
                     <el-option
                       v-for="options in item.options"
                       :label="options.title"
-                      :value="options.value"
+                      :value="options.title"
                     >
                     </el-option>
                   </el-select>

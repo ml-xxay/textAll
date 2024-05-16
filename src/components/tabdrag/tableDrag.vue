@@ -42,13 +42,9 @@
                 v-for="tag in tableHead"
                 :key="tag.colKey"
                 :disable-transitions="false"
-                @close="handleClose1(tag)"
+                @close="handleClose(tag)"
               >
-                <el-checkbox v-model="tag.colChecked"
-                  ><span :class="{ active: tag.colChecked == true }">{{
-                    tag.colName
-                  }}</span></el-checkbox
-                >
+                <el-checkbox v-model="tag.ifColChecked"><span :class="{ active: tag.ifColChecked == true }">{{tag.colName }}</span></el-checkbox>
               </div>
             </draggable>
           </div>
@@ -90,9 +86,9 @@
       <template v-for="(col, index) in tableHead">
         <el-table-column
           show-overflow-tooltip
-          v-if="col.colChecked"
+          v-if="col.ifColChecked"
           :key="index"
-          :prop="col.colKey"
+          :prop="col.colKeyForCamelCase"
           :align="col.align || 'center'"
           :width="col.colWidth || 100"
         >
@@ -159,6 +155,7 @@ export default {
     //   tableHead: [...this.tableHeadSource],
     //   tableData: [...this.tableDataSource],
       tableErr: [],
+      tableHeadCopy:[]
     };
   },
   watch: {
@@ -169,8 +166,9 @@ export default {
           this.headKey = new Date().getTime() + ""; // 更新table key值
           this.$refs["elTable"].doLayout(); //重新渲染表格
           // localStorage.setItem('tableHead', JSON.stringify(newVal))
+          console.log(newVal,'---&&&&&');
           this.tableHead = newVal;
-          this.$emit("updatetableHead", this.tableHead);
+          // this.$emit("updatetableHead", this.tableHead);
         });
       },
       deep: true,
@@ -201,7 +199,7 @@ export default {
       console.log(newWidth);
       console.log(column.property);
       const columnItem = this.tableHead.find(
-        (col) => col.colKey === column.property
+        (col) => col.colKeyForCamelCase === column.property
       );
       if (columnItem) {
         console.log(columnItem);
@@ -265,11 +263,11 @@ export default {
     handleCopyRowEdit(row) {
       this.$emit("updatetableData", row);
     },
-    // handle
+    // handle差异
     handleDiffrence(tableData, formData) {
         const map = new Map()
         this.tableHead.forEach(item => {
-            map.set(item.value, item.label)
+            map.set(item.colKeyForCamelCase, item.colName)
         })
         tableData.forEach(item => {
             let str = ''
@@ -279,75 +277,9 @@ export default {
                     str += `${map.get(key)}:${item[key]},`
                 }
             })
-            this.$set(item, 'value', str ? str.slice(0, str.length - 1) : '')
+            this.$set(item, 'differenceItem', str ? str.slice(0, str.length - 1) : '')
         })
-    },
-    // 处理差异项
-    handelTableErr(tabDate, obj, s) {
-      console.log("*****************");
-      let tableErr = [];
-      Object.keys(obj).forEach((key) => {
-
-        tabDate.forEach((item, index) => {
-          if (obj[key] && obj[key] != item[key]) {
-              tableErr.push({ [key]: item[key], index });
-          }
-        });
-      });
-      console.log(tableErr, "---1我是表格错误信息");
-      this.tableErr = this.mergeObjectsByIndex(tableErr);
-      // 推送差异项到表格
-      this.changeTable(s);
-
-      //  this.$emit()
-      console.log("----我是研发--------");
-    },
-    //  2处理差异项
-    mergeObjectsByIndex(array) {
-      const indexMap = {};
-      array.forEach((item) => {
-        // 如果该index尚未处理，直接添加
-        if (!indexMap[item.index]) {
-          indexMap[item.index] = { ...item };
-        } else {
-          // 合并属性，这里简单覆盖，根据实际需求可能需要更复杂的合并逻辑
-          Object.assign(indexMap[item.index], item);
-        }
-      });
-      const textArr = Object.values(indexMap);
-      return this.transformToObjectStrings(textArr);
-    },
-    // 3.处理差异项最终数据
-    transformToObjectStrings(array) {
-      return array.map((item) => {
-        // 提取所有非index属性及值，转换为字符串形式并用逗号连接
-        const nonIndexProperties = Object.entries(item)
-          .filter(([key, _]) => key !== "index")
-          .map(([key, value]) => `${key}:${value}`)
-          .join(",");
-
-        // 3构建新对象，包含value属性和原始的index属性
-        return { value: nonIndexProperties, index: item.index };
-      });
-    },
-    changeTable(change) {
-      if (change == "1") {
-        this.tableErr.forEach((it, index) => {
-          this.tableData[it.index].value = it.value;
-        });
-        this.tableHead = [...this.tableHeadSource]
-        this.tableHead.unshift({
-          value: "value",
-          label: "差异项",
-          colChecked: true,
-        });
-      } else {
-        this.tableErr.forEach((it, index) => {
-          this.tableData[it.index].value = it.value;
-          this.$refs["elTable"].doLayout();
-        });
-      }
-    },
+    }
   },
 };
 </script>
@@ -441,6 +373,8 @@ el-dialog .el-dialog__header {
   border-bottom: solid 5px transparent;
 }
 .custom-popover {
+  right: 10px;
+  width: 200px !important;
   height: 200px;
   padding-bottom: 40px;
   max-height: 200px;
