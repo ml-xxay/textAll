@@ -11,6 +11,20 @@
         size="small"
         >新增</el-button
       >
+      <!-- <el-button icon="el-icon-upload" size="small" type="primary" @click="uploadFile">上传</el-button> -->
+      <el-upload
+        class="upload-demo"
+        action="#"
+        ref="upload"
+        :on-change="uploadFile"
+        :show-file-list="false"
+        :auto-upload="false"
+        :limit="1">
+        <el-button icon="el-icon-upload" size="small" type="primary">上传文件</el-button>
+      </el-upload>
+      <el-button icon="el-icon-notebook-2" size="small" type="primary" @click="downloadTemplate">下载模板</el-button>
+      <el-button icon="el-icon-download" size="small" type="primary" @click="downloadAllProductList">下载数据</el-button>
+
       <!-- 拖拽表头 -->
       <div class="set-up">
         <div class="p-box">表头设置</div>
@@ -44,7 +58,7 @@
                 :disable-transitions="false"
                 @close="handleClose(tag)"
               >
-                <el-checkbox v-model="tag.ifColChecked"><span :class="{ active: tag.ifColChecked == true }">{{tag.colName }}</span></el-checkbox>
+                <el-checkbox  v-model="tag.ifColChecked"><span :class="{ actives: tag.ifColChecked == true }">{{tag.colName }}</span></el-checkbox>
               </div>
             </draggable>
           </div>
@@ -131,10 +145,13 @@ export default {
       type: Array,
       default: () => [],
     },
-    // tableDataSource: {
-    //   type: Array,
-    //   required: true,
-    // },
+     // 默认研发
+     role:{
+      type:String,
+      default: () => {
+        return 'iprs_rd'
+      }
+    },
     tableData: {
       type: Array,
       required: true,
@@ -166,9 +183,8 @@ export default {
           this.headKey = new Date().getTime() + ""; // 更新table key值
           this.$refs["elTable"].doLayout(); //重新渲染表格
           // localStorage.setItem('tableHead', JSON.stringify(newVal))
-          console.log(newVal,'---&&&&&');
+          // console.log(newVal,'---&&&&&');
           this.tableHead = newVal;
-          // this.$emit("updatetableHead", this.tableHead);
         });
       },
       deep: true,
@@ -204,7 +220,9 @@ export default {
       if (columnItem) {
         console.log(columnItem);
         columnItem.colWidth = newWidth;
+        this.$emit("updatetableHead", this.tableHead);
       }
+
     },
     // 保存表头设置以及拖拽顺序配置
     saveTableHerderSetUp() {
@@ -213,12 +231,12 @@ export default {
     // 多选
     handleSelectionChange(val) {
       if ((val && val.length == 0) || val.length != 1) {
-        return (this.isDisabled = true);
+        return this.isDisabled = true;
       }
-
-      console.log(this.tableData, "table");
-      console.log(val, "所选中的项");
-
+      if(this.tableData[0].isCopied) {
+        this.isDisabled = true;
+        return
+      }
       this.selectTableRow = val;
       const selectedIndexes = this.selectTableRow.map((row) =>
         this.tableData.findIndex((item) => item.id === row.id)
@@ -231,12 +249,7 @@ export default {
 
       const count = this.tableData.filter((item) => item.id == this.tableData[selectedIndexes[0]].id).length;
       console.log("被选中行的索引:", selectedIndexes);
-      console.log(
-        count,
-        "数组中id出现的次数",
-        "id:",
-        this.tableData[selectedIndexes[0]].id
-      );
+      console.log(count,"数组中id出现的次数","id:",this.tableData[selectedIndexes[0]].id);
       if (count != 1) {
         this.isDisabled = true;
       } else {
@@ -262,6 +275,29 @@ export default {
     // 编辑
     handleCopyRowEdit(row) {
       this.$emit("updatetableData", row);
+    },
+    
+    // 上传文件
+    uploadFile(response, file){
+      this.$refs.upload.clearFiles();
+      console.log(response, file);
+      let fileType = file[0].name.substring(file[0].name.lastIndexOf(".") + 1);
+      if(fileType == 'xlsx') {
+        console.log(file[0].name,'----------');
+        let formData = new FormData()
+          formData.append('productListFile', file[0].raw)
+        this.$emit("uploadFile",formData);
+      } else {
+        this.$message.error('文件类型错误')
+      }
+    },
+    // 下载模板
+    downloadTemplate(){
+      this.$emit("downloadTemplate");
+    },
+    // 下载数据
+    downloadAllProductList(){
+      this.$emit("downloadAllProductList");
     },
     // handle差异
     handleDiffrence(tableData, formData) {
@@ -317,6 +353,9 @@ export default {
 }
 .table-box {
   box-sizing: border-box;
+}
+.upload-demo {
+  margin: 0 10px;
 }
 /* 表头设置 */
 el-dialog .el-dialog__header {
@@ -394,7 +433,7 @@ el-dialog .el-dialog__header {
 .save-btn {
   width: 100%;
 }
-.active {
+.actives {
   color: #3370ff;
 }
 </style>

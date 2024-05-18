@@ -19,8 +19,8 @@
               >
               <!-- 对label进行处理 -->
               <template slot="label">
-                <el-tooltip :content="item.label" placement="top">
-                  <span >{{item.label}}</span>
+                <el-tooltip  ref="tooltipTarget" :disabled="shouldShowTooltip"  :content="item.label"  placement="top">
+                  <span @mouseenter="showTips($event)"  @mouseleave="hiddenShowTips($event)" >{{item.label}}</span>
                 </el-tooltip>
               </template>
                 <!-- 配置文件类型是 input-->
@@ -30,7 +30,7 @@
                     @input="handleValueChange($event, item.field)"
                     :placeholder="item.placeholder"
                     :show-password="item.type == 'password'"
-                    :class="{ 'active': activeObj[item.field]  && role}"
+                    :class="{ 'active': activeObj[item.field]  && role == 'iprs_sale'}"
                     clearable
                   ></el-input>
                 </template>
@@ -41,7 +41,7 @@
                     @input="handleValueChange($event, item.field)"
                     :placeholder="item.placeholder"
                     style="width: 100%"
-                    :class="{ 'active': activeObj[item.field] && role}"
+                    :class="{ 'active': activeObj[item.field] && role == 'iprs_sale'}"
                     clearable
                     filterable
                   >
@@ -69,12 +69,6 @@
             <el-button v-else size="small" class="icon" icon="el-icon-arrow-down" @click="iconDisable = true">展开</el-button>
         </div>
     </div>
-    <div class="footer" v-else>
-      <div class="handle-btns">
-          <el-button v-if="iconDisable" size="small" class="icon" icon="el-icon-arrow-up" @click="iconDisable = false">折叠</el-button>
-          <el-button v-else size="small" class="icon" icon="el-icon-arrow-down" @click="iconDisable = true">展开</el-button>
-      </div>
-  </div>
   </div>
 </template>
 
@@ -99,9 +93,9 @@ export default {
     },
     // 弹窗时不显示飘红
     role:{
-      type:Boolean,
+      type:String,
       default: () => {
-        return false
+        return 'iprs_sale'
       }
     },
     rules: {
@@ -145,6 +139,15 @@ export default {
     };
   },
   watch: {
+    footer:{
+      deep: true,
+      immediate: true,
+      handler: function (newVal) {
+        if(!newVal) {
+          this.iconDisable = true
+        }
+      },
+    },
     // 动态决定formDate的字段  后续搜索字段发生变化只需要传递配置即可
     formItems: {
       deep: true,
@@ -179,6 +182,13 @@ export default {
   
   },
   methods: {
+    showTips(el){
+      console.info(el.target.offsetWidth > 98,'-------------el----------')
+      el.target.offsetWidth > 98 ? this.shouldShowTooltip = false : this.shouldShowTooltip = true
+    },
+    hiddenShowTips(el){
+      this.shouldShowTooltip = false
+    },
     formDateMets(plyload) {
       if(plyload == 'formItems'){
         const formItem = this.formItems

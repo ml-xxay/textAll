@@ -12,6 +12,9 @@
       :tableData="tableData"
       @updatetableData="updatetableData"
       @updatetableHead="updatetableHead"
+      @uploadFile="uploadFile"
+      @downloadTemplate="downloadTemplate"
+      @downloadAllProductList="downloadAllProductList"
       ref="tableDragRef"
     ></tableDrag>
 
@@ -46,21 +49,15 @@ export default {
     return {
       //搜索配置
       searchFormConfig: {
-        role: true,
+        role: '',
         labelWidth: "120px",
         itemStyle: {
-          //输入框的间距
           padding: "5px",
         },
         colLayout: {
           span: 6,
         },
-        formItems: [],
-        rules: {
-          name: [
-            { required: true, message: "请输入活动名称", trigger: "blur" },
-          ],
-        },
+        formItems: []
       },
       // 表格配置
       tableHeadConfig: {
@@ -90,7 +87,7 @@ export default {
           // },
         ],
         showSelectColumn: true, //多选项显示
-        role: false, //角色
+        role: '', //角色
       },
       // 表格数据
       tableData: [],
@@ -105,44 +102,12 @@ export default {
           span: 6,
         },
         footer: false,
-        formItems: [
-          //field 是要双向绑定所对应上去的字段  type 输入框类型  label 标头名称  value是输入框默认值
-          {
-            field: "id",
-            type: "input",
-            label: "id",
-            placeholder: "请输入id",
-          },
-          {
-            field: "v0",
-            type: "input",
-            label: "v0",
-            placeholder: "请输入v0",
-          },
-          {
-            field: "v1",
-            linHeight: {
-              lineHeight: "20px",
-            },
-            type: "select",
-            value: "自己决定默认值",
-            label: "测试下拉用户名",
-            placeholder: "请选择用户名",
-            options: [
-              { title: "启用", value: "1" },
-              { title: "禁用", value: "2" },
-            ],
-          },
-        ],
-        rules: {
-          name: [
-            { required: true, message: "请输入活动名称", trigger: "blur" },
-          ],
-        },
+
+        formItems: [],
       },
       // 弹框编辑时要操作的数据
       defaultInfo: {},
-      role: false,
+      role: '',
       formData: {}, // 检索条件
       baseData: {},
       headers: {
@@ -154,25 +119,15 @@ export default {
       },
     };
   },
-  created() {
-    // this.getRole('sales')
-    this.getRole("iprs_rd");
+ async created() {
+    // this.getRole('iprs_sale')
+    await this.getRole();
     // 获取基本数据与字典数据之和
     this.getDataAll();
     this.getTableHeaderConfig(); //表格配置头
   },
 
   methods: {
-    // 搜索基础数据处理
-    filterBaseData(type) {
-      return this.baseData
-        ? this.baseData[type]
-        : [{ title: "111", value: "8748977" }];
-    },
-    // 搜索字典数据处理
-    filterBaseDataDict(type) {
-      return [];
-    },
     getDataAll() {
       let that = this;
       const basicDataPromise = axios.post(
@@ -221,13 +176,6 @@ export default {
     // 获取表格配置头
     getTableHeaderConfig() {
       let that = this;
-      const headers = {
-        "Content-Type": "application/json", // 指定内容类型为JSON
-        Xdapappid: "572840463237644288", // 自定义请求头
-        Xdaptenantid: "491633633145126913", // 自定义请求头
-        Xdaptoken:
-          "	eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MTU3ODM5NzIsImlhdCI6MTcxNTc0MDk3MiwieGRhcHVzZXJpZCI6IjEwMDUxNzM4OTkwNTA3NzIwNzA0MCJ9.u6ii5lisAZABUkj8TSug_sBuCs8cDQoVFQXLx6UyB6eCYg6mhFkrNoZ13GVDW9oB4AHCmdAP85SPzSsBO4Ph4g", // 自定义请求头
-      };
       axios
         .post(
           `http://10.13.70.240:9091/custom/access/h5/productColConfig/getProductColConfig`,
@@ -237,6 +185,9 @@ export default {
         )
         .then(function (res) {
           // console.log(res.data.data, "---我是模拟 表头 数据------");
+          if(that.role == 'iprs_sale') {
+            res.data.data[0].ifColChecked = false
+          }
           that.tableHeadConfig.tableHead = res.data.data;
 
           // that.tableHeadConfig.tableHead.unshift({
@@ -266,15 +217,11 @@ export default {
         )
         .then(function (res) {
           console.log(res.data.data, "---我是角色------");
-          const {role} = res.data.data
+          const { role } = res.data.data;
           //先请求身份 在进行判断
-          if (role == "iprs_sale") {
-            that.role = true;
-            that.searchFormConfig.role = true;
-          } else {
-            that.role = false;
-            that.tableHeadConfig.role = false;
-          }
+            that.role = role;
+            that.tableHeadConfig.role = role;
+            that.searchFormConfig.role = role;
         });
     },
     // 编辑
@@ -285,6 +232,17 @@ export default {
     },
     // 确定修改
     dialogEdit(obj) {
+      // 确定请求
+      axios
+        .post(
+          `http://10.13.70.240:9091/custom/access/h5/productList/copyProductList`,
+          obj,
+          { headers: this.headers }
+        )
+        .then(function (res) {
+          console.log(res, "---我是新建------");
+        });
+
       obj.isCopied = true;
       this.$set(this.tableData, 0, obj);
       this.$refs.tableDragRef.handleDiffrence(this.tableData, this.formData);
@@ -296,17 +254,17 @@ export default {
         .post(
           `http://10.13.70.240:9091/custom/access/h5/productColConfig/updateProductColConfigs`,
           // `http://10.63.32.4:20000/mock/207/custom/access/h5/productColConfig/getProductColConfig`,
-          {productColConfigList:tableHead},
+          { productColConfigList: tableHead },
           { headers: that.headers }
         )
         .then(function (res) {
           console.log(res.data.data, "---我是修改表头------");
-          if(res.data.data == 'success'){
-            that.getTableHeaderConfig()
+          if (res.data.data == "success") {
+            that.getTableHeaderConfig();
           }
         })
         .catch(function (error) {
-          // this.$message.error(error);
+          console.log(error);
         });
       console.log("------我是确定修改表头配置------", tableHead);
     },
@@ -346,9 +304,100 @@ export default {
       //   that.$refs.tableDragRef.handleDiffrence(this.tableData, obj);
       // }
     },
-
+    // 重置
     formRest(form) {
       this.tableData = [];
+    },
+    // 下载模板
+    downloadTemplate() {
+      axios
+        .post(
+          `http://10.13.70.240:9091/custom/access/h5/download/downloadProductListTemplate`,
+          {},
+          { 
+            headers: this.headers,
+            responseType: 'arraybuffer',
+          }
+        )
+        .then(function (res) {
+          console.log(res, "---我是下载模板------");
+          const blob = new Blob([res.data], {
+            type: res.headers['content-type'],
+          }); 
+          const downloadUrl = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = downloadUrl;
+          link.download = "模板.xlsx"; // 指定下载的文件名
+          link.style.display = "none";
+          document.body.appendChild(link);
+          link.click();
+          window.URL.revokeObjectURL(downloadUrl); // 释放URL对象
+          document.body.removeChild(link); // 清理DOM
+        })
+        .catch(function (error) {
+          console.error("文件下载出错:", error);
+        });
+    },
+    // 下载数据
+    downloadAllProductList() {
+      axios
+        .post(
+          `http://10.13.70.240:9091/custom/access/h5/download/downloadAllProductList`,
+          {},
+          { 
+            headers: this.headers,
+            responseType: 'arraybuffer',
+          }
+        )
+        .then(function (res) {
+          console.log(res, "---我是下载数据------");
+          const blob = new Blob([res.data], {
+            type: res.headers['content-type'],
+          }); 
+          const downloadUrl = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = downloadUrl;
+          link.download = "模板.xlsx"; // 指定下载的文件名
+          link.style.display = "none";
+          document.body.appendChild(link);
+          link.click();
+          window.URL.revokeObjectURL(downloadUrl); // 释放URL对象
+          document.body.removeChild(link); // 清理DOM
+        })
+        .catch(function (error) {
+          console.error("文件下载出错:", error);
+        });
+    },
+    //  上传文件
+    uploadFile(obj) {
+      let that = this
+      let headersCopy = {
+        "Content-Type": "multipart/form-data", // 指定内容类型为JSON
+        Xdapappid: "572840463237644288", // 自定义请求头
+        Xdaptenantid: "491633633145126913", // 自定义请求头
+        Xdaptoken:
+          "	eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MTU3ODM5NzIsImlhdCI6MTcxNTc0MDk3MiwieGRhcHVzZXJpZCI6IjEwMDUxNzM4OTkwNTA3NzIwNzA0MCJ9.u6ii5lisAZABUkj8TSug_sBuCs8cDQoVFQXLx6UyB6eCYg6mhFkrNoZ13GVDW9oB4AHCmdAP85SPzSsBO4Ph4g",
+      }
+      axios
+        .post(
+          `http://10.13.70.240:9091/custom/access/h5/upload/uploadProductList`,
+          obj,
+          { 
+            headers: headersCopy,
+          }
+        )
+        .then(function (res) {
+          console.log(res, "---我是上传文件------");
+          if(res.data.status == 'error'){
+            that.$message.error(res.data.data.message)
+          }else {
+            that.$message.success('上传成功')
+          }
+          
+        })
+        .catch(function (error) {
+          that.$message.error('请求失败',error)
+        });
     },
   },
 };

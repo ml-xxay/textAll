@@ -15,7 +15,7 @@
       ></page-search>
 
       <span slot="footer" class="dialog-footer">
-        <el-button @click="close">取 消</el-button>
+        <el-button @click="close">关闭</el-button>
         <el-button type="primary" @click="handleConfirmClick">确 定</el-button>
       </span>
     </el-dialog>
@@ -49,13 +49,26 @@ export default {
       formCope: {},
     };
   },
+  watch: {
+    defaultInfo: {
+      deep: true,
+      immediate: true,
+      handler: function (newValue, oldV) {
+        // const dialogformDate = {}
+        // for (const item of this.modalConfig?.formItems ?? []) {
+        //   dialogformDate[item.field] = newValue[item.field]
+        // }
+        this.formDate = {...newValue}
+      },
+    },
+  },
   methods: {
     // 关闭弹框
     close() {
       this.dialogVisible = false;
     },
     formDateChange(searchform){
-        this.formDate = {...searchform}
+        this.formDate = {...this.formDate,...searchform}
         console.log(searchform,'我是输入框改变的值');
     },
     // 确定
