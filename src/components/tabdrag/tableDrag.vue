@@ -226,6 +226,9 @@ export default {
     },
     // 保存表头设置以及拖拽顺序配置
     saveTableHerderSetUp() {
+      this.tableHead.forEach((item,index)=>{
+        item.colSort = index + ''
+      })
       this.$emit("updatetableHead", this.tableHead);
     },
     // 多选
