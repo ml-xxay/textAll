@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = [
+        {
+            parentId:null,
+          applicationId: 1,
+          createdBy: 'admin',
+          creationDate: '2021-06-07 16:01:17',
+          deleted: 0,
+          haveChild: false,
+          icon: 'peizhiguanli',
+          id: 1,
+          index: 'application-management',
+          lastUpdateDate: '2021-06-07 16:01:58',
+          lastUpdatedBy: 'admin',
+          menuIcon: 'peizhiguanli',
+          menuName: '应用管理',
+          menuUrl: 'application-management',
+          name: '应用管理',
+          objectVersionNumber: 6
+        },
+        {
+            parentId:null,
+          applicationId: 1,
+          createdBy: 'lulianghong',
+          creationDate: '2024-05-31 15:22:50',
+          deleted: 0,
+          haveChild: false,
+          icon: 'data',
+          id: 28,
+          index: '',
+          lastUpdateDate: '2024-05-31 15:22:50',
+          lastUpdatedBy: 'lulianghong',
+          menuCode: '',
+          menuIcon: 'data',
+          menuName: '日志中心',
+          menuUrl: '',
+          name: '日志中心',
+          objectVersionNumber: 1
+        },
+        {
+          applicationId: 1,
+          createdBy: 'lulianghong',
+          creationDate: '2024-05-31 15:23:02',
+          deleted: 0,
+          haveChild: false,
+          icon: 'zuzhifangwen',
+          id: 29,
+          index: 'login-log',
+          lastUpdateDate: '2024-05-31 15:23:02',
+          lastUpdatedBy: 'lulianghong',
+          menuCode: '',
+          menuIcon: 'zuzhifangwen',
+          menuName: '登录日志',
+          menuUrl: 'login-log',
+          name: '登录日志',
+          objectVersionNumber: 2,
+          parentId: 28
+        },
+        {
+          applicationId: 1,
+          createdBy: 'lulianghong',
+          creationDate: '2024-05-31 15:23:10',
+          deleted: 0,
+          haveChild: false,
+          icon: 'zuzhifangwen',
+          id: 30,
+          index: 'operation-log',
+          lastUpdateDate: '2024-05-31 15:23:10',
+          lastUpdatedBy: 'lulianghong',
+          menuCode: '',
+          menuIcon: 'zuzhifangwen',
+          menuName: '操作日志',
+          menuUrl: 'operation-log',
+          name: '操作日志',
+          objectVersionNumber: 2,
+          parentId: 28
+        },
+        {
+            parentId:null,
+          applicationId: 1,
+          createdBy: 'lulianghong',
+          creationDate: '2024-06-12 10:28:36',
+          deleted: 0,
+          haveChild: false,
+          icon: 'all',
+          id: 31,
+          index: 'permission-transfer',
+          lastUpdateDate: '2024-06-12 10:28:36',
+          lastUpdatedBy: 'lulianghong',
+          menuCode: '',
+          menuIcon: 'all',
+          menuName: '权限转移',
+          menuUrl: 'permission-transfer',
+          name: '权限转移',
+          objectVersionNumber: 2
+        }
+      ];
+
+      let arr1 = [
+        {
+          applicationId: 1,
+          createdBy: 'admin',
+          creationDate: '2021-06-07 16:01:17',
+          deleted: 0,
+          haveChild: false,
+          icon: 'peizhiguanli',
+          id: 1,
+          index: 'application-management',
+          lastUpdateDate: '2021-06-07 16:01:58',
+          lastUpdatedBy: 'admin',
+          menuIcon: 'peizhiguanli',
+          menuName: '应用管理',
+          menuUrl: 'application-management',
+          name: '应用管理',
+          objectVersionNumber: 6
+        },
+        {
+          applicationId: 1,
+          createdBy: 'lulianghong',
+          creationDate: '2024-05-31 15:22:50',
+          deleted: 0,
+          haveChild: false,
+          icon: 'data',
+          id: 28,
+          index: '',
+          lastUpdateDate: '2024-05-31 15:22:50',
+          lastUpdatedBy: 'lulianghong',
+          menuCode: '',
+          menuIcon: 'data',
+          menuName: '日志中心',
+          menuUrl: '',
+          name: '日志中心',
+          objectVersionNumber: 1,
+          children: [
+            {
+              applicationId: 1,
+              createdBy: 'lulianghong',
+              creationDate: '2024-05-31 15:23:02',
+              deleted: 0,
+              haveChild: false,
+              icon: 'zuzhifangwen',
+              id: 29,
+              index: 'login-log',
+              lastUpdateDate: '2024-05-31 15:23:02',
+              lastUpdatedBy: 'lulianghong',
+              menuCode: '',
+              menuIcon: 'zuzhifangwen',
+              menuName: '登录日志',
+              menuUrl: 'login-log',
+              name: '登录日志',
+              objectVersionNumber: 2,
+              parentId: 28
+            },
+            {
+              applicationId: 1,
+              createdBy: 'lulianghong',
+              creationDate: '2024-05-31 15:23:10',
+              deleted: 0,
+              haveChild: false,
+              icon: 'zuzhifangwen',
+              id: 30,
+              index: 'operation-log',
+              lastUpdateDate: '2024-05-31 15:23:10',
+              lastUpdatedBy: 'lulianghong',
+              menuCode: '',
+              menuIcon: 'zuzhifangwen',
+              menuName: '操作日志',
+              menuUrl: 'operation-log',
+              name: '操作日志',
+              objectVersionNumber: 2,
+              parentId: 28
+            }
+          ]
+        },
+        {
+          applicationId: 1,
+          createdBy: 'lulianghong',
+          creationDate: '2024-06-12 10:28:36',
+          deleted: 0,
+          haveChild: false,
+          icon: 'all',
+          id: 31,
+          index: 'permission-transfer',
+          lastUpdateDate: '2024-06-12 10:28:36',
+          lastUpdatedBy: 'lulianghong',
+          menuCode: '',
+          menuIcon: 'all',
+          menuName: '权限转移',
+          menuUrl: 'permission-transfer',
+          name: '权限转移',
+          objectVersionNumber: 2
+        }
+      ];
+
+    function  transformArray(arr) {
+      const result = {}
+      // 将元素按照parentId分类
+      arr.forEach((item) => {
+        if (!result[item.id]) {
+          result[item.id] = item
+        }
+        if (item.parentId) {
+          if (!result[item.parentId]) {
+            result[item.parentId].children = []     
+            // = { children: [] }
+          }
+          result[item.parentId].children.push(item)
+        }
+      })
+
+      // 过滤掉没有parentId的元素，即根节点元素
+      return Object.values(result).filter((item) => !item.parentId)
+    }
+
+
+   function arrayToTree(items) {
+      const result = [] // 用于存放最终的树结构
+      const itemMap = new Map() // 创建一个映射表，key为id，value为对应的item
+
+      // 遍历items，填充映射表
+      items.forEach((item) => {
+        item.children = [] // 初始化每个item的children数组
+        itemMap.set(item.id, item)
+      })
+
+      // 再次遍历items，构建树结构
+      items.forEach((item) => {
+        const parent = item.parentId && itemMap.get(item.parentId)
+        if (parent) {
+          // 如果有父节点，则将item添加到父节点的children数组中
+          parent.children.push(item)
+        } else {
+          // 如果没有父节点，则将item添加到结果数组中
+          result.push(item)
+        }
+      })
+
+      return result
+    }
+
+
+
+
+
+    const output = arrayToTree(arr);
+    console.log(output);
+    </script>
+  </body>
+</html>

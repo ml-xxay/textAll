@@ -13,6 +13,10 @@ Object.keys(directives).forEach(key => {
 // import * as directives from '@/directives'
 // Vue.directive('input',directives)
 
+
+// 引入字体图标
+import './assets/fonts/iconfont.css'
+
 // 处理日期插件  moment
 import moment from 'moment'
 Vue.config.productionTip = false

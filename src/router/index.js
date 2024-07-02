@@ -10,6 +10,7 @@ const xnlbFather = () => import("../views/xnlbFather.vue");//虚拟列表
 const y = () => import("../views/y.vue");//x轴不等分
 const psd = () => import("../views/changePassword.vue"); //修改密码
 const tableTz = () => import("../views/tableTz.vue"); //修改密码
+const Select = () => import('../views/select.vue')
 
 Vue.use(VueRouter);
 
@@ -17,13 +18,18 @@ const routes = [
   {
     path: "/",
     // redirect: "/psd",
-    // redirect: '/table',
-    redirect: "/tabletz",
+    redirect: '/table',
+    // redirect: "/tabletz",
   },
   {
     path: "/y",
     name: "y",
     component: y,
+  },
+  {
+    path:'select',
+    name:'select',
+    component:Select
   },
 
   {

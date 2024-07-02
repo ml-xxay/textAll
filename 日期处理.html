@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 创建一个表示2024年6月27日的Date对象
+      var specifiedDate = new Date(); // 注意月份是从0开始计数的，所以6月是5
+
+      // 中文星期名称数组
+      var weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+
+      // 计算指定日期是周几，getDay()返回值为0（周日）到6（周六）
+      var weekdayIndex = specifiedDate.getDay();
+
+      // 获取对应的中文星期名称
+      var weekday = weekdays[weekdayIndex];
+
+      // 获取日期部分，无需前导零
+      var date = specifiedDate.getDate();
+
+      // 格式化并输出
+      console.log(weekday + date);  //输出当天  星期几多少号   例：四27
+    </script>
+  </body>
+</html>

@@ -1,5 +1,7 @@
 <template>
   <div>
+   
+
     <!-- 测试表单效验 -->
     <div style="margin-left: 48%">
       <br />
@@ -52,7 +54,11 @@
       ></el-input
       ><br /><br /><br />
     </div>
-    <!-- 测试表单效验 -->
+    <!-- 测试字体图标 -->
+    
+    <div>我是字体图标: <i class="iconfont icon-wenhao"></i></div>
+    <div>我是字体图标: <i class="iconfont icon-fuxian"></i></div>
+    <div>我是字体图标: <i class="iconfont icon-rili"></i></div>
 
     <!-- 搜索表单 -->
     <page-search
@@ -108,56 +114,12 @@
       ref="pageModalRef"
     ></page-modal>
 
-    <!-- 搜索表单 -->
-    <!-- <form-search v-bind="searchFormConfig" v-model="formDate">
-      <template #footer>
-        <div class="handel-btns">
-          <el-button type="primary" icon="el-icon-refresh">重置</el-button>
-          <el-button type="primary" icon="el-icon-search">搜索</el-button>
-        </div>
-      </template>
-    </form-search> -->
-    <!-- table表格 -->
-    <!--  -->
-    <!-- <mytable :listDate="listDate" v-bind="contentTableConfig">
-      <template #headerRight>
-        <el-button type="parimary" size="medium">新建用户</el-button>
-      </template>
-      <!--通过具名插槽status 对状态插入 -->
-    <!-- <template #status="scope">
-        <el-button size="mini" :type="scope.row.status ? 'success' : 'danger'">
-          {{ scope.row.status ? '启用' : '禁用' }}
-        </el-button>
-      </template> -->
-    <!--通过具名插槽 handler 对操作插入 -->
-    <!-- <template #handler>
-        <el-button
-          icon="el-icon-edit"
-          size="mini"
-          type="text"
-          @click="handleEditClick(scope.row)"
-        >
-          编辑
-        </el-button>
-        <el-button
-          icon="el-icon-delete"
-          size="mini"
-          type="text"
-          @click="handleDeleteClick(scope.row)"
-          >删除</el-button
-        >
-      </template> 
-    </mytable> -->
   </div>
 </template>
 <script>
-// import formSearch from '../base-ui/form' //搜索表单
-// import mytable from '../base-ui/table' //table表格
-
 import PageSearch from '../components/page-search/page-search.vue' //搜索表单
 import PageContent from '../components/page-content/page-content.vue' //table表格
 import PageModal from '../components/page-modal/page-modal.vue' // 弹框
-// import HyFrom from '../base-ui/form'  111122222
 
 export default {
   name: '',
@@ -179,17 +141,6 @@ export default {
       input3: '',
       input4: '',
       input5: '',
-      // 搜索需要双向绑定的字段
-      //formDate: {}, // 想要封装的很灵活  这里就不能手动去写字段  应该由配置文件的 field 来决定
-      // formDate: {
-      //   id: '',
-      //   name: '',
-      //   password: '',
-      //   iphone: '',
-      //   status: '', //状态
-      //   createdTime: '', //创建时间
-      // },
-
       // 搜索表单的 配置
       searchFormConfig: {
         labelWidth: '120px',
@@ -224,21 +175,21 @@ export default {
             placeholder: '请输入手机号码',
           },
           // 单选下拉
-          {
-            field: 'status',
-            linHeight: {
-              lineHeight: '20px',
-            },
-            type: 'select',
-            value: '自己决定默认值',
-            label: '用户状态用户状态用户状态',
-            placeholder: '请选择用户状态',
-            options: [
-              { title: '全部', value: ' ' },
-              { title: '启用', value: 1 },
-              { title: '禁用', value: 0 },
-            ],
-          },
+          // {
+          //   field: 'status',
+          //   linHeight: {
+          //     lineHeight: '20px',
+          //   },
+          //   type: 'select',
+          //   value: '自己决定默认值',
+          //   label: '用户状态用户状态用户状态',
+          //   placeholder: '请选择用户状态',
+          //   options: [
+          //     { title: '全部', value: '' },
+          //     { title: '启用', value: 1 },
+          //     { title: '禁用', value: 0 },
+          //   ],
+          // },
           // 多选下拉
           {
             field: 'status',
