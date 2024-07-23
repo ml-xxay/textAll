@@ -20,6 +20,7 @@
         >
           <el-input
             v-model.trim="form.oldPassword"
+            show-password
           ></el-input>
         </el-form-item>
         <!-- 新密码 -->
@@ -33,12 +34,14 @@
             width="250"
             trigger="manual"
             v-model="visible"
+            
           >
             <el-input
               v-model.trim="form.newPassword"
               slot="reference"
               @focus="visible = true"
               @blur="visible = false"
+              show-password
             ></el-input>
             <div>
               <h4 class="tit">
@@ -83,6 +86,7 @@
           <el-input
             v-model.trim="form.confirmPassword"
             @press.enter.native="passwordSave"
+            show-password
           ></el-input>
         </el-form-item>
       </el-form>

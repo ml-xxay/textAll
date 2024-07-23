@@ -1,6 +1,6 @@
 <template>
   <div>
-   
+    <el-input v-model="input" placeholder="请输入内容" show-password></el-input>
 
     <!-- 测试表单效验 -->
     <div style="margin-left: 48%">

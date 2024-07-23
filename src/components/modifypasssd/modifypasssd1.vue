@@ -22,6 +22,7 @@
             v-model.trim="form.newPassword"
             @focus="visible = true"
             @blur="visible = false"
+            show-password
           ></el-input>
           <!-- 弹框提示 -->
           <el-popover
@@ -74,7 +75,7 @@
           :label="obj['msg.modify.password.confirmPassword'] || '确认密码'"
           prop="confirmPassword"
         >
-          <el-input v-model.trim="form.confirmPassword"></el-input>
+          <el-input v-model.trim="form.confirmPassword" show-password></el-input>
         </el-form-item>
       </el-form>
       <div class="btn" @click="save">

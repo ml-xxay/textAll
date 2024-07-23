@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let url = `https://sso-sit.sungrow.cn/sso/noPermission?client_id=ai11ee6cf46ec048ec9d6822775e07b482&errorMessage=对不起，您暂无权限`;
+      let newurl = url.split("?")[1];
+      console.log(newurl,'newurl');
+      let urlParams = new URLSearchParams(newurl);
+      // 获取特定参数的值
+      const errorMessage = urlParams.get('errorMessage');
+      const clientId = urlParams.get('client_id');
+
+      for (let param of urlParams.keys()) {
+        console.log(`Found parameter: ${param}`);
+      }
+
+      console.log('errorMessage:', errorMessage);
+      console.log('client_id:', clientId);
+    </script>
+  </body>
+</html>

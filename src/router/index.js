@@ -17,8 +17,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    // redirect: "/psd",
-    redirect: '/table',
+    redirect: "/psd",
+    // redirect: '/table',
     // redirect: "/tabletz",
   },
   {
