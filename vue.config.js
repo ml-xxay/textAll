@@ -8,7 +8,13 @@ module.exports = {
   lintOnSave: false, //关闭eslint
   publicPath: './',
   devServer: {
-    disableHostCheck: true
+    disableHostCheck: true,
+    // proxy: {
+    //   '/custom': {
+    //     target: 'http://10.13.70.240:9091',
+    //     changeOrigin: true
+    //   }
+    // },
   },
   // module: {
   //   rules: [

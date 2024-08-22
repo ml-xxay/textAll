@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let timeSlots = [
+        {
+          id: '610842902737715200',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time0001',
+          valueName: '00:00-01:00',
+          text: '00:00-01:00',
+          displayOrder: 0,
+          valueDescribe: '00:00-01:00 时间段',
+          valueMulticolor: '#027AFF'
+        },
+        {
+          id: '610843359891685376',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time0102',
+          valueName: '01:00-02:00',
+          text: '01:00-02:00',
+          displayOrder: 10,
+          valueDescribe: '01:00-02:00 时间段',
+          valueMulticolor: '#F56C6C'
+        },
+        {
+          id: '610843453105897472',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time0203',
+          valueName: '02:00-03:00',
+          text: '02:00-03:00',
+          displayOrder: 20,
+          valueDescribe: '02:00-03:00 时间段',
+          valueMulticolor: '#7ED321'
+        },
+        {
+          id: '610843561587376128',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time0304',
+          valueName: '03:00-04:00',
+          text: '03:00-04:00',
+          displayOrder: 30,
+          valueDescribe: '03:00-04:00 时间段',
+          valueMulticolor: '#F8E71C'
+        },
+        {
+          id: '610843669733310464',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time0405',
+          valueName: '04:00-05:00',
+          text: '04:00-05:00',
+          displayOrder: 40,
+          valueDescribe: '04:00-05:00 时间段',
+          valueMulticolor: '#F5A623'
+        },
+        {
+          id: '610843762230296576',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time0506',
+          valueName: '05:00-06:00',
+          text: '05:00-06:00',
+          displayOrder: 50,
+          valueDescribe: '05:00-06:00 时间段',
+          valueMulticolor: '#C377E0'
+        },
+        {
+          id: '610843849236938752',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time0607',
+          valueName: '06:00-07:00',
+          text: '06:00-07:00',
+          displayOrder: 60,
+          valueDescribe: '06:00-07:00 时间段',
+          valueMulticolor: '#8B572A'
+        },
+        {
+          id: '610843935228559360',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time0708',
+          valueName: '07:00-08:00',
+          text: '07:00-08:00',
+          displayOrder: 70,
+          valueDescribe: '07:00-08:00 时间段',
+          valueMulticolor: '#163C66'
+        },
+        {
+          id: '610844031248760832',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time0809',
+          valueName: '08:00-09:00',
+          text: '08:00-09:00',
+          displayOrder: 80,
+          valueDescribe: '08:00-09:00 时间段',
+          valueMulticolor: '#027AFF'
+        },
+        {
+          id: '610844119161372672',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time0910',
+          valueName: '09:00-10:00',
+          text: '09:00-10:00',
+          displayOrder: 90,
+          valueDescribe: '09:00-10:00 时间段',
+          valueMulticolor: '#F56C6C'
+        },
+        {
+          id: '610844193811595264',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time1011',
+          valueName: '10:00-11:00',
+          text: '10:00-11:00',
+          displayOrder: 100,
+          valueDescribe: '10:00-11:00 时间段',
+          valueMulticolor: '#7ED321'
+        },
+        {
+          id: '610844275093012480',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time1112',
+          valueName: '11:00-12:00',
+          text: '11:00-12:00',
+          displayOrder: 110,
+          valueDescribe: '11:00-12:00 时间段',
+          valueMulticolor: '#F8E71C'
+        },
+        {
+          id: '610844397428277248',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time1213',
+          valueName: '12:00-13:00',
+          text: '12:00-13:00',
+          displayOrder: 120,
+          valueDescribe: '12:00-13:00 时间段',
+          valueMulticolor: '#F5A623'
+        },
+        {
+          id: '610844729365495808',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time1314',
+          valueName: '13:00-14:00',
+          text: '13:00-14:00',
+          displayOrder: 130,
+          valueDescribe: '13:00-14:00 时间段',
+          valueMulticolor: '#C377E0'
+        },
+        {
+          id: '610844810512695296',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time1415',
+          valueName: '14:00-15:00',
+          text: '14:00-15:00',
+          displayOrder: 140,
+          valueDescribe: '14:00-15:00 时间段',
+          valueMulticolor: '#8B572A'
+        },
+        {
+          id: '610844888304451584',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time1516',
+          valueName: '15:00-16:00',
+          text: '15:00-16:00',
+          displayOrder: 150,
+          valueDescribe: '15:00-16:00 时间段',
+          valueMulticolor: '#163C66'
+        },
+        {
+          id: '610844985876545536',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time1617',
+          valueName: '16:00-17:00',
+          text: '16:00-17:00',
+          displayOrder: 160,
+          valueDescribe: '16:00-17:00 时间段',
+          valueMulticolor: '#027AFF'
+        },
+        {
+          id: '610845705782689792',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time1718',
+          valueName: '17:00-18:00',
+          text: '17:00-18:00',
+          displayOrder: 170,
+          valueDescribe: '17:00-18:00 时间段',
+          valueMulticolor: '#F56C6C'
+        },
+        {
+          id: '610845836485591040',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time1819',
+          valueName: '18:00-19:00',
+          text: '18:00-19:00',
+          displayOrder: 180,
+          valueDescribe: '18:00-19:00 时间段',
+          valueMulticolor: '#7ED321'
+        },
+        {
+          id: '610845922846310400',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time1920',
+          valueName: '19:00-20:00',
+          text: '19:00-20:00',
+          displayOrder: 190,
+          valueDescribe: '19:00-20:00 时间段',
+          valueMulticolor: '#F8E71C'
+        },
+        {
+          id: '610846017276870656',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time2021',
+          valueName: '20:00-21:00',
+          text: '20:00-21:00',
+          displayOrder: 200,
+          valueDescribe: '20:00-21:00 时间段',
+          valueMulticolor: '#F5A623'
+        },
+        {
+          id: '610846099653001216',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time2122',
+          valueName: '21:00-22:00',
+          text: '21:00-22:00',
+          displayOrder: 210,
+          valueDescribe: '21:00-22:00 时间段',
+          valueMulticolor: '#C377E0'
+        },
+        {
+          id: '610846174550687744',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time2223',
+          valueName: '22:00-23:00',
+          text: '22:00-23:00',
+          displayOrder: 220,
+          valueDescribe: '22:00-23:00 时间段',
+          valueMulticolor: '#8B572A'
+        },
+        {
+          id: '610846256134094848',
+          dictionaryId: '610842518044540928',
+          valueCode: 'Time2324',
+          valueName: '23:00-24:00',
+          text: '23:00-24:00',
+          displayOrder: 230,
+          valueDescribe: '23:00-24:00 时间段',
+          valueMulticolor: '#163C66'
+        }
+      ];
+
+      // 获取当前时间的小时数
+      const currentHour = new Date().getHours();
+      // console.log(currentHour, '---小时');
+      // 查找当前时间所在的时间段索引
+      function findTimeSlotIndex(hours, data) {
+        for (let i = 0; i < data.length; i++) {
+          const [startHourStr, endHourStr] = data[i].text.split('-');
+          const startHour = parseInt(startHourStr.split(':')[0], 10); //分割十进制的数组
+          const endHour = parseInt(endHourStr.split(':')[0], 10);
+
+          if (hours >= startHour && hours < endHour) {
+            return {
+              index: i,
+              obj: data[i],
+              arr: data.slice(i + 1)
+            };
+          }
+        }
+        return -1; // 如果没有找到匹配的时间段，返回 -1
+      }
+
+      // 调用函数并打印索引
+      const index = findTimeSlotIndex(currentHour, timeSlots);
+      // console.log('当前时间所在的小时时间段索引为:', index);
+
+      // 对比时间是否在8小时内
+      function isDeliveryStartWithin8Hours(deliveryDate, deliveryTime) {
+        // 当前时间
+        const now = new Date();
+
+        // 解析给定的日期时间
+        const [deliveryYear, deliveryMonth, deliveryDay] = deliveryDate.split('-').map(Number);
+        const [startTimeStr] = deliveryTime.split('-');
+        const [startHour, startMinute] = startTimeStr.split(':').map(Number);
+
+        // 创建Date对象表示开始时间
+        const deliveryStartTime = new Date(
+          deliveryYear,
+          deliveryMonth - 1,
+          deliveryDay,
+          startHour,
+          startMinute
+        );
+
+        // 检查开始时间是否在当前时间之后
+        if (deliveryStartTime <= now) {
+          return false; // 交货时间已经过去
+        }
+
+        // 计算开始时间与当前时间的时间差（以小时为单位）
+        const timeDifferenceInHours =
+          (deliveryStartTime.getTime() - now.getTime()) / (1000 * 60 * 60);
+
+        // 检查开始时间是否在未来8小时内
+        return timeDifferenceInHours <= 8;
+      }
+
+      // 测试数据
+      const deliveryDate = '2024-08-21'; // 假设今天的日期是2024-08-20
+      const deliveryTime = '04:00-05:00';
+
+      // 调用函数
+      const result = isDeliveryStartWithin8Hours(deliveryDate, deliveryTime);
+      console.log(`Delivery start is within the next 8 hours: ${result}`);
+    </script>
+  </body>
+</html>

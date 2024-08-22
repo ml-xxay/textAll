@@ -35,6 +35,7 @@
       :data="data4"
       :max="true"
     ></foldline-max-min-amplify> -->
+    <div ref="chart" class="radar" style="width: 100%; height: 600px"></div>
   </div>
 </template>
 <script>
@@ -425,6 +426,7 @@ export default {
         maxIntervalList: [639, 534, 639, 700, 534], //最大负荷背景区间 y 所有数据
         minIntervalList: [639, 534, 639, 534, 639], //最小负荷背景区间 y 所有数据
       },
+      
     }
   },
 
@@ -439,6 +441,7 @@ export default {
     // })
     // 获取 当前年月日 时分秒  a时当前的 上午,下午,晚上   根据时间来的
     // this.riqi = moment().format("YYYY年MM月DD日 HH时mm分ss秒 a")
+    this.text()
   },
   created() {
     var gsarr = []
@@ -458,6 +461,69 @@ export default {
     // window.onresize = null
   },
   methods: {
+    text(){
+      const echarts = require('echarts')
+      const charts = echarts.init(this.$refs.chart)
+      let option = {
+        backgroundColor: '#FFF',
+        tooltip: {
+          // formatter: function(params) {
+          //   console.log(params,'------------');
+          //   // params 是包含当前数据信息的对象
+          //   return `分数：${params.value}`
+          // },
+          
+        },
+        // tooltip: {},
+        radar: {
+          name: {
+            textStyle: {
+              color: '#999999'
+            }
+          },
+          splitArea: {
+            areaStyle: {
+              color: ['#fff', '#fff', '#fff', '#fff'],
+              shadowColor: 'rgba(0, 100, 0, 0.3)'
+            }
+          },
+          indicator: [
+            { name: 'A', max: 10 },
+            { name: 'B', max: 10 },
+            { name: 'Cddddd', max: 10 },
+            { name: 'Ddddd', max: 10 },
+            { name: 'E', max: 10 },
+            { name: 'F', max: 10 },
+            { name: 'G', max: 10 },
+            { name: 'H', max: 10 },
+            { name: 'I', max: 10 },
+            { name: 'K', max: 10 }
+          ]
+        },
+        series: [
+          {
+            type: 'radar',
+            data: [
+              {
+                value: [8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+                name:'总览',
+                itemStyle: {
+                  normal: {
+                    color: 'rgba(5, 128, 242, 0.5)'
+                  }
+                },
+                areaStyle: {
+                  normal: {
+                    color: '#37A2DA'
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+      charts.setOption(option)
+    },
     drawLine() {
       const echarts = require('echarts')
       const charts = echarts.init(this.$refs.chart)

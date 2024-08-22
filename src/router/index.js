@@ -11,15 +11,21 @@ const y = () => import("../views/y.vue");//x轴不等分
 const psd = () => import("../views/changePassword.vue"); //修改密码
 const tableTz = () => import("../views/tableTz.vue"); //修改密码
 const Select = () => import('../views/select.vue')
+const atils = () => import('../views/atils.vue')
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    redirect: "/psd",
+    redirect: "/atils",
     // redirect: '/table',
     // redirect: "/tabletz",
+  },
+  {
+    path: "/atils",
+    name: "atils",
+    component: atils,
   },
   {
     path: "/y",

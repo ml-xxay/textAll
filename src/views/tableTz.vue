@@ -114,6 +114,7 @@ export default {
         "Content-Type": "application/json", // 指定内容类型为JSON
         Xdapappid: "572840463237644288", // 自定义请求头
         Xdaptenantid: "491633633145126913", // 自定义请求头
+        xdaptimestamp: "1723012248643", // 自定义请求头
         Xdaptoken:
           "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MTU3ODM5NzIsImlhdCI6MTcxNTc0MDk3MiwieGRhcHVzZXJpZCI6IjEwMDUxNzM4OTkwNTA3NzIwNzA0MCJ9.u6ii5lisAZABUkj8TSug_sBuCs8cDQoVFQXLx6UyB6eCYg6mhFkrNoZ13GVDW9oB4AHCmdAP85SPzSsBO4Ph4g",
       },
