@@ -252,11 +252,16 @@
 
       // 获取当前时间的小时数
       const currentHour = new Date().getHours();
-      // console.log(currentHour, '---小时');
-      // 查找当前时间所在的时间段索引
+      console.log(currentHour, '---小时');
+
+      /**
+       *  查找当前时间所在的时间段索引
+       */
+      //
       function findTimeSlotIndex(hours, data) {
         for (let i = 0; i < data.length; i++) {
           const [startHourStr, endHourStr] = data[i].text.split('-');
+          console.log(startHourStr,endHourStr);
           const startHour = parseInt(startHourStr.split(':')[0], 10); //分割十进制的数组
           const endHour = parseInt(endHourStr.split(':')[0], 10);
 
@@ -275,7 +280,9 @@
       const index = findTimeSlotIndex(currentHour, timeSlots);
       // console.log('当前时间所在的小时时间段索引为:', index);
 
-      // 对比时间是否在8小时内
+      /**
+       *  对比时间是否在8小时内
+       */
       function isDeliveryStartWithin8Hours(deliveryDate, deliveryTime) {
         // 当前时间
         const now = new Date();
@@ -313,7 +320,50 @@
 
       // 调用函数
       const result = isDeliveryStartWithin8Hours(deliveryDate, deliveryTime);
-      console.log(`Delivery start is within the next 8 hours: ${result}`);
+      console.log(`对比时间是否在8小时内: ${result}`);
+
+      /**
+       *   时间做对比   例如 '14:30' 早于 '15:15'
+       *
+       */
+
+      function compareTimes(time1, time2) {
+        // 将时间转换为秒数
+        function timeToSeconds(timeStr) {
+          var parts = timeStr.split(':');
+          return parts[0] * 3600 + parts[1] * 60;
+        }
+
+        // 转换并比较
+        var seconds1 = timeToSeconds(time1);
+        var seconds2 = timeToSeconds(time2);
+        if (seconds2 >= seconds1) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+
+      const now = new Date();
+      const hour = now.getHours(); // 数字类型
+      const minute = now.getMinutes(); // 数字类型
+      // console.log(hour, 'hour');
+      // console.log(minute, 'minute');
+      console.log(hour + ':' + minute);
+      let str1 = hour + ':' + minute
+
+      // 示例使用
+      var results = compareTimes(str1, '18:00');
+      console.log(results); // 输出: -1，因为 '14:30' 早于 '15:15'
+
+      // if (seconds1 < seconds2) {
+      //   return false; // time1 早于 time2
+      // } else if (seconds1 > seconds2) {
+      //   return true; // time1 晚于 time2
+      // } else {
+      //   // return 0; // time1 和 time2 相5
+      //   return '相等'; // time1 和 time2 相同
+      // }
     </script>
   </body>
 </html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = [
+        {
+          id: '610838648023154688',
+          dictionaryId: '610800142232059904',
+          valueCode: 'Vehicle175',
+          valueName: '17.5 米',
+          displayOrder: 0,
+          valueDescribe: '17.5米',
+          valueMulticolor: '#027AFF'
+        }
+      ];
+
+      let sum = arr.find(item=>item.valueName == '17.5米')?.id   ?? ''
+      let sum = arr.find(item=>item.valueName == '17.5米').id
+      console.log(sum);
+    </script>
+  </body>
+</html>
