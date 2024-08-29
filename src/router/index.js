@@ -1,93 +1,92 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-const Home = () => import("../views/Home.vue");//vuex用法
-const Data = () => import("../views/Date.vue");//echarts各种示例
-const Upload = () => import("../views/Upload.vue");//上传文件
-const ExportExcel = () => import("../views/ExportExcel.vue");//导出excel
-const Table = () => import("../views/biaoge.vue");//封装的表格
-const donwphone = () => import("../views/donwphone.vue");//下载图片
-const xnlbFather = () => import("../views/xnlbFather.vue");//虚拟列表
-const y = () => import("../views/y.vue");//x轴不等分
-const psd = () => import("../views/changePassword.vue"); //修改密码
-const tableTz = () => import("../views/tableTz.vue"); //修改密码
-const Select = () => import('../views/select.vue')
-const atils = () => import('../views/atils.vue')
-
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Cs from '../views/cs.vue';
+const Home = () => import('../views/Home.vue'); //vuex用法
+const Data = () => import('../views/Date.vue'); //echarts各种示例
+const Upload = () => import('../views/Upload.vue'); //上传文件
+const ExportExcel = () => import('../views/ExportExcel.vue'); //导出excel
+const Table = () => import('../views/biaoge.vue'); //封装的表格
+const donwphone = () => import('../views/donwphone.vue'); //下载图片
+const xnlbFather = () => import('../views/xnlbFather.vue'); //虚拟列表
+const y = () => import('../views/y.vue'); //x轴不等分
+const psd = () => import('../views/changePassword.vue'); //修改密码
+const tableTz = () => import('../views/tableTz.vue'); //修改密码
+const atils = () => import('../views/atils.vue'); //雷达图
+const cs = () => import('../views/cs.vue'); //测试模块导入
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    redirect: "/atils",
+    path: '/',
+    redirect: '/cs'
     // redirect: '/table',
     // redirect: "/tabletz",
   },
   {
-    path: "/atils",
-    name: "atils",
-    component: atils,
+    path: '/atils',
+    name: 'atils',
+    component: atils
   },
   {
-    path: "/y",
-    name: "y",
-    component: y,
+    path: '/y',
+    name: 'y',
+    component: y
   },
   {
-    path:'select',
-    name:'select',
-    component:Select
-  },
-
-  {
-    path: "/table",
-    name: "Table",
-    component: Table,
+    path: '/cs',
+    name: 'cs',
+    component: Cs
   },
   {
-    path: "/xnlbfather",
-    name: "xnlbFather",
-    component: xnlbFather,
+    path: '/table',
+    name: 'Table',
+    component: Table
   },
   {
-    path: "/home",
-    name: "Home",
-    component: Home,
+    path: '/xnlbfather',
+    name: 'xnlbFather',
+    component: xnlbFather
   },
   {
-    path: "/date",
-    name: "Data",
-    component: Data,
+    path: '/home',
+    name: 'Home',
+    component: Home
   },
   {
-    path: "/upload",
-    name: "Upload",
-    component: Upload,
+    path: '/date',
+    name: 'Data',
+    component: Data
   },
   {
-    path: "/exportexcel",
-    name: "ExportExcel",
-    component: ExportExcel,
+    path: '/upload',
+    name: 'Upload',
+    component: Upload
   },
   {
-    path: "/donwphone",
-    name: "donwphone",
-    component: donwphone,
+    path: '/exportexcel',
+    name: 'ExportExcel',
+    component: ExportExcel
   },
   {
-    path: "/psd",
-    name: "psd",
-    component: psd,
+    path: '/donwphone',
+    name: 'donwphone',
+    component: donwphone
   },
   {
-    path:'/tabletz',
-    name:'tabletz',
-    component:tableTz
+    path: '/psd',
+    name: 'psd',
+    component: psd
+  },
+  {
+    path: '/tabletz',
+    name: 'tabletz',
+    component: tableTz
   }
 ];
 
 const router = new VueRouter({
   routes,
-  mode: "history",
+  mode: 'history'
 });
 
 export default router;
