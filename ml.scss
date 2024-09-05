@@ -1,0 +1,765 @@
+/* 入职PC 样式覆盖 */
+
+/* 头部学历学位信息收集 和 薪资补充信息和利益报备
+  头部标题样式不一致 */
+  .public-form .public-form-main .public-form-header .public-form-info .public-form-title {
+    margin: 23px 0 0 0 !important;
+    font-weight: 400 !important;
+    font-size: 15px !important;
+  }
+  
+  /* pc 最顶部蓝色区域  高度调低 */
+  .public-form .public-form-bg {
+    height: 58px !important;
+  }
+  /* 主体距的编边距   为解决高度变小之后   下面文档流向上跑 */
+  .public-form .public-form-main {
+    margin-top: -27px !important;
+    /* 去除阴影 */
+    box-shadow: 0 0 0 0 !important;
+  }
+  /* 调整头部（薪资补充信息和利益报备）高度  背景颜色 */
+  .public-form .public-form-main .public-form-header {
+    height: 46px !important;
+    background-color: #027aff !important;
+    color: #fff !important;
+    font-size: 15px !important;
+  }
+  
+  /* 加点间距让文字显示更好看一点  不触底 */
+  .public-form .public-form-main .public-form-header .public-form-info {
+    padding-bottom: 13px !important;
+    color: #fff !important;
+    font-size: 15px !important;
+  }
+  
+  /* 取消保存按钮的下边距*/
+  .x-form-build-render:not(.border-style)
+    .FormTabLayout
+    .form-tab-layout
+    .tab-content
+    .x-form-item-container
+    .form-item-list:has(.form-item-wrapper) {
+    margin-bottom: 0 !important;
+  }
+  
+  /* .form-tab-layout .tab-content .x-form-item-container .form-item-list .form-item-wrapper-width6:not(.FormUpload):not(.FormWidgetSonTable):not(.FormCollapseLayout):not(.FormTabLayout) {
+      padding-left: 100px !important;
+      padding-right: 100px !important;
+  } */
+  /* 缩小原input宽度  外面在套一层类 避免影响全局 */
+  div[data-component-id='e165401688c82456bba17f00']
+    .x-proxy-form-item
+    .el-form-item__content
+    .el-input {
+    width: 85% !important;
+  }
+  /* 登录页让输入框还原apass自己的样式 */
+  div[data-component-id='e165401688c82456bba17f00'] .default-login .el-form-item__content .el-input {
+    width: 100% !important;
+  }
+  
+  /* input 外层父亲左右内边距 */
+  div[data-component-id='e165401688c82456bba17f00']
+    .x-form-build-render:not(.border-style)
+    .FormTabLayout
+    .form-tab-layout
+    .tab-content
+    .x-form-item-container {
+    padding: 0 30px !important;
+  }
+  
+  /* 去除表单头部边框 */
+  div[data-component-id='e165401688c82456bba17f00'] .form-tab-layout .el-tabs__header {
+    border: none !important;
+  }
+  /* 去除表单内容边框*/
+  div[data-component-id='e165401688c82456bba17f00']
+    .x-form-build-render:not(.border-style)
+    .FormTabLayout
+    .form-tab-layout
+    .tab-content {
+    border: none !important;
+  }
+  /* 去除表单内容边框 新的*/
+  div[data-component-id='e165401688c82456bba17f00'] .form-tab-layout .tab-content {
+    border: none !important;
+  }
+  /* 提交按钮   暂时不改 */
+  /* .public-form .public-form-main .public-form-btn {
+      justify-content: start !important;
+      padding-left: 57px !important;
+  } */
+  /* 提交按钮宽度 暂时不改 */
+  /* .public-form .public-form-main .public-form-btn .el-button {
+      width: 7.14286rem;
+      width: 140px;
+      border-radius: 20px;
+  } */
+  /* 审批页面样式修改 开始 */
+  .x-form-embed[data-form-id='65116972604f815a7636db19'],
+  .el-drawer__wrapper[data-form-id='65116972604f815a7636db19'],
+  .el-drawer__wrapper[data-form-id='66bb02ab6da82e07cf15265a'],
+  .el-dialog__wrapper[data-form-id='65116972604f815a7636db19'] {
+    font-family: 'Montserrat';
+    // 查看状态样式\
+    // 表单
+    .x-form-build-render .form-widget.read,
+    .x-form-build-render .form-widget.edit {
+      // 表单编辑状态
+      .form-item-list .form-item-wrapper.edit {
+        .form-widget .el-form-item .el-form-item__label {
+          letter-spacing: 0em;
+          font-variation-settings: 'opsz' auto;
+          font-weight: 500;
+          .proxy-form-item-label .limit-length {
+            color: rgba(0, 0, 0, 0.45) !important;
+          }
+        }
+        .form-widget.form-email-input .el-input__suffix {
+          display: none;
+        }
+      }
+      // 表单查看状态
+      .form-item-list .form-item-wrapper.read {
+        // 表单 label
+        .form-widget .el-form-item .el-form-item__label {
+          letter-spacing: 0em;
+          font-variation-settings: 'opsz' auto;
+          color: rgba(0, 0, 0, 0.45);
+          font-weight: 500;
+          position: relative;
+          &::after {
+            content: ':';
+            position: absolute;
+            top: 4px;
+            right: -5px;
+          }
+        }
+        // 表单value
+        .el-form-item__content {
+          color: rgba(0, 0, 0, 0.85);
+        }
+      }
+      // 上传
+      .form-upload {
+        border-bottom: 1px #f0f0f0 solid;
+        margin: 0 20px 8px 20px;
+        margin-top: 5px;
+        // 文件容器
+        .form-upload-main .form-upload-file-list {
+          height: 5rem;
+          padding: 2px 0 2px 0;
+        }
+        //  去除附件边框
+        .form-upload-main {
+          border: 0;
+        }
+        /*  去除文字  -->可上传多个文件，单个文件大小不超过100 M */
+        .form-upload-title .form-upload-title_right .form-upload-placeholder {
+          display: none !important;
+        }
+        // 标题去除边框
+        .form-upload-title {
+          border: none;
+        }
+        // 左侧右侧标题图标
+        .form-upload-title_right > .icon,
+        .form-upload-title_left > .icon {
+          display: none;
+        }
+        .el-form-item.is-required .el-form-item__label {
+          margin-left: 0;
+        }
+        // 标题文字
+        .el-form-item__label .proxy-form-item-label .limit-length {
+          letter-spacing: 0em;
+          color: rgba(0, 0, 0, 0.85) !important;
+          font-weight: 500;
+        }
+  
+        // 没有数据时
+        .form-upload-nodata {
+          border: none;
+        }
+        // 查看下载按钮
+        .x-svg-icon.x-svg-icon--aux {
+          color: rgba(0, 0, 0, 0.85) !important;
+        }
+        // 文件标题
+        .form-upload-main .form-upload-file-list .list-left .left-content .top {
+          margin-bottom: 8px;
+        }
+        // 文件内容
+        .form-upload-main .form-upload-file-list .list-left .left-content .bottom {
+          color: #8c8c8c;
+          min-height: 16px;
+          align-items: center;
+        }
+        // 文件图标
+        .form-upload-main .form-upload-file-list .list-left .left-icon .svg-icon {
+          width: 40px !important;
+          height: 40px !important;
+        }
+        // 右侧查看下载图标
+        .list-right .list-item-wrap .x-svg-icon .svg-icon {
+          width: 28px !important;
+          height: 28px !important;
+        }
+        // 单个文件去除边框
+        .form-upload-main .form-upload-file-list + .form-upload-file-list {
+          border: none;
+        }
+        // 没有数据
+        .form-upload-nodata {
+          height: 4rem !important;
+          .x-empty-page > .x-svg-icon {
+            display: none;
+          }
+        }
+        .x-empty-page {
+          left: 0;
+        }
+      }
+    }
+    // 折叠区域
+    .form-collapse-layout {
+      // 折叠头区域
+      .collapse-title {
+        height: 40px;
+        margin-bottom: 10px;
+        color: rgba(0, 0, 0, 0.85);
+        background: rgba(0, 0, 0, 0.04);
+        padding-left: 33px;
+        position: relative;
+        border: 0;
+        &::before {
+          content: '';
+          position: absolute;
+          width: 3px;
+          height: 15px;
+          background: #165dff;
+          top: 11px;
+          left: 20px;
+        }
+      }
+  
+      // 折叠内容区域
+      .collapse-content {
+        border: 0;
+        .x-form-item-container {
+          padding-bottom: 20px !important;
+        }
+      }
+    }
+  
+    .form-item-wrapper[data-component-id='3f6a4d2bbe45cf552bf4bab6'].edit,
+    .form-item-wrapper[data-component-id='3f6a4d2bbe45cf552bf4bab6'].read {
+      margin-top: -32px !important;
+      padding: 0 !important;
+      margin-bottom: 20px !important;
+      // margin-left: 12px;
+      .form-widget .el-form-item .el-form-item__label {
+        letter-spacing: 0em;
+        font-variation-settings: 'opsz' auto;
+        font-weight: 500;
+        position: relative;
+        .proxy-form-item-label .limit-length {
+          color: rgba(0, 0, 0, 0.45) !important;
+        }
+      }
+    }
+    // 说明
+    .form-item-wrapper[data-component-id='3f6a4d2bbe45cf552bf4bab6'].read {
+      margin-top: -32px !important;
+      // background: #f0f5ff;
+      font-size: 12px;
+      font-weight: normal;
+      line-height: 32px;
+      letter-spacing: 0em;
+      padding: 0 !important;
+      margin-bottom: 20px !important;
+      margin-left: 12px;
+  
+      .form-widget .el-form-item .el-form-item__label {
+        letter-spacing: 0em;
+        font-variation-settings: 'opsz' auto;
+        font-weight: 500;
+        // color: #165dff !important;
+        position: relative;
+        .proxy-form-item-label .limit-length {
+          color: rgba(0, 0, 0, 0.45) !important;
+        }
+        &::after {
+          content: ':';
+          position: absolute;
+          top: 4px;
+          right: -5px;
+          // color: #165dff !important;
+        }
+      }
+      // 表单value
+      .el-form-item__content {
+        color: rgba(0, 0, 0, 0.85);
+      }
+    }
+  
+    // 子表
+    .form-widget-son-table {
+      margin-bottom: 20px;
+      // 区域标题
+      .form-widget-son-table-header .table-header {
+        height: 40px;
+        margin-bottom: 10px;
+        background: rgba(0, 0, 0, 0.04);
+        border: 0;
+        position: relative;
+        padding-left: 33px;
+  
+        &::before {
+          content: '';
+          position: absolute;
+          width: 3px;
+          height: 15px;
+          background: #165dff;
+          top: 11px;
+          left: 20px;
+        }
+        // 搜索隐藏
+        > .x-svg-icon--primary,
+        > .x-button-text {
+          display: none;
+        }
+        .table-label-title {
+          // 标题
+          .labelInfo .tip-overflow span {
+            color: rgba(0, 0, 0, 0.85) !important;
+          }
+        }
+      }
+      // 子表内容
+      .x-ag-grid {
+        // 表头
+        .ag-header {
+          background: rgba(0, 0, 0, 0.02);
+          border-bottom: 1px #f0f0f0 solid;
+          .col-header {
+            color: rgba(0, 0, 0, 0.45);
+            font-weight: 500;
+            text-align: center;
+          }
+        }
+        // 表头居中
+        .table-header-slot {
+          justify-content: center;
+        }
+        // 左侧序号
+        .ag-pinned-left-header,
+        .ag-pinned-left-cols-container {
+          display: none;
+        }
+        // 内容的单元格
+        .el-form-item__content .x-ellipsis,
+        .cell-data {
+          text-align: center;
+          letter-spacing: 0em;
+          color: rgba(0, 0, 0, 0.85);
+          font-family: Montserrat;
+        }
+        .cell-data-read-only {
+          cursor: default;
+        }
+        .ag-row {
+          border-color: #f0f0f0;
+        }
+      }
+      // 表头去除边框
+      .x-ag-grid.x-ag-grid-border .ag-grid-vue.ag-theme-alpine .ag-header-cell {
+        border: none;
+      }
+      .x-ag-grid.x-ag-grid-border .ag-grid-vue.ag-theme-alpine .ag-ltr .ag-cell {
+        border: none;
+      }
+      // 子表表格
+      .x-ag-grid.x-ag-grid-round .ag-root-wrapper {
+        border: 0;
+      }
+      .table-footer {
+        display: none;
+      }
+    }
+  
+    // 利益报备
+    .x-form-build-render.read-form-custom-style {
+      .form-item-wrapper[data-component-id='57a04d32adfded75dcaa4b69'] {
+        .form-item-label-row .el-form-item__label {
+          width: 60%;
+        }
+        .FormWidgetSplit {
+          padding: 0px !important;
+          height: 10px !important;
+          margin-bottom: -10px !important;
+          // margin: 16px 0 !important;
+          // background: rgba(0, 0, 0, 0.02);
+        }
+        .FormWidgetSplit.form-item-wrapper .form-widget-split .widget-item .form-widget-split-div {
+          border-top: 1px #f0f0f0 solid !important;
+        }
+      }
+    }
+    // 处理利益报备人员编辑label超出不显示... 问题
+    .x-form-build-render.read-form-custom-style
+      .form-item-label-row-edit.FormPeopleSelect
+      .el-form-item__label
+      .proxy-form-item-label {
+      width: 100% !important;
+      justify-content: flex-end;
+    }
+    .x-form-build-render
+      .form-item-list
+      .form-item-wrapper
+      .form-item-row-style
+      .el-form-item__content {
+      width: 60% !important;
+    }
+    // 利益报备编辑
+    .x-form-build-render.edit-form-custom-style
+      .FormCollapseLayout[data-component-id='57a04d32adfded75dcaa4b69'] {
+      .form-item-list .form-item-wrapper .el-form-item .el-form-item__label {
+        width: 60% !important;
+      }
+      .form-item-list .form-item-wrapper .form-item-row-style .el-form-item__content {
+        width: 40% !important;
+      }
+    }
+    // 审批信息
+    .form-item-wrapper[data-component-id='4c1349668d18e11f4b646309']
+      .form-collapse-layout
+      .collapse-content {
+      padding: 0 !important;
+  
+      .form-item-list .form-item-label-row {
+        padding-right: 0 !important;
+      }
+    }
+    // tag颜色更改
+    .x-tag-group > .tag-info,
+    .x-form-build-render
+      .form-item-list
+      .form-item-wrapper.form-item-label-row
+      .widget-item
+      .el-form-item
+      .el-form-item__content
+      .x-tag-group
+      .x-department-tag {
+      width: 100% !important;
+    }
+    .x-department-tag .tag-name,
+    .tag-read-widget .select-tag {
+      background: #fafafa !important;
+    }
+    .tag-read-widget .select-tag > span {
+      color: rgba(0, 0, 0, 0.85) !important;
+    }
+  }
+  
+  /* 审批页面样式修改 结束 */
+  
+  
+  /* 新加样式修改 offer管理*/
+  
+  // 4行展示
+  div[data-form-id="65116972604f815a7636db19"] .label-row-list  .collapse-content .form-item-wrapper {
+    // min-width: 25% !important;
+    margin-bottom: -12px !important;
+  }
+  // 每一个表单的item项
+  // .x-form-build-render .form-item-list .form-item-wrapper {
+  //   margin-bottom: -17px !important;
+  // }
+  // 字典项上下对齐 去掉背景(除人员其余字典项)
+  div[data-form-id="65116972604f815a7636db19"] .label-row-list .collapse-content .tag-info .select-tag{
+    // padding: 0;
+    box-sizing:border-box;
+    margin-left: -7px;
+    background-color: #fff !important;
+  }
+  // 字典项的背景(除人员其余字典项)
+  div[data-form-id="65116972604f815a7636db19"] .tag-read-widget .select-tag {
+    background-color: #fff !important;
+  }
+  
+  // 取消title的下边距
+  div[data-form-id="65116972604f815a7636db19"] .form-collapse-layout .collapse-title {
+     margin-bottom: 0 !important; 
+  }
+  
+  // 缩小item的下边距
+  div[data-form-id="65116972604f815a7636db19"] .x-form-build-render:not(.border-style) .form-item-list .form-item-wrapper.read {
+    // padding-bottom: 11px !important;
+    padding-bottom: 3px !important;
+  }
+  
+  // 查看模式下基本信息下的说明
+   div[data-form-id="65116972604f815a7636db19"] .x-form-build-render:not(.border-style) .form-item-list .form-item-wrapper.read[data-component-id="eb3b419ead173205e89c9f14"] {
+    // padding-bottom: 11px !important;
+    padding-bottom: 3px !important;
+    margin-top: 4px  !important;
+  }
+  
+  // 新增页和编辑页字典与别的项左对齐
+  div[data-form-id="65116972604f815a7636db19"] .select-input-tag .select-tag {
+    text-align: left; //先左对齐
+  }
+  // 新增页和编辑页字典增大间距  使左对齐
+  div[data-form-id="65116972604f815a7636db19"] .x-ellipsis {
+    //  padding-left: 7.5px !important;
+    //  padding-right: 7.5px !important;
+    // 暂时取消间距  新需求
+     padding-left: 0.5px !important;
+     padding-right: 0.5px !important;
+  }
+  // 新增页面岗位信息的下边距  .form-item-wrapper
+  .x-form-build-render .form-item-list div[data-form-id="9d1a4e7bb182e4c5a18d1d88"] {
+    padding-bottom: 11px !important;
+  }
+  // 新增页面的基本信息的下边距 .form-item-wrapper
+  .x-form-build-render .form-item-list div[data-form-id="e4c045d3a12040f4459490af"] {
+    padding-bottom: 11px !important;
+  }
+  // 详情页人员前面图标隐藏
+  div[data-form-id="65116972604f815a7636db19"] .x-person-avatar {
+    display: none !important;
+  }
+  // 修改人员名字的背景色  去除左边距与其余字段对齐
+  div[data-form-id="65116972604f815a7636db19"] .x-person-tag .person-name {
+    padding-left: 0 !important;
+    background-color: #fff !important;
+  }
+  // 人员最右边小块的又边距
+  div[data-form-id="65116972604f815a7636db19"] .x-person-tag {
+    padding-right: 0 !important;
+  }
+  // 编辑页面所有输入框底色
+  div[data-form-id="65116972604f815a7636db19"] .x-form-build-render.edit-form-custom-style .label-row-item .el-input.is-disabled .el-input__inner {
+    background-color: #fff !important;
+  }
+  // 输入框背景
+  div[data-form-id="65116972604f815a7636db19"] .select-input-tag {
+    background-color: #fff !important;
+  }
+  // 字典项背景(人员字典项）)
+  div[data-form-id="65116972604f815a7636db19"] .form-value-select .form-select-box .select-input-tag .select-tag.single-select-tag {
+    padding: 0 0.85714rem 0 0 !important;
+    background-color: #fff !important;
+  }
+  // 字典项最右侧x背景(人员字典项）
+  div[data-form-id="65116972604f815a7636db19"] .x-person-tag .person-tag-close {
+    background-color: #fff !important;
+  }
+  // 附件信息名字居中
+  .el-dialog__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.edit .form-upload .form-upload-main .form-upload-file-list .list-left .left-content .top, .el-dialog__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-main .form-upload-file-list .list-left .left-content .top, .el-drawer__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.edit .form-upload .form-upload-main .form-upload-file-list .list-left .left-content .top, .el-drawer__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-main .form-upload-file-list .list-left .left-content .top, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.edit .form-upload .form-upload-main .form-upload-file-list .list-left .left-content .top, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-main .form-upload-file-list .list-left .left-content .top {
+    margin-top: 13px !important;
+  }
+  // 附件信息下面4个字段隐藏
+  .el-drawer__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-main .form-upload-file-list .list-left .left-content .bottom, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.edit .form-upload .form-upload-main .form-upload-file-list .list-left .left-content .bottom, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-main .form-upload-file-list .list-left .left-content .bottom {
+    display: none !important;
+  }
+  
+  
+  /*新*/
+  
+  // offer管理折叠图标靠左  去除左label的flex=1的属性
+  div[data-form-id="65116972604f815a7636db19"] .form-collapse-layout .collapse-title .collapse-title-label {
+    flex: initial !important;
+  }
+  
+  // 隐藏底部审批信息
+  div[data-form-id="65116972604f815a7636db19"] .x-drawer-footer .x-button-text[data-button-code="HISTORY"]{
+    display: none !important;
+  }
+  // 缩小附件信息的间距父亲
+  div[data-form-id="65116972604f815a7636db19"] .form-upload .form-upload-main {
+    min-height: 35px !important;
+  }
+  // 缩小附件信息的间距孩子
+  .el-drawer__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-main .form-upload-file-list, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.edit .form-upload .form-upload-main .form-upload-file-list, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-main .form-upload-file-list {
+    height: 37px !important;
+  }
+  // 取消页面所有的上/下边距
+  .x-form-build-render:not(.border-style) .FormCollapseLayout .form-collapse-layout .collapse-content {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  
+  // 附件里的子title  如个人简历|面试记录表   这个会title有滚动  去掉
+  // .el-drawer__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-title, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.edit .form-upload .form-upload-title, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-title {
+  //   height: 26px !important;
+  // }
+  // 缩小附件图标的大小
+  .el-dialog__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.edit .form-upload .form-upload-main .form-upload-file-list .list-left .left-icon .svg-icon, .el-dialog__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-main .form-upload-file-list .list-left .left-icon .svg-icon, .el-drawer__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.edit .form-upload .form-upload-main .form-upload-file-list .list-left .left-icon .svg-icon, .el-drawer__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-main .form-upload-file-list .list-left .left-icon .svg-icon, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.edit .form-upload .form-upload-main .form-upload-file-list .list-left .left-icon .svg-icon, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-main .form-upload-file-list .list-left .left-icon .svg-icon {
+    width: 32px !important;
+    height: 35px !important;
+  }
+  // 去除附件item的marginTop的值
+  .el-drawer__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.edit .form-upload, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload {
+    border-bottom: 1px solid #f0f0f0;
+    margin: 0 20px 9px 20px !important;
+  }
+  // 缩小附件暂无数据的高度
+  .el-drawer__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-nodata, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.edit .form-upload .form-upload-nodata, .x-form-embed[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-upload .form-upload-nodata {
+    height: 28px !important;
+  }
+  // 下载与展示的按钮靠左
+  div[data-form-id="65116972604f815a7636db19"] .form-upload .form-upload-main .form-upload-file-list .list-left {
+    flex: 0.16;
+  }
+  // 缩小附件每一项的高度
+  .form-collapse-layout .collapse-content .x-form-item-container .form-item-list .form-item-wrapper-width12.FormCollapseLayout, .form-collapse-layout .collapse-content .x-form-item-container .form-item-list .form-item-wrapper-width12.FormTabLayout, .form-collapse-layout .collapse-content .x-form-item-container .form-item-list .form-item-wrapper-width12.FormUpload, .form-collapse-layout .collapse-content .x-form-item-container .form-item-list .form-item-wrapper-width12.FormWidgetSonTable {
+    min-height: 80px !important;
+  }
+  
+  // 代办里面岗位|工作城市字典值不居中的问题
+  div[data-form-id="65116972604f815a7636db19"] .lov-read-widget .select-tag-box, .lov-read-widget .select-tag-box .select-tag-box {
+    height: 36px !important;
+  }
+  div[data-form-id="65116972604f815a7636db19"] .people-select-read-widget .select-person-input-main {
+    height: 36px !important;
+  }
+  // 代办里职级|二次入职布局中
+  div[data-form-id="65116972604f815a7636db19"] .tag-read-widget .tag-info {
+    height: 36px !important;
+  }
+  //offer详情页入职部门字典项左对齐
+  div[data-form-id="65116972604f815a7636db19"] .x-department-tag .tag-name.tag-name-read {
+    padding: 0 1px !important;
+  }
+  // 代办姓名的高度
+  div[data-component-id="02b54dbb8b8a9b7663b7fa1f"] .el-form-item__content {
+    height:36px !important;
+  }
+  // 代办里工作地点的高度
+  div[data-component-id="fe1040aeabd28d2632660dbc"] .el-form-item__content {
+    height:36px;
+  }
+  // 去除利益报备上下的两条横线
+  div[data-form-id="65116972604f815a7636db19"] .FormWidgetSplit.form-item-wrapper .form-widget-split .widget-item{
+    display:none !important;
+  }
+  // 缩小offer详情入职部门字典的间距
+  div[data-form-id="65116972604f815a7636db19"] .form-department-input .selected-block-read .x-department-tag .tag-name-read.tag-name {
+    padding: 0 1px !important;
+  }
+  // 利益报备是否label的宽度
+  .el-drawer__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render .form-widget.read .form-item-list .form-item-wrapper.read .form-widget .el-form-item label[for="f7a042619483b542aa6d4baf"] {
+    width: 160px!important;
+    padding:0
+  }
+  /* 预入职系统中。 自定义输入框样式的设置 */
+  div[data-form-id="65116972604f815a7636db19"] {
+    .x-form-build-render:not(.border-style) {
+      div[data-component-id="57a04d32adfded75dcaa4b69"] .form-item-list .form-item-wrapper.read {
+        padding-right: 0 !important;
+        .el-form-item__content {
+          padding: 0 10px;
+          width: calc(100% - 20px);
+        }
+        .el-form-item__label {
+          padding: 0 10px;
+          width: calc(100% - 20px);
+        }
+      }
+      .form-item-list {
+        div[data-component-id="543a4d58b6ac42b6a628593b"].form-item-wrapper.read {
+          padding: 0 25px 0 13px !important;
+        }
+        div[data-component-id="7aa54361a0af2ca0d6cbacf5"].form-item-wrapper.read {
+          padding-right: 13px !important;
+        }
+      }
+    }
+  }
+  // 自定义输入框增加上边距
+  .el-drawer__wrapper[data-form-id="65116972604f815a7636db19"] {
+    div[data-component-id="eb3b419ead173205e89c9f14"], div[data-component-id="0c0d4dbca52dfaec6fca1c77"],div[data-component-id="15f04896b4bdac5f66be236c"]{
+      margin-top: 10px !important;
+    }
+  }
+  
+  // 新增页面-->涨幅说明label颜色
+  div[data-component-id="0c0d4dbca52dfaec6fca1c77"] .form-custom-input .custom_widget_item_input_label_center .x-proxy-form-item .el-form-item .el-form-item__label .proxy-form-item-label .limit-length .save-space, .form-custom-input .custom_widget_item_input_label_center .x-proxy-form-item .el-form-item label[for="0c0d4dbca52dfaec6fca1c77"].el-form-item__label  {
+    color: rgba(0, 0, 0, .45) !important;
+  }
+  // 新增页面-->基本信息&薪酬信息 去除下padding
+  .x-form-build-render:not(.border-style)  {
+    .form-item-list {
+     div[data-component-id="b3684539bd226e9419f7743a"],div[data-component-id="543a4d58b6ac42b6a628593b"],div[data-component-id="e4c045d3a12040f4459490af"]{
+      padding-bottom:0
+     }
+    }
+  }
+  // 详情页利益报备的说明label的间距取消
+  div[data-form-id="65116972604f815a7636db19"] .x-form-build-render:not(.border-style) div[data-component-id="57a04d32adfded75dcaa4b69"] .form-item-list .form-item-wrapper.read label[for="7aa54361a0af2ca0d6cbacf5"].el-form-item__label {
+    padding: 0 !important;
+  }
+  // 新增页面-->薪酬信息说明去除label的padding
+  .form-custom-input .custom_widget_item_input_label_left .x-proxy-form-item .el-form-item .el-form-item__label {
+    padding:0 !important;
+  }
+  // 新增页面-->利益报备label的宽度
+  .el-dialog__wrapper[data-form-id="65116972604f815a7636db19"] .x-form-build-render.edit-form-custom-style .FormCollapseLayout[data-component-id="57a04d32adfded75dcaa4b69"] .form-item-list .form-item-wrapper .el-form-item .el-form-item__label {
+    width: 175px !important;
+  }
+  // 详情页 除涨幅说明，其余的所有说明去除左边距
+  .el-drawer__wrapper[data-form-id="65116972604f815a7636db19"] {
+    div[data-component-id="eb3b419ead173205e89c9f14"],div[data-component-id="543a4d58b6ac42b6a628593b"],div[data-component-id="7aa54361a0af2ca0d6cbacf5"],div[data-component-id="15f04896b4bdac5f66be236c"] {
+        .el-form-item__content {
+    padding-left: 0 !important;
+        }
+    } 
+  }
+  // 让顶部offer隐藏
+  div[data-form-id="65116972604f815a7636db19"] .header-title-left .save-space span {
+      opacity:0;
+  }
+  
+  // 钉钉页面-->利益报备label的宽度
+  div[data-form-id="65116972604f815a7636db19"] .x-form-build-render div[data-component-id="f7a042619483b542aa6d4baf"] .el-form-item  .el-form-item__label {
+    width: 171px !important;
+  }
+  // 顶顶页面-->审批信息隐藏
+  div[data-form-id="65116972604f815a7636db19"] .embed-footer .op-block  div[data-button-code="HISTORY"]{
+    opacity: 0 !important;
+  }
+  // div[data-component-id="2f1b44e69068158332bd9a10"] .form-upload .form-upload-main .form-upload-file-list .list-left .left-content .bottom,div[data-form-id="65116972604f815a7636db19"] .embed-footer .op-block div[data-button-code="HISTORY"] {
+  //   opacity: 0 !important;
+  // }
+  
+  
+  // 去除offer预览下面的文字描述
+  div[data-component-id="2f1b44e69068158332bd9a10"] .form-upload .form-upload-main .form-upload-file-list .list-left .left-content .bottom {
+    display:none !important;
+  }
+  // 使offer文件名居中
+  div[data-component-id="2f1b44e69068158332bd9a10"] .form-upload .form-upload-main .form-upload-file-list .list-left .left-content {
+    justify-content: center !important;
+  }
+  // off预览的右侧label隐藏
+  // div[data-component-id="2f1b44e69068158332bd9a10"] .form-upload .form-upload-title .form-upload-title_right {
+  //   display: none !important;
+  // }
+  div[data-component-id="2f1b44e69068158332bd9a10"] .form-upload .form-upload-title .form-upload-title_right .form-upload-placeholder {
+    display: none !important;
+  }
+  
+  
+  
+  //薪酬信息最后一个丈夫说明右侧的文字宽度
+  div[data-component-id="d80148bd89761ac08be001ef"] .el-form-item .el-form-item__content div[row-index="3"] div[col-id="f7f0425c9046e2f91eefc4d8"] {
+    width: auto!important
+  }
+  
+  // 去除白线
+  .x-form-build-render .form-item-list div[data-component-id="730648e39dbd4bd01b0f416f"] .form-item-wrapper.read {
+    background-color: transparent;
+  }

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+// 获取顶部offer的dom
+let topOfferDom = document.querySelector('div[data-form-id="65116972604f815a7636db19"] .header-title-left .save-space span')
+// console.info(topOfferDom.innerText,'我是顶部dom-----')
+topOfferDom.style.opacity=1
+
+let avatarDate = document.querySelector('div[data-form-id="65116972604f815a7636db19"] .custom_m_avatar_item_lineheight')
+// console.info(avatarDate.innerText,'我是日期------')
+let avatarDateValue = ''
+if(!avatarDate) {
+  avatarDateValue = ''
+}else {
+  avatarDateValue = avatarDate.innerText
+}
+
+let nameDom = document.querySelector('div[data-component-id="02b54dbb8b8a9b7663b7fa1f"] .el-form-item__content .save-space span')
+// console.info(nameDom.innerText,'我是名字------')
+let nameDomValue = ''
+if(!nameDom) {
+  nameDomValue = ''
+}else {
+  nameDomValue = nameDom.innerText
+}
+
+let careerDom = document.querySelector('div[data-component-id="4aae47f3bf441376e5cebefa"] .el-form-item__content .tag-name .tag-name-tooltip')
+// console.info(careerDom.innerText,'我是事业部------')
+let careerDomValue = ''
+if(!careerDom) {
+  careerDomValue = ''
+}else {
+  careerDomValue = careerDom.innerText
+}
+
+let postDom = document.querySelector('div[data-component-id="4fbf4195838dab76afca2ece"] .el-form-item__content .save-space span')
+// console.info(postDom.innerText,'我是岗位------')
+let postDomValue = ''
+if(!postDom) {
+  postDomValue = ''
+}else {
+  postDomValue = postDom.innerText
+}
+// topOfferDom.innerText = `人事-录用审批-${careerDomValue}-${postDomValue}-${nameDomValue}-${avatarDateValue}`
+
+
+// 该换网络请求的形式  渲染头部
+const id = customNodeData && customNodeData.length ? customNodeData[0].documentId : ''
+
+let globalVue = window.APaaSSDK.context.globalVueContext.$root;
+
+const origin = window.location.origin
+const reg=/-sit/;
+const path = reg.test(origin) ? 'dev-pis' : 'sungrow-pis'
+
+
+globalVue
+  .$request({
+    // 接口
+    url: `${origin}/${path}/custom/access/pc/getOfferTitle?documentId=${id}`,
+    // 请求方式
+    method: "post",
+    // 传参
+    params: {
+      documentId: id,
+    },
+    disableSuccessMsg:true,
+    headers: {
+      'xdaptimestamp': new Date().getTime()
+    },
+    // 超时时间-
+    timeout: 5000,
+  })
+  .asyncThen(
+    (resp) => {
+      // 正常业务
+      console.info(resp.data.offerTitle,'-----我是请求的头部-----------')
+      topOfferDom.innerText = resp.data.offerTitle
+    },
+    (err) => {
+      // 异常业务
+    }
+  )
+  .asyncErrorCatch((err) => {
+    // 网络异常
+  });
+
+
+
+
+
+
+
+
+    let titDom =  document.querySelector('div[data-component-id="31284836b8077b1ff2c396ab"] .el-form-item__label .save-space span')
+    let contentDom =  document.querySelector('div[data-component-id="31284836b8077b1ff2c396ab"] .el-form-item__content .save-space span')
+    console.info(contentDom,'----我是入职contentDom-----')
+    console.info(titDom,'----我是入职titDom-----')
+    if(contentDom && contentDom.innerText == '是'){
+    contentDom.style.color = 'red'
+    titDom ? titDom.style.color = 'red' : titDom.style.color = ''
+    }
+
+
+
+    </script>
+</body>
+</html>

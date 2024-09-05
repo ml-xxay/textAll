@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      localStorage.setItem('a', 1);
+      localStorage.setItem('b', 1);
+      localStorage.setItem('c', 1);
+      localStorage.setItem('d', 1);
+      localStorage.setItem('e', 1);
+      localStorage.setItem('f', 1);
+
+      const keys = Object.keys(localStorage);
+      console.log(keys);
+
+      for (const key of keys) {
+        console.log(key);
+        if (key == 'a' || key == 'b' || key == 'c') {
+          continue; // 跳过值为 a b c 的迭代
+        }
+        localStorage.removeItem(key);
+      }
+    </script>
+  </body>
+</html>
