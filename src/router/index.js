@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Cs from '../views/cs.vue';
 const Home = () => import('../views/Home.vue'); //vuex用法
 const Data = () => import('../views/Date.vue'); //echarts各种示例
 const Upload = () => import('../views/Upload.vue'); //上传文件
@@ -13,12 +12,13 @@ const psd = () => import('../views/changePassword.vue'); //修改密码
 const tableTz = () => import('../views/tableTz.vue'); //修改密码
 const atils = () => import('../views/atils.vue'); //雷达图
 const cs = () => import('../views/cs.vue'); //测试模块导入
+const dialog = () => import('../views/textDialog.vue'); //测试自定义弹窗
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    redirect: '/cs'
+    redirect: '/dialog'
     // redirect: '/table',
     // redirect: "/tabletz",
   },
@@ -28,6 +28,11 @@ const routes = [
     component: atils
   },
   {
+    path: '/dialog',
+    name: 'dialog',
+    component: dialog
+  },
+  {
     path: '/y',
     name: 'y',
     component: y
@@ -35,7 +40,7 @@ const routes = [
   {
     path: '/cs',
     name: 'cs',
-    component: Cs
+    component: cs
   },
   {
     path: '/table',
