@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <div class="left">
+    <div class="left" ref="leftRef">
         <!-- 左侧表单 -->
       <el-form ref="form" :model="formLeft" :rules="configLeft.rules" label-width="80px" class="form-left-box" label-position="top" :disabled="isDisabledLeft">
         <el-form-item class="item" :label="item.label" :prop="item.prop" v-for="(item,index) in configLeft.formItems" :key="index">
@@ -14,10 +14,13 @@
             ></el-input>
           </template>
          
-          <!-- 配置文件类型是 select下拉选择框 显示下拉-->
+          <!-- 配置文件类型是 select  单选下拉选择框 显示下拉-->
           <template v-else-if="item.type == 'select'">
             <el-select
               v-model="formLeft[item.prop]"
+              :ref="`leftSelect-${item.prop}`"
+              @focus="handleFocus(item.prop)"
+              @blur="handleBlur"
               :placeholder="item.placeholder"
               style="width: 100%"
               clearable
@@ -38,6 +41,9 @@
               multiple
               filterable
               v-model="formLeft[item.prop]"
+              :ref="`leftSelect-${item.prop}`"
+              @focus="handleFocus(item.prop)"
+              @blur="handleBlur"
               :placeholder="item.placeholder"
               style="width: 100%"
               clearable
@@ -56,6 +62,9 @@
             <el-date-picker
               value-format="yyyy-MM-dd"
               v-model="formLeft[item.prop]"
+              :ref="`leftSelect-${item.prop}`"
+              @focus="handleFocus(item.prop)"
+              @blur="handleBlur"
               type="date"
               style="width:100%"
               :placeholder="item.placeholder"
@@ -76,21 +85,86 @@
       </div>
     </div>
     <!-- 右侧tabs -->
-    <div class="right">
+    <div class="right" ref="searchBoxRef">
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>
-        <el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>
-        <el-tab-pane label="角色管理" name="third">角色管理</el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth">定时任务补偿</el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth1">测试1</el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth2">测试2</el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth3">测试3</el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth4">测试4</el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth5">测试5</el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth6">测试6</el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth7">测试7</el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth8">测试8</el-tab-pane>
-        <el-tab-pane label="定时任务补偿" name="fourth0">测试9</el-tab-pane>
+        <el-tab-pane   v-for="(pane, index) in panes"
+        :key="pane.id"
+        :label="pane.label"
+        :name="pane.id"
+        >
+
+        <template #default>
+          <el-form :model="pane.data" :ref="`rightSelect-${pane.id}`" :rules="configLeft.rules" class="form-left-box right-form"  label-width="120px" label-position="top" >
+            <el-form-item class="item" :label="item.label" :prop="item.prop" v-for="(item,index) in configLeft.formItems" :key="index">
+              <!-- 配置文件类型是 input 框-->
+              <template v-if="item.type == 'input'">
+               <el-input
+                  v-model="pane.data[item.prop]"
+                 :placeholder="item.placeholder"
+                 style="width: 100%"
+                 clearable
+               ></el-input>
+             </template>
+            
+             <!-- 配置文件类型是 select下拉选择框 显示下拉-->
+             <template v-else-if="item.type == 'select'">
+               <el-select
+                  v-model="pane.data[item.prop]"
+                 :placeholder="item.placeholder"
+                 style="width: 100%"
+                 clearable
+                 filterable
+               >
+                 <el-option
+                   v-for="options in getOptions(item)"
+                   :label="options.title"
+                   :value="options.value"
+                 >
+                 </el-option>
+               </el-select>
+             </template>
+   
+             <!-- 配置文件类型是  multiple 多选下拉-->
+             <template v-else-if="item.type == 'multiple'">
+               <el-select
+                 multiple
+                 filterable
+                 v-model="pane.data[item.prop]"
+                 :placeholder="item.placeholder"
+                 style="width: 100%"
+                 clearable
+               >
+                 <el-option
+                   v-for="options in getOptions(item)"
+                   :label="options.title"
+                   :value="options.value"
+                 >
+                 </el-option>
+               </el-select>
+             </template>
+   
+             <!-- 配置文件是 单个日期 datepickerone 时间  显示单个的日期-->
+             <template v-else-if="item.type == 'datepickerone'">
+               <el-date-picker
+                 value-format="yyyy-MM-dd"
+                 v-model="pane.data[item.prop]"
+                 type="date"
+                 style="width:100%"
+                 :placeholder="item.placeholder"
+                 clearable
+               >
+               </el-date-picker>
+             </template>
+   
+              <!-- 配置文件是 file  文件-->
+              <template v-else-if="item.type == 'file'">
+                 文件展示
+             </template>
+           </el-form-item>
+          </el-form>
+        </template>
+      </el-tab-pane>  
+     
       </el-tabs>
       <!-- 操作按钮 -->
       <div class="footer">
@@ -104,6 +178,54 @@
 export default {
   data() {
     return {
+
+
+      inbound:[
+        {
+          certificateReportNumber: 'pdf文件',
+          projectAbbreviation: 'I-V扫描与智能诊断',
+          language: 'zh',
+          productLine: '字典产品线id',
+          standard: '字典标准型号id',
+          organization: ' 字典机构简称id',
+          certificateType: '类型字典id',
+          productModel: '字典产品型号id',
+          validDate: '2017-01-17 16:25:38',
+          issueDate: '2020-12-08 06:16:08',
+          applicableRegion: '字典事业部id',
+          certifiedProductVersion: '认证产品版本',
+          reason: '变更原因',
+          certificateStatus: '证书状态',
+          certificates: '证书或报告',
+          attachements: '附件',
+          remark: '备注',
+          id: '1'
+        },
+        {
+          certificateReportNumber: 'pdf文件',
+          projectAbbreviation: 'I-V扫描与智能诊断',
+          language: 'zh',
+          productLine: '字典产品线id',
+          standard: '字典标准型号id',
+          organization: ' 字典机构简称id',
+          certificateType: '类型字典id',
+          productModel: '字典产品型号id',
+          validDate: '2017-01-17 16:25:38',
+          issueDate: '2020-12-08 06:16:08',
+          applicableRegion: '字典事业部id',
+          certifiedProductVersion: '认证产品版本',
+          reason: '变更原因',
+          certificateStatus: '证书状态',
+          certificates: '证书或报告',
+          attachements: '附件',
+          remark: '备注',
+          id: '2'
+        }
+      ],//已入库的数据
+
+      selectField: '', // 左侧当高聚焦的选择框
+      selectRightField: '', // 右侧当高聚焦的选择框
+      
       isDisabledLeft:true,//禁用左侧表单
       // 左侧配置文件
       configLeft:{
@@ -299,7 +421,7 @@ export default {
        
       // 右侧双向绑定表单
       formRight: {},
-      activeName: 'second', //右侧激活
+      activeName: '1', //右侧激活
       isDisabledRight:true,
       // 右侧字典
       dictionaries:{
@@ -391,10 +513,40 @@ export default {
   created(){
     this.getDictionaries()
   },
+  mounted() {
+    // 监听左侧列表滚动事件
+    this.$refs.leftRef.addEventListener('scroll', this.handleScroll)
+   
+    // 获取所有表单的滚动容器
+    const allFormRefs = Object.keys(this.$refs).filter(ref => ref.startsWith('rightSelect-'));
+    // console.log(allFormRefs,'获取所有表单的滚动容器');
+      allFormRefs.forEach(formRef => {
+        this.$refs[formRef][0].$el.addEventListener('scroll', this.handleRightScroll(formRef))
+      });
+  
+
+    console.log( this.$refs.leftRef,'999999999');
+    // 右侧每个表单的滚动事件
+      // this.panes.forEach((pane, index) => {
+        // console.log(pane,'-----我是循环注册事件----');
+        // console.log(this.$refs[`rightSelect-${pane.id}`]);
+        // this.handleTabScroll(`rightSelect-${pane.id}`);
+        // this.$refs[`rightSelect-${pane.id}`].addEventListener('scroll', this.handleRightScroll(`rightSelect-${pane.id}`))
+    // });
+    
+  },
   computed: {
+    // 处理右侧绑定数据 和 label
+    panes() {
+      return this.inbound.map((item,index) => ({
+        label: `tab${index + 1}`,
+        id: item.id,
+        data: item
+      }));
+    },
+    //  处理左侧字典
     getOptions() {
       return function (item) {
-        console.log(item,'999999');
         const dictionaryKey = item.prop;
         if (this.dictionaries[dictionaryKey]) {
           return this.dictionaries[dictionaryKey].map(dictItem => ({
@@ -407,10 +559,48 @@ export default {
     }
   },
   methods:{
+    // 左侧 列表滚动事件
+    handleScroll(){
+      const dom = this.$refs[`leftSelect-${this.selectField}`]
+      console.log(dom,'我是获取的dom');
+      if (dom) {
+        dom[0].blur()
+      }
+
+      // 单独针对日期关闭
+      if(dom && dom[0]?.type && dom[0]?.type == 'date'){
+        dom[0].hidePicker()
+      }
+    },
+    // 左侧 在选择框打开的时候标记那个选择框被选中了
+    handleFocus(field) {
+      this.selectField = field
+    },
+    //左侧 失焦时，清除标记
+    handleBlur() {
+      this.selectField = ''
+    },
+
+    // 右侧  获取右侧所有ref实例
+    handleTabScroll(tabRef){
+      console.log(tabRef,'-------------------');
+      // 获取当前 tab 的滚动容器
+      const scrollContainer = this.$refs[tabRef][0];
+
+       // 添加滚动事件监听器
+       scrollContainer.addEventListener('scroll',this.handleRightScroll(tabRef))
+    },
+    // 右侧滚动事件
+    handleRightScroll(formRef){
+       const dom = this.$refs[`rightSelect-${formRef}`]
+      console.log(dom,'我滚蛋了');
+    },
+
     // 获取所有字段数据
     getDictionaries(){
     
     },
+    // tab点击
     handleClick(tab, event) {
         console.log(tab, event);
         console.log(tab.name,'所选项',tab.index,'所选的索引');
@@ -429,6 +619,14 @@ export default {
         console.log('右侧保存数据');
 
       }
+    },
+     // 如果 inbound 发生变化，重新计算 panes
+     inbound(newVal) {
+      this.panes = newVal.map(item => ({
+        label:  `tab${index + 1}`,
+        id: item.id,
+        data: item
+      }));
     }
   }
 };
@@ -454,7 +652,7 @@ export default {
   overflow: auto;
   box-sizing: border-box;
 }
-.left .form-left-box {
+.left .form-left-box, .right  .form-left-box{
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -462,14 +660,14 @@ export default {
   
 }
 
-.left .form-left-box .item {
+.left .form-left-box .item, .right .form-left-box .item{
   width: 49%;
   box-sizing: border-box;
   padding: 10px;
   background-color: #f0f0f0;
   /* margin-bottom: 10px; */
 }
-.left .footer {
+.left .footer, .right .footer {
   width: 80px;
   position: sticky;
   bottom: 50px;
@@ -481,13 +679,11 @@ export default {
 .right {
   padding: 10px;
   background-color: #fff;
+  overflow: hidden;
 }
-.right .footer {
-  width: 80px;
-  position: sticky;
-  bottom: 50px;
-  right: 30px;
-  margin-left: 85%;
+.right-form {
+  height: 420px;
+  overflow: auto;
 }
 
 </style>
