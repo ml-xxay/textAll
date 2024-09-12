@@ -94,7 +94,7 @@
         >
 
         <template #default>
-          <el-form :model="pane.data" :ref="`rightSelect-${pane.id}`" :rules="configLeft.rules" class="form-left-box right-form"  label-width="120px" label-position="top" >
+          <el-form :model="pane.data" :ref="`rightForm-${pane.id}`" :rules="configLeft.rules" class="form-left-box right-form"  label-width="120px" label-position="top" :disabled="isDisabledRight" >
             <el-form-item class="item" :label="item.label" :prop="item.prop" v-for="(item,index) in configLeft.formItems" :key="index">
               <!-- 配置文件类型是 input 框-->
               <template v-if="item.type == 'input'">
@@ -111,6 +111,9 @@
                <el-select
                   v-model="pane.data[item.prop]"
                  :placeholder="item.placeholder"
+                 :ref="`rightSelect-${item.prop}`"
+                 @focus="handleRightFocus(item.prop)"
+                 @blur="handleRightBlur"
                  style="width: 100%"
                  clearable
                  filterable
@@ -131,6 +134,9 @@
                  filterable
                  v-model="pane.data[item.prop]"
                  :placeholder="item.placeholder"
+                 :ref="`rightSelect-${item.prop}`"
+                 @focus="handleRightFocus(item.prop)"
+                 @blur="handleRightBlur"
                  style="width: 100%"
                  clearable
                >
@@ -151,6 +157,9 @@
                  type="date"
                  style="width:100%"
                  :placeholder="item.placeholder"
+                 :ref="`rightSelect-${item.prop}`"
+                 @focus="handleRightFocus(item.prop)"
+                 @blur="handleRightBlur"
                  clearable
                >
                </el-date-picker>
@@ -178,51 +187,6 @@
 export default {
   data() {
     return {
-
-
-      inbound:[
-        {
-          certificateReportNumber: 'pdf文件',
-          projectAbbreviation: 'I-V扫描与智能诊断',
-          language: 'zh',
-          productLine: '字典产品线id',
-          standard: '字典标准型号id',
-          organization: ' 字典机构简称id',
-          certificateType: '类型字典id',
-          productModel: '字典产品型号id',
-          validDate: '2017-01-17 16:25:38',
-          issueDate: '2020-12-08 06:16:08',
-          applicableRegion: '字典事业部id',
-          certifiedProductVersion: '认证产品版本',
-          reason: '变更原因',
-          certificateStatus: '证书状态',
-          certificates: '证书或报告',
-          attachements: '附件',
-          remark: '备注',
-          id: '1'
-        },
-        {
-          certificateReportNumber: 'pdf文件',
-          projectAbbreviation: 'I-V扫描与智能诊断',
-          language: 'zh',
-          productLine: '字典产品线id',
-          standard: '字典标准型号id',
-          organization: ' 字典机构简称id',
-          certificateType: '类型字典id',
-          productModel: '字典产品型号id',
-          validDate: '2017-01-17 16:25:38',
-          issueDate: '2020-12-08 06:16:08',
-          applicableRegion: '字典事业部id',
-          certifiedProductVersion: '认证产品版本',
-          reason: '变更原因',
-          certificateStatus: '证书状态',
-          certificates: '证书或报告',
-          attachements: '附件',
-          remark: '备注',
-          id: '2'
-        }
-      ],//已入库的数据
-
       selectField: '', // 左侧当高聚焦的选择框
       selectRightField: '', // 右侧当高聚焦的选择框
       
@@ -395,8 +359,6 @@ export default {
           productLine: [{ required: true, message: '请选择产品线', trigger: 'blur' }],
         }
       } ,
-      
-      
       // 左侧双向绑定表单
       formLeft: {
         certificateReportNumber: 'pdf文件',
@@ -419,11 +381,55 @@ export default {
         id: '1'
       },
        
+      isDisabledRight:true,//禁用右侧表单
       // 右侧双向绑定表单
       formRight: {},
+      // 右侧tab项数据
+      inbound:[
+        {
+          certificateReportNumber: 'pdf文件',
+          projectAbbreviation: 'I-V扫描与智能诊断',
+          language: 'zh',
+          productLine: '字典产品线id',
+          standard: '字典标准型号id',
+          organization: ' 字典机构简称id',
+          certificateType: '类型字典id',
+          productModel: '字典产品型号id',
+          validDate: '2017-01-17 16:25:38',
+          issueDate: '2020-12-08 06:16:08',
+          applicableRegion: '字典事业部id',
+          certifiedProductVersion: '认证产品版本',
+          reason: '变更原因',
+          certificateStatus: '证书状态',
+          certificates: '证书或报告',
+          attachements: '附件',
+          remark: '备注',
+          id: '1'
+        },
+        {
+          certificateReportNumber: 'pdf文件',
+          projectAbbreviation: 'I-V扫描与智能诊断',
+          language: 'zh',
+          productLine: '字典产品线id',
+          standard: '字典标准型号id',
+          organization: ' 字典机构简称id',
+          certificateType: '类型字典id',
+          productModel: '字典产品型号id',
+          validDate: '2017-01-17 16:25:38',
+          issueDate: '2020-12-08 06:16:08',
+          applicableRegion: '字典事业部id',
+          certifiedProductVersion: '认证产品版本',
+          reason: '变更原因',
+          certificateStatus: '证书状态',
+          certificates: '证书或报告',
+          attachements: '附件',
+          remark: '备注',
+          id: '2'
+        }
+      ],//已入库的数据
       activeName: '1', //右侧激活
-      isDisabledRight:true,
-      // 右侧字典
+      index:0,//右侧tab点击的的索引
+      // 下拉options数据
       dictionaries:{
           "projectAbbreviation": [
               {
@@ -517,21 +523,19 @@ export default {
     // 监听左侧列表滚动事件
     this.$refs.leftRef.addEventListener('scroll', this.handleScroll)
    
-    // 获取所有表单的滚动容器
-    const allFormRefs = Object.keys(this.$refs).filter(ref => ref.startsWith('rightSelect-'));
-    // console.log(allFormRefs,'获取所有表单的滚动容器');
+    // 右侧每个表单的滚动事件
+    const allFormRefs = Object.keys(this.$refs).filter(ref => ref.startsWith('rightForm-'));
       allFormRefs.forEach(formRef => {
-        this.$refs[formRef][0].$el.addEventListener('scroll', this.handleRightScroll(formRef))
+        this.$refs[formRef][0].$el.addEventListener('scroll',  () => this.handleRightScroll(formRef))
       });
   
 
-    console.log( this.$refs.leftRef,'999999999');
-    // 右侧每个表单的滚动事件
+    // 右侧每个表单的滚动事件 (方式2)
       // this.panes.forEach((pane, index) => {
         // console.log(pane,'-----我是循环注册事件----');
-        // console.log(this.$refs[`rightSelect-${pane.id}`]);
-        // this.handleTabScroll(`rightSelect-${pane.id}`);
-        // this.$refs[`rightSelect-${pane.id}`].addEventListener('scroll', this.handleRightScroll(`rightSelect-${pane.id}`))
+        // console.log(this.$refs[`rightForm-${pane.id}`]);
+        // this.handleTabScroll(`rightForm-${pane.id}`);
+        // this.$refs[`rightForm-${pane.id}`].addEventListener('scroll', this.handleRightScroll(`rightForm-${pane.id}`))
     // });
     
   },
@@ -562,7 +566,6 @@ export default {
     // 左侧 列表滚动事件
     handleScroll(){
       const dom = this.$refs[`leftSelect-${this.selectField}`]
-      console.log(dom,'我是获取的dom');
       if (dom) {
         dom[0].blur()
       }
@@ -581,30 +584,42 @@ export default {
       this.selectField = ''
     },
 
-    // 右侧  获取右侧所有ref实例
-    handleTabScroll(tabRef){
-      console.log(tabRef,'-------------------');
-      // 获取当前 tab 的滚动容器
-      const scrollContainer = this.$refs[tabRef][0];
 
-       // 添加滚动事件监听器
-       scrollContainer.addEventListener('scroll',this.handleRightScroll(tabRef))
-    },
     // 右侧滚动事件
     handleRightScroll(formRef){
-       const dom = this.$refs[`rightSelect-${formRef}`]
-      console.log(dom,'我滚蛋了');
+      const dom = this.$refs[`rightSelect-${this.selectRightField}`]
+
+      if (dom) {
+        dom[this.index].blur()
+      }
+      if(dom && dom[0]?.type && dom[0]?.type == 'date'){
+        dom[this.index].hidePicker()
+      }
+     
     },
+    // 右侧 在选择框打开的时候标记那个选择框被选中了
+    handleRightFocus(field){
+      this.selectRightField = field
+    },
+    //右侧 失焦时，清除标记
+    handleRightBlur(){
+      this.selectRightField = ''
+    },
+
+    // tab点击
+    handleClick(tab, event) {
+        // console.log(tab, event);
+        // console.log(tab.name,'所选项',tab.index,'所选的索引');
+        this.index = tab.index
+        this.selectRightField = ''
+    },
+
 
     // 获取所有字段数据
     getDictionaries(){
     
     },
-    // tab点击
-    handleClick(tab, event) {
-        console.log(tab, event);
-        console.log(tab.name,'所选项',tab.index,'所选的索引');
-      }
+   
   },
   watch:{
     isDisabledLeft(newVal,oldVal){
