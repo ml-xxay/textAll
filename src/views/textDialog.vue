@@ -94,7 +94,7 @@
         >
 
         <template #default>
-          <el-form :model="pane.data" :ref="`rightForm-${pane.id}`" :rules="configLeft.rules" class="form-left-box right-form"  label-width="120px" label-position="top" :disabled="isDisabledRight" >
+          <el-form :model="pane.data" :ref="`rightForm-${pane.id}`" :rules="configLeft.rules" class="form-left-box right-form"  label-width="120px" label-position="top" :disabled="pane.id !== currentActiveTab || isDisabledRight" >
             <el-form-item class="item" :label="item.label" :prop="item.prop" v-for="(item,index) in configLeft.formItems" :key="index">
               <!-- 配置文件类型是 input 框-->
               <template v-if="item.type == 'input'">
@@ -177,7 +177,7 @@
       </el-tabs>
       <!-- 操作按钮 -->
       <div class="footer">
-        <el-button type="primary"  @click="isDisabledRight = !isDisabledRight">{{isDisabledRight ? '编辑' : '保存'}}</el-button>
+        <el-button type="primary"  @click="toggleEdit">{{isDisabledRight ? '编辑' : '保存'}}</el-button>
       </div>
     </div>
   </div>
@@ -382,6 +382,8 @@ export default {
       },
        
       isDisabledRight:true,//禁用右侧表单
+      currentActiveTab: '1',//记录当前激活的 Tab
+
       // 右侧双向绑定表单
       formRight: {},
       // 右侧tab项数据
@@ -518,17 +520,29 @@ export default {
   },
   created(){
     this.getDictionaries()
+    
   },
   mounted() {
     // 监听左侧列表滚动事件
-    this.$refs.leftRef.addEventListener('scroll', this.handleScroll)
-   
-    // 右侧每个表单的滚动事件
-    const allFormRefs = Object.keys(this.$refs).filter(ref => ref.startsWith('rightForm-'));
+    setTimeout(()=>{
+      this.$refs.leftRef.addEventListener('scroll', this.handleScroll)
+      const allFormRefs = Object.keys(this.$refs).filter(ref => ref.startsWith('rightForm-'));
       allFormRefs.forEach(formRef => {
         this.$refs[formRef][0].$el.addEventListener('scroll',  () => this.handleRightScroll(formRef))
       });
+    },5000)
+
+
+    // this.$refs.leftRef.addEventListener('scroll', this.handleScroll)
+   
+    // // 右侧每个表单的滚动事件
+    // const allFormRefs = Object.keys(this.$refs).filter(ref => ref.startsWith('rightForm-'));
+    //   allFormRefs.forEach(formRef => {
+    //     this.$refs[formRef][0].$el.addEventListener('scroll',  () => this.handleRightScroll(formRef))
+    //   });
   
+    
+    
 
     // 右侧每个表单的滚动事件 (方式2)
       // this.panes.forEach((pane, index) => {
@@ -565,6 +579,7 @@ export default {
   methods:{
     // 左侧 列表滚动事件
     handleScroll(){
+      console.log('---------左侧--------');
       const dom = this.$refs[`leftSelect-${this.selectField}`]
       if (dom) {
         dom[0].blur()
@@ -592,7 +607,7 @@ export default {
       if (dom) {
         dom[this.index].blur()
       }
-      if(dom && dom[0]?.type && dom[0]?.type == 'date'){
+      if(dom && dom[this.index].type && dom[this.index].type == 'date'){
         dom[this.index].hidePicker()
       }
      
@@ -608,12 +623,40 @@ export default {
 
     // tab点击
     handleClick(tab, event) {
-        // console.log(tab, event);
+        console.log(tab, event);
         // console.log(tab.name,'所选项',tab.index,'所选的索引');
         this.index = tab.index
+        this.currentActiveTab = tab.name; // tab.name 是id
         this.selectRightField = ''
+        this.isDisabledRight = true; // 默认禁用所有表单
     },
+    toggleEdit() {
+      this.isDisabledRight = !this.isDisabledRight;
 
+      if(this.isDisabledRight){
+        console.log('我需要请求税局');
+        const currentForm = this.panes.find(pane => pane.id === this.currentActiveTab);
+
+        if (!currentForm) {
+          console.error('找不到当前激活的 Tab 的数据');
+          return;
+        }
+
+        console.log(currentForm,'我是要提交的表单');
+        console.log(this.$refs[`rightForm-${this.currentActiveTab}`],'---我是要提交表单的dom----');
+
+        this.$refs[`rightForm-${this.currentActiveTab}`][0].validate((valid) => {
+          if (!valid) {
+            this.isDisabledRight = false;
+            return
+          } 
+          // 请求
+        });
+      }
+
+      return
+     
+    },
 
     // 获取所有字段数据
     getDictionaries(){
@@ -625,14 +668,20 @@ export default {
     isDisabledLeft(newVal,oldVal){
       if(newVal){
         // 发送请求保存左侧表单数据
-        console.log('左侧保存数据');
+        console.log(this.$refs.form,'左侧保存数据');
+        this.$refs.form.validate((valid) => {
+          if (!valid) {
+            this.isDisabledLeft = false
+            return
+          } 
+          // 请求
+        });
       }
     },
-    isDisabledRight(newVal,oldVal){
-      if(newVal){
-        // 发送请求保存 右侧表单数据
-        console.log('右侧保存数据');
-
+    currentActiveTab(newVal,oldVal){
+      // 仅在切换 Tab 时重置表单字段
+      if (newVal !== oldVal) {
+        this.$refs[`rightForm-${newVal}`][0].resetFields(); // 每次点击的时候重置表单
       }
     },
      // 如果 inbound 发生变化，重新计算 panes
@@ -643,14 +692,25 @@ export default {
         data: item
       }));
     }
-  }
+  },
+  // 移除滚动事件监听器
+  beforeDestroy() {
+    this.$refs.leftRef.removeEventListener('scroll', this.handleScroll)
+
+    const allFormRefs = Object.keys(this.$refs).filter(ref => ref.startsWith('rightForm-'));
+    allFormRefs.forEach(formRef => {
+        this.$refs[formRef][0].$el.removeEventListener('scroll',  () => this.handleRightScroll(formRef))
+    });
+  },
 };
 </script>
 
 <style scoped>
+
   /deep/.el-form--label-top .el-form-item__label {
     padding: 0 !important;
   }
+  
 .box {
   display: flex;
   justify-content: space-between;
