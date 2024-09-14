@@ -1,6 +1,7 @@
 <template>
   <div class="box">
     <div class="left" ref="leftRef">
+      <h3>待录入详情</h3>
         <!-- 左侧表单 -->
       <el-form ref="form" :model="formLeft" :rules="configLeft.rules" label-width="80px" class="form-left-box" label-position="top" :disabled="isDisabledLeft">
         <el-form-item class="item" :label="item.label" :prop="item.prop" v-for="(item,index) in configLeft.formItems" :key="index">
@@ -76,6 +77,19 @@
            <!-- 配置文件是 file  文件-->
            <template v-else-if="item.type == 'file'">
               文件展示
+          </template>
+          <!-- 配置文件是 textarea  文件-->
+          <template v-else-if="item.type == 'textarea'">
+            <el-input
+              v-model="formLeft[item.prop]"
+              :placeholder="item.placeholder"
+              style="width: 100%"
+              maxlength="2000"
+              autosize
+              show-word-limit
+              type="textarea"
+              clearable
+            ></el-input>
           </template>
         </el-form-item>
       </el-form>
@@ -169,6 +183,18 @@
               <template v-else-if="item.type == 'file'">
                  文件展示
              </template>
+             <template v-else-if="item.type == 'textarea'">
+              <el-input
+                v-model="formLeft[item.prop]"
+                :placeholder="item.placeholder"
+                style="width: 100%"
+                maxlength="2000"
+                autosize
+                show-word-limit
+                type="textarea"
+                clearable
+              ></el-input>
+            </template>
            </el-form-item>
           </el-form>
         </template>
@@ -347,8 +373,8 @@ export default {
             label:'备注',
             prop:'remark',
             rolus:'',
-            slot:'',
-            type:'input'
+            slot:'remark',
+            type:'textarea'
           },
         ],
         rules: {
@@ -362,13 +388,13 @@ export default {
       // 左侧双向绑定表单
       formLeft: {
         certificateReportNumber: 'pdf文件',
-        projectAbbreviation: 'I-V扫描与智能诊断',
+        projectAbbreviation: '1111',
         language: 'zh',
         productLine: '字典产品线id',
-        standard: '字典标准型号id',
+        standard: ['1111','222'],
         organization: ' 字典机构简称id',
         certificateType: '类型字典id',
-        productModel: '字典产品型号id',
+        productModel: ['1111','222'],
         validDate: '2017-01-17 16:25:38',
         issueDate: '2020-12-08 06:16:08',
         applicableRegion: '字典事业部id',
@@ -393,10 +419,10 @@ export default {
           projectAbbreviation: 'I-V扫描与智能诊断',
           language: 'zh',
           productLine: '字典产品线id',
-          standard: '字典标准型号id',
+          standard: ['1'],
           organization: ' 字典机构简称id',
           certificateType: '类型字典id',
-          productModel: '字典产品型号id',
+          productModel: [],
           validDate: '2017-01-17 16:25:38',
           issueDate: '2020-12-08 06:16:08',
           applicableRegion: '字典事业部id',
@@ -413,10 +439,10 @@ export default {
           projectAbbreviation: 'I-V扫描与智能诊断',
           language: 'zh',
           productLine: '字典产品线id',
-          standard: '字典标准型号id',
+          standard: ['111','222'],
           organization: ' 字典机构简称id',
           certificateType: '类型字典id',
-          productModel: '字典产品型号id',
+          productModel: ['111','222'],
           validDate: '2017-01-17 16:25:38',
           issueDate: '2020-12-08 06:16:08',
           applicableRegion: '字典事业部id',
@@ -445,12 +471,20 @@ export default {
           ],
           "productLine": [
               {
-                  "id": "1111",
+                  "id": "600",
                   "name": "line1"
               },
               {
-                  "id": "222",
+                  "id": "601",
                   "name": "line2"
+              },
+              {
+                  "id": "602",
+                  "name": "line3"
+              },
+              {
+                  "id": "603",
+                  "name": "line4"
               }
           ],
           "standard": [
@@ -505,20 +539,77 @@ export default {
                   "fullName": "iso9001标准"
               }
           ],
-          "product_model": [
+          "productModel": [
               {
-                  "id": "1111",
-                  "name": "型号1"
+                  "id": "1",
+                  "name": "型号1",
+                  productLine: [
+                    //产品型号--> 产品线(多个)
+                    {
+                      "id": "600",
+                      "name": "line1"
+                    },
+                    {
+                        "id": "601",
+                        "name": "line2"
+                    },
+                    
+                  ]
               },
               {
-                  "id": "222",
-                  "name": "型号2"
+                  "id": "2",
+                  "name": "型号2",
+                  productLine: [
+                    //产品型号--> 产品线(多个)
+                    {
+                        "id": "602",
+                        "name": "line3"
+                    },
+                    {
+                        "id": "603",
+                        "name": "line4"
+                    }
+                  ]
               }
           ]
       }
     };
   },
   created(){
+  //   let globalVue = window.APaaSSDK.context.globalVueContext.$root;
+  //   const origin = window.location.origin
+  //   const reg=/-sit/;
+  //   const path = reg.test(origin) ? 'dev-pis' : 'sungrow-pis'
+  //   globalVue.$request({
+  //   // 接口
+  //   url: `${origin}/${path}/custom/access/pc/getOfferTitle?documentId=${id}`,
+  //   // 请求方式
+  //   method: "post",
+  //   // 传参
+  //   params: {
+  //     documentId: id,
+  //   },
+  //   disableSuccessMsg:true,
+  //   headers: {
+  //     'xdaptimestamp': new Date().getTime()
+  //   },
+  //   // 超时时间-
+  //   timeout: 5000,
+  // })
+  // .asyncThen(
+  //   (resp) => {
+  //     // 正常业务
+  //     topOfferDom.innerText = resp.data.offerTitle
+  //   },
+  //   (err) => {
+  //     // 异常业务
+  //   }
+  // )
+  // .asyncErrorCatch((err) => {
+  //   // 网络异常
+  // });
+
+
     this.getDictionaries()
     
   },
@@ -533,15 +624,12 @@ export default {
     },5000)
 
 
-    // this.$refs.leftRef.addEventListener('scroll', this.handleScroll)
    
-    // // 右侧每个表单的滚动事件
+    // // 右侧每个表单的滚动事件 （方式1）
     // const allFormRefs = Object.keys(this.$refs).filter(ref => ref.startsWith('rightForm-'));
     //   allFormRefs.forEach(formRef => {
     //     this.$refs[formRef][0].$el.addEventListener('scroll',  () => this.handleRightScroll(formRef))
     //   });
-  
-    
     
 
     // 右侧每个表单的滚动事件 (方式2)
@@ -557,7 +645,7 @@ export default {
     // 处理右侧绑定数据 和 label
     panes() {
       return this.inbound.map((item,index) => ({
-        label: `tab${index + 1}`,
+        label: `tab${index + 1}已入库详情`,
         id: item.id,
         data: item
       }));
@@ -586,7 +674,7 @@ export default {
       }
 
       // 单独针对日期关闭
-      if(dom && dom[0]?.type && dom[0]?.type == 'date'){
+      if(dom && dom[0].type && dom[0].type == 'date'){
         dom[0].hidePicker()
       }
     },
@@ -624,7 +712,7 @@ export default {
     // tab点击
     handleClick(tab, event) {
         console.log(tab, event);
-        // console.log(tab.name,'所选项',tab.index,'所选的索引');
+        console.log(tab.name,'所选项',tab.index,'所选的索引');
         this.index = tab.index
         this.currentActiveTab = tab.name; // tab.name 是id
         this.selectRightField = ''
@@ -653,22 +741,56 @@ export default {
           // 请求
         });
       }
-
-      return
-     
     },
 
     // 获取所有字段数据
     getDictionaries(){
     
     },
-   
+
+    // 根据所选产品型号 动态的处理  产品线
+    updateProductLineDropdown(tabId,modelIds){
+      // 更新对应产品型号的产品线下拉框
+      const currentForm = this.panes.find(pane => pane.id == tabId); //找出当前激活tabs所对应的表单
+      console.log(currentForm,'我是找到的对应的表单');
+      if (!currentForm) {
+        console.error('找不到当前激活的 Tab 的数据');
+        return;
+      }
+
+      const modelItem = this.configLeft.formItems.find(item => item.prop === 'productModel');//找出产品型号这一项
+      console.log(modelItem,'我是找到的对应项');
+      if (modelItem && modelItem.type === 'multiple') {
+
+
+      const arr =  modelIds.find(item=> item.id === tabId).data.productModel
+
+
+        let combinedProductLines = [];
+        arr.forEach(modelId => {
+          console.log(modelId,'我是接收的数组的每一项');
+          const productLinesForModel = this.dictionaries.productModel.find(p => p.id === modelId).productLine;
+          console.log(productLinesForModel,'我是所会找到的');
+          combinedProductLines = combinedProductLines.concat(productLinesForModel);
+        });
+
+        console.log(combinedProductLines,'我是处理完成的');
+        // const uniqueProductLines = [...new Set(combinedProductLines)];
+        // const options = uniqueProductLines.map(plId => this.dictionaries.productLine.find(pl => pl.id === plId));
+        modelItem.options = combinedProductLines.map(option => ({
+          title: option.name,
+          value: option.id
+        }));
+
+        // // 如果需要的话，更新当前表单中的 productLine 字段
+        currentForm.data.productLine = combinedProductLines;
+      }
+    }   
   },
   watch:{
     isDisabledLeft(newVal,oldVal){
       if(newVal){
         // 发送请求保存左侧表单数据
-        console.log(this.$refs.form,'左侧保存数据');
         this.$refs.form.validate((valid) => {
           if (!valid) {
             this.isDisabledLeft = false
@@ -677,6 +799,14 @@ export default {
           // 请求
         });
       }
+    },
+    // 动态的监听产品型号下拉
+    panes: {
+      handler(newVal, oldVal) {
+        console.log(newVal,'----我是产品线下拉----');
+        this.updateProductLineDropdown(this.currentActiveTab,newVal);
+      },
+      deep: true
     },
     currentActiveTab(newVal,oldVal){
       // 仅在切换 Tab 时重置表单字段
@@ -695,6 +825,7 @@ export default {
   },
   // 移除滚动事件监听器
   beforeDestroy() {
+    console.log('我被销毁了');
     this.$refs.leftRef.removeEventListener('scroll', this.handleScroll)
 
     const allFormRefs = Object.keys(this.$refs).filter(ref => ref.startsWith('rightForm-'));
@@ -710,11 +841,40 @@ export default {
   /deep/.el-form--label-top .el-form-item__label {
     padding: 0 !important;
   }
+  /* 设置滚动条样式 */
+ ::-webkit-scrollbar {
+  width: 3px;
+  border-radius: 3px;
+ }
+ ::-webkit-scrollbar-thumb{
+  background-color: #ccc;
+ }
+ ::-webkit-scrollbar-track{
+  background-color: #f1f1f1;
+ }
+ ::-webkit-scrollbar-track-piece {
+  background-color: transparent;
+  -webkit-border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:vertical {
+  background-color: #ccc;
+  -webkit-border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: #ccc;
+  -webkit-border-radius: 6px;
+
+}
+ /* 设置滚动条在hover状态下的样式 */
+ ::-webkit-scrollbar-thumb:hover{
+  background-color: #888;
+ }
   
 .box {
   display: flex;
   justify-content: space-between;
-  width: 95%;
+  width: 98%;
   height: 100%;
   padding: 10px;
   background-color: #f7f7f7;
@@ -739,8 +899,9 @@ export default {
   width: 49%;
   box-sizing: border-box;
   padding: 10px;
-  background-color: #f0f0f0;
-  /* margin-bottom: 10px; */
+  /* background-color: #f0f0f0; */
+  border-radius: 5px;
+  margin-bottom: 0 !important;
 }
 .left .footer, .right .footer {
   width: 80px;

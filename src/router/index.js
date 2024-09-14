@@ -13,6 +13,7 @@ const tableTz = () => import('../views/tableTz.vue'); //修改密码
 const atils = () => import('../views/atils.vue'); //雷达图
 const cs = () => import('../views/cs.vue'); //测试模块导入
 const dialog = () => import('../views/textDialog.vue'); //测试自定义弹窗
+const glform = () => import('../views/glform.vue'); //测试隔离数据是否响应式
 Vue.use(VueRouter);
 
 const routes = [
@@ -26,6 +27,11 @@ const routes = [
     path: '/atils',
     name: 'atils',
     component: atils
+  },
+  {
+    path: '/glform',
+    name: 'glform',
+    component: glform
   },
   {
     path: '/dialog',

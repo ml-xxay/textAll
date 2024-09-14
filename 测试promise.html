@@ -1,30 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
+      const textPromise = () => {
+        return Promise.resolve([1, 2, 3]);
+      };
 
-        const textPromise =  ()=>{
-            return Promise.resolve([1,2,3])
-        }
-        
-       async function cehsi(){
-            let aa = await textPromise()
-            console.log(aa);
-        }
-        
-        console.log(cehsi(),'--------promise-------');
+      async function cehsi() {
+        let aa = await textPromise();
+        console.log(aa);
+      }
 
-        let str = ''
-        if(!str){
-            console.log('我判断正确');
-        }
-        console.log(str.length)
+      console.log(cehsi(), '--------promise-------');
 
+      let str = '';
+      if (!str) {
+        console.log('我判断正确');
+      }
+      console.log(str.length);
+
+      let promise = new Promise(function (resolve, reject) {
+        // 不管这里面是哪个错误类型
+        throw new Error('我是错误信息');
+        reject('我是错误信息');
+      });
+      promise
+        .then(
+          function (res) {
+            console.log(res, 1);
+          },
+          function (error) {
+            //如果使用了reject处理了错误 catch就不会执行   因为这里先处理了错误    要想统一处理错误 可以使用catch 不用这个第二个回调
+            console.log(error, 2);
+          }
+        )
+        .catch((err) => {
+          console.log(err, 3);
+        });
+
+    
+
+
+
+
+
+
+
+
+
+
+      let obj = {
+        productModel: [
+          {
+            //产品型号列表
+            id: '619458282603680128',
+            name: 'SG10RT-20',
+            productLine: [
+              //产品型号-> 产品线(多个)
+              '619458282603680129',
+              '619456813217354112'
+            ]
+          }
+        ],
+        standard: [
+          {
+            //标准列表
+            id: '619460322461487488',
+            name: 'CGC/GF 035:2013',
+            projectAbbreviation: [
+              //标准->项目简称
+              '619459023728808320'
+            ],
+            applicableRegion: [
+              //标准 ->适用区域
+              '619459023728808321'
+            ]
+          }
+        ],
+        productLine: [
+          // 产品线列表
+          {
+            id: '619456813217354112',
+            name: '户用光伏产品线',
+            parentId:''
+          }
+        ],
+        projectAbbreviation: [
+          // 项目简称列表
+          {
+            id: '619456813217354112',
+            name: '户用光伏产品线'
+          }
+        ],
+        applicableRegion: [
+          // 适用区域列表
+          {
+            id: '619456813217354112',
+            name: '户用光伏产品线'
+          }
+        ],
+        organization: [
+          {
+            // 机构列表
+            id: '619456813217354112',
+            name: '机构简称--机构全称'
+          }
+        ],
+        certificateType: [
+          { id: '619457483181920640', name: '证书' },
+          { id: '619457515561947520', name: '报告' }
+        ],
+        certificateStatus: [
+          { id: '619481038309298560', name: '有效' },
+          { id: '619481173512688000', name: '无效' }
+        ]
+      };
     </script>
-</body>
+  </body>
 </html>
