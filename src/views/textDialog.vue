@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="left" ref="leftRef">
-      <h3>待录入详情</h3>
+      <h3 style="margin-bottom:16px">待录入详情</h3>
         <!-- 左侧表单 -->
       <el-form ref="form" :model="formLeft" :rules="configLeft.rules" label-width="80px" class="form-left-box" label-position="top" :disabled="isDisabledLeft">
         <el-form-item class="item" :label="item.label" :prop="item.prop" v-for="(item,index) in configLeft.formItems" :key="index">
@@ -151,6 +151,7 @@
                  :ref="`rightSelect-${item.prop}`"
                  @focus="handleRightFocus(item.prop)"
                  @blur="handleRightBlur"
+                 @change="updateProductLineDropdown(pane.id, pane.data)"
                  style="width: 100%"
                  clearable
                >
@@ -158,6 +159,7 @@
                    v-for="options in getOptions(item)"
                    :label="options.title"
                    :value="options.value"
+                   :key="options.value"
                  >
                  </el-option>
                </el-select>
@@ -286,7 +288,7 @@ export default {
             prop:'productLine',
             rolus:'',
             slot:'productLine',
-            type:'select',
+            type:'multiple',
             options: [
                   { title: '启用', value: 1 },
                   { title: '禁用', value: 0 }
@@ -418,7 +420,7 @@ export default {
           certificateReportNumber: 'pdf文件',
           projectAbbreviation: 'I-V扫描与智能诊断',
           language: 'zh',
-          productLine: '字典产品线id',
+          productLine: [],
           standard: ['1'],
           organization: ' 字典机构简称id',
           certificateType: '类型字典id',
@@ -438,11 +440,11 @@ export default {
           certificateReportNumber: 'pdf文件',
           projectAbbreviation: 'I-V扫描与智能诊断',
           language: 'zh',
-          productLine: '字典产品线id',
+          productLine: [],
           standard: ['111','222'],
           organization: ' 字典机构简称id',
           certificateType: '类型字典id',
-          productModel: ['111','222'],
+          productModel: [],
           validDate: '2017-01-17 16:25:38',
           issueDate: '2020-12-08 06:16:08',
           applicableRegion: '字典事业部id',
@@ -653,6 +655,7 @@ export default {
     //  处理左侧字典
     getOptions() {
       return function (item) {
+        console.log(item,'----------');
         const dictionaryKey = item.prop;
         if (this.dictionaries[dictionaryKey]) {
           return this.dictionaries[dictionaryKey].map(dictItem => ({
@@ -749,43 +752,46 @@ export default {
     },
 
     // 根据所选产品型号 动态的处理  产品线
-    updateProductLineDropdown(tabId,modelIds){
-      // 更新对应产品型号的产品线下拉框
-      const currentForm = this.panes.find(pane => pane.id == tabId); //找出当前激活tabs所对应的表单
-      console.log(currentForm,'我是找到的对应的表单');
-      if (!currentForm) {
-        console.error('找不到当前激活的 Tab 的数据');
-        return;
-      }
+   updateProductLineDropdown(tabId, modelIds) {
+   console.log('当前tab的id:', tabId, '右侧所有的数组', modelIds);
+   // 更新对应产品型号的产品线下拉框
+   let currentForm = this.panes.find(pane => pane.id == tabId); // 找出当前激活tabs所对应的双向绑定的表单
+   if (!currentForm) {
+      console.error('找不到当前激活的 Tab 的数据');
+      return;
+    }
 
-      const modelItem = this.configLeft.formItems.find(item => item.prop === 'productModel');//找出产品型号这一项
-      console.log(modelItem,'我是找到的对应项');
-      if (modelItem && modelItem.type === 'multiple') {
+    const modelItem = this.configLeft.formItems.find(item => item.prop === 'productModel'); // 从配置里面找出产品型号这一项
+    if (modelItem && modelItem.type === 'multiple' && modelItem.prop == 'productModel') {
 
+      let selectedModels = currentForm.data.productModel;
+      let combinedProductLines = [];
 
-      const arr =  modelIds.find(item=> item.id === tabId).data.productModel
+      selectedModels.forEach(modelId => {
+        const productLinesForModel = this.dictionaries.productModel.find(p => p.id === modelId).productLine;
+        combinedProductLines = combinedProductLines.concat(productLinesForModel);
+      });
 
+      const uniqueProductLines = [...new Set(combinedProductLines)];
+      console.log(uniqueProductLines, '我是处理完成的');
 
-        let combinedProductLines = [];
-        arr.forEach(modelId => {
-          console.log(modelId,'我是接收的数组的每一项');
-          const productLinesForModel = this.dictionaries.productModel.find(p => p.id === modelId).productLine;
-          console.log(productLinesForModel,'我是所会找到的');
-          combinedProductLines = combinedProductLines.concat(productLinesForModel);
-        });
+      // modelItem.options = uniqueProductLines.map(option => ({
+      //   title: option.name,
+      //   value: option.id
+      // }));
 
-        console.log(combinedProductLines,'我是处理完成的');
-        // const uniqueProductLines = [...new Set(combinedProductLines)];
-        // const options = uniqueProductLines.map(plId => this.dictionaries.productLine.find(pl => pl.id === plId));
-        modelItem.options = combinedProductLines.map(option => ({
-          title: option.name,
-          value: option.id
-        }));
+        // 使用 $set 方法确保数据是响应式的
+      this.$set(modelItem, 'options', uniqueProductLines.map(option => ({
+        title: option.name,
+        value: option.id
+      })));
 
-        // // 如果需要的话，更新当前表单中的 productLine 字段
-        currentForm.data.productLine = combinedProductLines;
-      }
-    }   
+    console.log(modelItem.options, '更新后的 options');
+
+      // 如果需要的话，更新当前表单中的 productLine 字段
+      currentForm.data.productLine = uniqueProductLines.map(option => option.id)
+    }
+  },
   },
   watch:{
     isDisabledLeft(newVal,oldVal){
@@ -801,13 +807,12 @@ export default {
       }
     },
     // 动态的监听产品型号下拉
-    panes: {
-      handler(newVal, oldVal) {
-        console.log(newVal,'----我是产品线下拉----');
-        this.updateProductLineDropdown(this.currentActiveTab,newVal);
-      },
-      deep: true
-    },
+    // panes: {
+    //   handler(newVal, oldVal) {
+    //     this.updateProductLineDropdown(this.currentActiveTab,newVal);
+    //   },
+    //   deep: true
+    // },
     currentActiveTab(newVal,oldVal){
       // 仅在切换 Tab 时重置表单字段
       if (newVal !== oldVal) {
