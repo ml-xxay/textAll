@@ -156,10 +156,11 @@
                  clearable
                >
                  <el-option
-                   v-for="options in getOptions(item)"
+                   v-for="options in getOptions(item,pane.productLineCopy)"
                    :label="options.title"
                    :value="options.value"
                    :key="options.value"
+                   :disabled="item.disabled || false"
                  >
                  </el-option>
                </el-select>
@@ -289,6 +290,7 @@ export default {
             rolus:'',
             slot:'productLine',
             type:'multiple',
+            disabled:true,
             options: [
                   { title: '启用', value: 1 },
                   { title: '禁用', value: 0 }
@@ -474,19 +476,23 @@ export default {
           "productLine": [
               {
                   "id": "600",
-                  "name": "line1"
+                  "name": "line1",
+                  disabled:true
               },
               {
                   "id": "601",
-                  "name": "line2"
+                  "name": "line2",
+                   disabled:true
               },
               {
                   "id": "602",
-                  "name": "line3"
+                  "name": "line3",
+                   disabled:true
               },
               {
                   "id": "603",
-                  "name": "line4"
+                  "name": "line4",
+                   disabled:true
               }
           ],
           "standard": [
@@ -549,11 +555,13 @@ export default {
                     //产品型号--> 产品线(多个)
                     {
                       "id": "600",
-                      "name": "line1"
+                      "name": "line1",
+                      disabled:true
                     },
                     {
                         "id": "601",
-                        "name": "line2"
+                        "name": "line2",
+                        disabled:true
                     },
                     
                   ]
@@ -649,23 +657,49 @@ export default {
       return this.inbound.map((item,index) => ({
         label: `tab${index + 1}已入库详情`,
         id: item.id,
-        data: item
+        data: item,
+        // 创建一个 productLine 的副本,防止全局的字典改变
+        productLineCopy: this.dictionaries.productLine.slice()
       }));
     },
     //  处理左侧字典
-    getOptions() {
-      return function (item) {
-        console.log(item,'----------');
-        const dictionaryKey = item.prop;
-        if (this.dictionaries[dictionaryKey]) {
-          return this.dictionaries[dictionaryKey].map(dictItem => ({
-            title: dictItem.name || dictItem.fullName || dictItem.shortName,
-            value: dictItem.id
-          }));
-        }
-        return [];
+    // getOptions() {
+    //   return function (item) {
+    //     console.log(item,'----------');
+    //     const dictionaryKey = item.prop;
+    //     if (this.dictionaries[dictionaryKey]) {
+    //       return this.dictionaries[dictionaryKey].map(dictItem => ({
+    //         title: dictItem.name || dictItem.fullName || dictItem.shortName,
+    //         value: dictItem.id
+    //       }));
+    //     }
+    //     return [];
+    //   };
+    // }
+
+     getOptions() {
+      return function (item, productLineCopy = this.dictionaries.productLine) {
+              console.log(item,'----------'); 
+
+              if (item.prop === 'productLine') {
+              console.log(1111);
+              return productLineCopy.map(line => ({
+                title: line.name,
+                value: line.id,
+                disabled:true
+              }));
+            }
+              const dictionaryKey = item.prop;
+              if (this.dictionaries[dictionaryKey]) {
+                return this.dictionaries[dictionaryKey].map(dictItem => ({
+                  title: dictItem.name || dictItem.fullName || dictItem.shortName,
+                  value: dictItem.id,
+                  disabled:false
+                }));
+              }
+              return [];
       };
-    }
+    },
   },
   methods:{
     // 左侧 列表滚动事件
@@ -753,6 +787,7 @@ export default {
 
     // 根据所选产品型号 动态的处理  产品线
    updateProductLineDropdown(tabId, modelIds) {
+    // debugger
    console.log('当前tab的id:', tabId, '右侧所有的数组', modelIds);
    // 更新对应产品型号的产品线下拉框
    let currentForm = this.panes.find(pane => pane.id == tabId); // 找出当前激活tabs所对应的双向绑定的表单
@@ -775,16 +810,21 @@ export default {
       const uniqueProductLines = [...new Set(combinedProductLines)];
       console.log(uniqueProductLines, '我是处理完成的');
 
-      // modelItem.options = uniqueProductLines.map(option => ({
-      //   title: option.name,
-      //   value: option.id
-      // }));
+ // 更新当前表单的 productLineCopy
+        currentForm.productLineCopy = uniqueProductLines;
+        console.log(currentForm,'=---------');
 
-        // 使用 $set 方法确保数据是响应式的
-      this.$set(modelItem, 'options', uniqueProductLines.map(option => ({
+      modelItem.options = uniqueProductLines.map(option => ({
         title: option.name,
         value: option.id
-      })));
+      }));
+
+
+      //   // 使用 $set 方法确保数据是响应式的
+      // this.$set(modelItem, 'options', uniqueProductLines.map(option => ({
+      //   title: option.name,
+      //   value: option.id
+      // })));
 
     console.log(modelItem.options, '更新后的 options');
 
@@ -814,6 +854,7 @@ export default {
     //   deep: true
     // },
     currentActiveTab(newVal,oldVal){
+      return
       // 仅在切换 Tab 时重置表单字段
       if (newVal !== oldVal) {
         this.$refs[`rightForm-${newVal}`][0].resetFields(); // 每次点击的时候重置表单
