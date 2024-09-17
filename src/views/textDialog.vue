@@ -476,23 +476,19 @@ export default {
           "productLine": [
               {
                   "id": "600",
-                  "name": "line1",
-                  disabled:true
+                  "name": "line1"
               },
               {
                   "id": "601",
-                  "name": "line2",
-                   disabled:true
+                  "name": "line2"
               },
               {
                   "id": "602",
-                  "name": "line3",
-                   disabled:true
+                  "name": "line3"
               },
               {
                   "id": "603",
-                  "name": "line4",
-                   disabled:true
+                  "name": "line4"
               }
           ],
           "standard": [
@@ -555,13 +551,11 @@ export default {
                     //产品型号--> 产品线(多个)
                     {
                       "id": "600",
-                      "name": "line1",
-                      disabled:true
+                      "name": "line1"
                     },
                     {
                         "id": "601",
-                        "name": "line2",
-                        disabled:true
+                        "name": "line2"
                     },
                     
                   ]
@@ -685,16 +679,14 @@ export default {
               console.log(1111);
               return productLineCopy.map(line => ({
                 title: line.name,
-                value: line.id,
-                disabled:true
+                value: line.id
               }));
             }
               const dictionaryKey = item.prop;
               if (this.dictionaries[dictionaryKey]) {
                 return this.dictionaries[dictionaryKey].map(dictItem => ({
                   title: dictItem.name || dictItem.fullName || dictItem.shortName,
-                  value: dictItem.id,
-                  disabled:false
+                  value: dictItem.id
                 }));
               }
               return [];
@@ -787,6 +779,9 @@ export default {
 
     // 根据所选产品型号 动态的处理  产品线
    updateProductLineDropdown(tabId, modelIds) {
+    // if(type == '1'){
+    //   return
+    // }
     // debugger
    console.log('当前tab的id:', tabId, '右侧所有的数组', modelIds);
    // 更新对应产品型号的产品线下拉框
