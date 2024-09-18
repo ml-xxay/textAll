@@ -79,7 +79,16 @@
 
            <!-- 配置文件是 file  文件-->
            <template v-else-if="item.type == 'file'">
-             {{formLeft[item.prop]}}
+            <div v-if="formLeft[item.prop] && formLeft[item.prop].trim() !== ''">
+              <div v-for="(item,i) in formLeft[item.prop].split(',')" >
+                <el-tooltip class="item" effect="dark" :content="item" placement="top">
+                  <div class="box-tooltip"  style="width: 100%;padding: 0;"> 
+                    <div class="tooltip-item">{{item || 暂无}}</div>
+                  </div>
+                </el-tooltip>
+              </div>
+            </div>
+            <div v-else>暂无数据</div>
           </template>
           <!-- 配置文件是 textarea  文件-->
           <template v-else-if="item.type == 'textarea'">
@@ -188,7 +197,16 @@
    
               <!-- 配置文件是 file  文件-->
               <template v-else-if="item.type == 'file'">
-                 文件展示
+                <div v-if="pane.data[item.prop] && pane.data[item.prop].trim() !== ''">
+                  <div v-for="(item,i) in pane.data[item.prop].split(',')" >
+                    <el-tooltip class="item" effect="dark" :content="item" placement="top">
+                      <div class="box-tooltip"  style="width: 100%;padding: 0;"> 
+                        <div class="tooltip-item">{{item || 暂无}}</div>
+                      </div>
+                    </el-tooltip>
+                  </div>
+                </div>
+                <div v-else>暂无数据</div>
              </template>
              <template v-else-if="item.type == 'textarea'">
               <el-input
@@ -407,8 +425,8 @@ export default {
         certifiedProductVersion: '认证产品版本',
         reason: '变更原因',
         certificateStatus: '证书状态',
-        certificates: '证书或报告文件名',
-        attachements: '附件文件名',
+        certificates: '信测-M2-报告-03-TR20240415 SC2500UD-P3 国内竞争性指标委托测试报告 CN.pdf,北京鉴衡认证中心-M2-报告-01-交流PLC宽带载波通讯性能等级认证_Level5_鉴衡认证报告_202309.pdf',
+        attachements: '',
         remark: '备注',
         id: '1'
       },
@@ -434,7 +452,7 @@ export default {
           certifiedProductVersion: '认证产品版本',
           reason: '变更原因',
           certificateStatus: '证书状态',
-          certificates: '证书或报告',
+          certificates: '',
           attachements: '附件',
           remark: '备注',
           id: '1'
@@ -610,42 +628,8 @@ export default {
     };
   },
   created(){
-  //   let globalVue = window.APaaSSDK.context.globalVueContext.$root;
-  //   const origin = window.location.origin
-  //   const reg=/-sit/;
-  //   const path = reg.test(origin) ? 'dev-pis' : 'sungrow-pis'
-  //   globalVue.$request({
-  //   // 接口
-  //   url: `${origin}/${path}/custom/access/pc/getOfferTitle?documentId=${id}`,
-  //   // 请求方式
-  //   method: "post",
-  //   // 传参
-  //   params: {
-  //     documentId: id,
-  //   },
-  //   disableSuccessMsg:true,
-  //   headers: {
-  //     'xdaptimestamp': new Date().getTime()
-  //   },
-  //   // 超时时间-
-  //   timeout: 5000,
-  // })
-  // .asyncThen(
-  //   (resp) => {
-  //     // 正常业务
-  //     topOfferDom.innerText = resp.data.offerTitle
-  //   },
-  //   (err) => {
-  //     // 异常业务
-  //   }
-  // )
-  // .asyncErrorCatch((err) => {
-  //   // 网络异常
-  // });
-
 
     this.getDictionaries()
-    
   },
   mounted() {
     // 监听左侧列表滚动事件
@@ -802,6 +786,7 @@ export default {
     getDictionaries(){
     
     },
+  
 
     // 根据所选产品型号 动态的处理  产品线  |  根据所选标准  动态的处理 适用区域 & 项目简称 
    updateProductLineDropdown(tabId = null, modelIds,type = false) {
@@ -876,6 +861,7 @@ export default {
             return
           } 
           // 请求
+          console.log(this.$refs.form,'=======');
         });
       }
     },
@@ -988,7 +974,18 @@ export default {
   right: 30px;
   margin-left: 85%;
 }
-
+.left .box-tooltip,.right .box-tooltip{
+  width: 100%;
+}
+.left .box-tooltip .tooltip-item, .right .box-tooltip .tooltip-item{
+  width: 100%;
+  height: 40px;
+  background-color: #f5f7fa;
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 .right {
   padding: 10px;
