@@ -10,6 +10,7 @@
             <el-input
               v-model="formLeft[item.prop]"
               :placeholder="item.placeholder"
+              :disabled="item.disabled || false"
               style="width: 100%"
               clearable
             ></el-input>
@@ -45,7 +46,9 @@
               :ref="`leftSelect-${item.prop}`"
               @focus="handleFocus(item.prop)"
               @blur="handleBlur"
+              @change="updateProductLineDropdown(null, formLeft,true)"
               :placeholder="item.placeholder"
+              :disabled="item.disabled || false"
               style="width: 100%"
               clearable
             >
@@ -76,7 +79,7 @@
 
            <!-- 配置文件是 file  文件-->
            <template v-else-if="item.type == 'file'">
-              文件展示
+             {{formLeft[item.prop]}}
           </template>
           <!-- 配置文件是 textarea  文件-->
           <template v-else-if="item.type == 'textarea'">
@@ -116,6 +119,7 @@
                   v-model="pane.data[item.prop]"
                  :placeholder="item.placeholder"
                  style="width: 100%"
+                 :disabled="item.disabled || false"
                  clearable
                ></el-input>
              </template>
@@ -151,7 +155,7 @@
                  :ref="`rightSelect-${item.prop}`"
                  @focus="handleRightFocus(item.prop)"
                  @blur="handleRightBlur"
-                 @change="updateProductLineDropdown(pane.id, pane.data)"
+                 @change="updateProductLineDropdown(pane.id, pane.data,false)"
                  style="width: 100%"
                  clearable
                >
@@ -228,11 +232,8 @@ export default {
             prop:'projectAbbreviation',
             rolus:'',
             slot:'projectAbbreviation',
-            type: 'select',
-            options: [
-                  { title: '启用', value: 1 },
-                  { title: '禁用', value: 0 }
-            ]
+            type: 'input',
+            disabled:true
           },
           {
             label:'证书/报告号',
@@ -301,7 +302,8 @@ export default {
             prop:'applicableRegion',
             rolus:'',
             slot:'',
-            type:'select',
+            type:'multiple',
+            disabled:true,
             options: [
                   { title: '启用', value: 1 },
                   { title: '禁用', value: 0 }
@@ -331,7 +333,6 @@ export default {
             rolus:'',
             slot:'productModel',
             type: 'multiple',
-            disabled:true,
             options: [
                   { title: '启用', value: 1 },
                   { title: '禁用', value: 0 }
@@ -364,14 +365,14 @@ export default {
             label:'证书或报告',
             prop:'certificates',
             rolus:'',
-            slot:'',
+            slot:'certificates',
             type:'file'
           },
           {
             label:'附件',
             prop:'attachements',
             rolus:'',
-            slot:'',
+            slot:'attachements',
             type:'file'
           },
           {
@@ -395,19 +396,19 @@ export default {
         certificateReportNumber: 'pdf文件',
         projectAbbreviation: '1111',
         language: 'zh',
-        productLine: '字典产品线id',
-        standard: ['1111','222'],
+        productLine: [],
+        standard: [],
         organization: ' 字典机构简称id',
         certificateType: '类型字典id',
-        productModel: ['1111','222'],
+        productModel: [],
         validDate: '2017-01-17 16:25:38',
         issueDate: '2020-12-08 06:16:08',
-        applicableRegion: '字典事业部id',
+        applicableRegion: [],
         certifiedProductVersion: '认证产品版本',
         reason: '变更原因',
         certificateStatus: '证书状态',
-        certificates: '证书或报告',
-        attachements: '附件',
+        certificates: '证书或报告文件名',
+        attachements: '附件文件名',
         remark: '备注',
         id: '1'
       },
@@ -415,22 +416,21 @@ export default {
       isDisabledRight:true,//禁用右侧表单
       currentActiveTab: '1',//记录当前激活的 Tab
 
-      // 右侧双向绑定表单
-      formRight: {},
+     
       // 右侧tab项数据
       inbound:[
         {
           certificateReportNumber: 'pdf文件',
-          projectAbbreviation: 'I-V扫描与智能诊断',
+          projectAbbreviation: '',
           language: 'zh',
           productLine: [],
-          standard: ['1'],
+          standard: [],
           organization: ' 字典机构简称id',
           certificateType: '类型字典id',
           productModel: [],
           validDate: '2017-01-17 16:25:38',
           issueDate: '2020-12-08 06:16:08',
-          applicableRegion: '字典事业部id',
+          applicableRegion: [],
           certifiedProductVersion: '认证产品版本',
           reason: '变更原因',
           certificateStatus: '证书状态',
@@ -444,13 +444,13 @@ export default {
           projectAbbreviation: 'I-V扫描与智能诊断',
           language: 'zh',
           productLine: [],
-          standard: ['111','222'],
+          standard: [],
           organization: ' 字典机构简称id',
           certificateType: '类型字典id',
           productModel: [],
           validDate: '2017-01-17 16:25:38',
           issueDate: '2020-12-08 06:16:08',
-          applicableRegion: '字典事业部id',
+          applicableRegion: [],
           certifiedProductVersion: '认证产品版本',
           reason: '变更原因',
           certificateStatus: '证书状态',
@@ -493,15 +493,40 @@ export default {
               }
           ],
           "standard": [
-              {
-                  "id": "1111",
-                  "name": "iso9001"
-              },
-              {
-                  "id": "222",
-                  "name": "iso9002"
-              }
-          ],
+            {
+               "id":"619460322461487488",
+               "name":"CGC/GF 035:2013",
+               "projectAbbreviation":"ccc",
+               "applicableRegion": [
+                    {
+                       "id":"700",
+                       "name":"美洲大区"
+                    }
+                ]
+            },
+            {
+               "id":"619460723655053696",
+               "name":"CGC/GF 086:2021",
+               "projectAbbreviation":"bbb",
+               "applicableRegion": [
+                    {
+                       "id":"701",
+                       "name":"中国大区"
+                    }
+                ]
+            },
+            {
+               "id":"622539668016206208",
+               "name":"SG8K-D",
+               "projectAbbreviation":"aaaa",
+               "applicableRegion": [
+                    {
+                       "id":"702",
+                       "name":"东南亚大区"
+                    }
+                ]
+            }
+        ],
           "certificateType": [
               {
                   "id": "1111",
@@ -524,12 +549,16 @@ export default {
           ],
           "applicableRegion": [
               {
-                  "id": "1111",
-                  "name": "中国"
+                  "id":"700",
+                  "name":"美洲大区"
               },
               {
-                  "id": "222",
-                  "name": "美国"
+                 "id":"701",
+                 "name":"中国大区"
+              },
+              {
+                 "id":"702",
+                 "name":"东南亚大区"
               }
           ],
           "organization": [
@@ -674,10 +703,8 @@ export default {
 
      getOptions() {
       return function (item, productLineCopy = this.dictionaries.productLine) {
-              console.log(item,'----------'); 
-
+              // console.log(item,'----------'); 
               if (item.prop === 'productLine') {
-              console.log(1111);
               return productLineCopy.map(line => ({
                 title: line.name,
                 value: line.id
@@ -697,7 +724,6 @@ export default {
   methods:{
     // 左侧 列表滚动事件
     handleScroll(){
-      console.log('---------左侧--------');
       const dom = this.$refs[`leftSelect-${this.selectField}`]
       if (dom) {
         dom[0].blur()
@@ -741,7 +767,6 @@ export default {
 
     // tab点击
     handleClick(tab, event) {
-        console.log(tab, event);
         console.log(tab.name,'所选项',tab.index,'所选的索引');
         this.index = tab.index
         this.currentActiveTab = tab.name; // tab.name 是id
@@ -778,54 +803,66 @@ export default {
     
     },
 
-    // 根据所选产品型号 动态的处理  产品线
-   updateProductLineDropdown(tabId, modelIds) {
-    // if(type == '1'){
-    //   return
-    // }
-    // debugger
-   console.log('当前tab的id:', tabId, '右侧所有的数组', modelIds);
-   // 更新对应产品型号的产品线下拉框
-   let currentForm = this.panes.find(pane => pane.id == tabId); // 找出当前激活tabs所对应的双向绑定的表单
-   if (!currentForm) {
+    // 根据所选产品型号 动态的处理  产品线  |  根据所选标准  动态的处理 适用区域 & 项目简称 
+   updateProductLineDropdown(tabId = null, modelIds,type = false) {
+  //  console.log('当前tab的id:', tabId, '右侧所有的数组', modelIds);
+
+    let currentForm = null
+    if(type){
+      currentForm = this.formLeft
+    }else{
+      currentForm = this.panes.find(pane => pane.id == tabId); // 找出当前激活tabs所对应的双向绑定的表单
+    }
+
+ 
+    console.log(currentForm,'我是所选择的表单');
+
+    if (!currentForm) {
       console.error('找不到当前激活的 Tab 的数据');
       return;
     }
 
     const modelItem = this.configLeft.formItems.find(item => item.prop === 'productModel'); // 从配置里面找出产品型号这一项
-    if (modelItem && modelItem.type === 'multiple' && modelItem.prop == 'productModel') {
+    const standardItem = this.configLeft.formItems.find(item => item.prop === 'standard'); // 从配置里寻找标准项
 
-      let selectedModels = currentForm.data.productModel;
+    if ((modelItem && modelItem.type === 'multiple' && modelItem.prop == 'productModel') || (standardItem && standardItem.type === 'multiple' && standardItem.prop == 'standard')) {
+
+      let selectedModels = type ? currentForm.productModel : currentForm.data.productModel
+      let selectedStandards = type ? currentForm.standard : currentForm.data.standard
       let combinedProductLines = [];
+      let combinedStandards = []
+      let combineProjectAbbreviation = ''
 
       selectedModels.forEach(modelId => {
         const productLinesForModel = this.dictionaries.productModel.find(p => p.id === modelId).productLine;
         combinedProductLines = combinedProductLines.concat(productLinesForModel);
       });
 
+      selectedStandards.forEach(standardId =>{
+        const applicableRegionForStandar =   this.dictionaries.standard.find(s =>s.id === standardId).applicableRegion
+        const applicableRegionForProjectAbbreviation =   this.dictionaries.standard.find(s =>s.id === standardId).projectAbbreviation
+        combinedStandards = combinedStandards.concat(applicableRegionForStandar)
+        combineProjectAbbreviation = combineProjectAbbreviation + applicableRegionForProjectAbbreviation + ','
+      })
+
+      //以防重复  去重
       const uniqueProductLines = [...new Set(combinedProductLines)];
-      console.log(uniqueProductLines, '我是处理完成的');
-
- // 更新当前表单的 productLineCopy
-        currentForm.productLineCopy = uniqueProductLines;
-        console.log(currentForm,'=---------');
-
-      modelItem.options = uniqueProductLines.map(option => ({
-        title: option.name,
-        value: option.id
-      }));
-
-
-      //   // 使用 $set 方法确保数据是响应式的
-      // this.$set(modelItem, 'options', uniqueProductLines.map(option => ({
+      const uniqueApplicableRegions = [...new Set(combinedStandards)]
+  
+      
+      // 更新当前表单的 productLineCopy
+      // currentForm.productLineCopy = uniqueProductLines;
+      
+      // modelItem.options = uniqueProductLines.map(option => ({
       //   title: option.name,
       //   value: option.id
-      // })));
+      // }));
 
-    console.log(modelItem.options, '更新后的 options');
 
-      // 如果需要的话，更新当前表单中的 productLine 字段
-      currentForm.data.productLine = uniqueProductLines.map(option => option.id)
+      // 更新当前表单中的 productLine | applicableRegion | projectAbbreviation 字段
+      type ? currentForm.productLine = uniqueProductLines.map(option => option.id) : currentForm.data.productLine = uniqueProductLines.map(option => option.id)
+      type ? currentForm.applicableRegion = uniqueApplicableRegions.map(option => option.id) : currentForm.data.applicableRegion = uniqueApplicableRegions.map(option => option.id)
+      type ? currentForm.projectAbbreviation = combineProjectAbbreviation.slice(0, -1) : currentForm.data.projectAbbreviation = combineProjectAbbreviation.slice(0, -1)
     }
   },
   },
@@ -850,7 +887,6 @@ export default {
     //   deep: true
     // },
     currentActiveTab(newVal,oldVal){
-      return
       // 仅在切换 Tab 时重置表单字段
       if (newVal !== oldVal) {
         this.$refs[`rightForm-${newVal}`][0].resetFields(); // 每次点击的时候重置表单
