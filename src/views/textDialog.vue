@@ -210,7 +210,7 @@
              </template>
              <template v-else-if="item.type == 'textarea'">
               <el-input
-                v-model="formLeft[item.prop]"
+                v-model="pane.data[item.prop]"
                 :placeholder="item.placeholder"
                 style="width: 100%"
                 maxlength="2000"
