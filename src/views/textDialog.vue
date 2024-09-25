@@ -412,7 +412,7 @@ export default {
       // 左侧双向绑定表单
       formLeft: {
         certificateReportNumber: 'pdf文件',
-        projectAbbreviation: '1111',
+        projectAbbreviation: '',
         language: 'zh',
         productLine: [],
         standard: [],
@@ -514,7 +514,7 @@ export default {
             {
                "id":"619460322461487488",
                "name":"CGC/GF 035:2013",
-               "projectAbbreviation":"ccc",
+              //  "projectAbbreviation":"",
                "applicableRegion": [
                     {
                        "id":"700",
@@ -812,14 +812,14 @@ export default {
 
     if ((modelItem && modelItem.type === 'multiple' && modelItem.prop == 'productModel') || (standardItem && standardItem.type === 'multiple' && standardItem.prop == 'standard')) {
 
-      let selectedModels = type ? currentForm.productModel : currentForm.data.productModel
+      let selectedModels = type ? currentForm.productModel : currentForm.data.productModel // 所选择的产品型号  [id]
       let selectedStandards = type ? currentForm.standard : currentForm.data.standard
       let combinedProductLines = [];
       let combinedStandards = []
       let combineProjectAbbreviation = ''
 
       selectedModels.forEach(modelId => {
-        const productLinesForModel = this.dictionaries.productModel.find(p => p.id === modelId).productLine;
+        const productLinesForModel = this.dictionaries.productModel.find(p => p.id === modelId).productLine;  //产品型号所对应的产品线
         combinedProductLines = combinedProductLines.concat(productLinesForModel);
       });
 
@@ -827,7 +827,10 @@ export default {
         const applicableRegionForStandar =   this.dictionaries.standard.find(s =>s.id === standardId).applicableRegion
         const applicableRegionForProjectAbbreviation =   this.dictionaries.standard.find(s =>s.id === standardId).projectAbbreviation
         combinedStandards = combinedStandards.concat(applicableRegionForStandar)
-        combineProjectAbbreviation = combineProjectAbbreviation + applicableRegionForProjectAbbreviation + ','
+
+        if(applicableRegionForProjectAbbreviation){ //防止取出来的字段是空
+          combineProjectAbbreviation = combineProjectAbbreviation + applicableRegionForProjectAbbreviation + ','
+        }
       })
 
       //以防重复  去重
