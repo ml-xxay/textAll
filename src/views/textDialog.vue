@@ -250,8 +250,9 @@ export default {
             prop:'projectAbbreviation',
             rolus:'',
             slot:'projectAbbreviation',
-            type: 'input',
-            disabled:true
+            type: 'multiple',
+            disabled:true,
+            options:[]
           },
           {
             label:'证书/报告号',
@@ -439,7 +440,7 @@ export default {
       inbound:[
         {
           certificateReportNumber: 'pdf文件',
-          projectAbbreviation: '',
+          projectAbbreviation: [],
           language: 'zh',
           productLine: [],
           standard: [],
@@ -459,7 +460,7 @@ export default {
         },
         {
           certificateReportNumber: 'pdf文件',
-          projectAbbreviation: 'I-V扫描与智能诊断',
+          projectAbbreviation: [],
           language: 'zh',
           productLine: [],
           standard: [],
@@ -514,7 +515,9 @@ export default {
             {
                "id":"619460322461487488",
                "name":"CGC/GF 035:2013",
-              //  "projectAbbreviation":"",
+               "projectAbbreviation":[
+
+               ],
                "applicableRegion": [
                     {
                        "id":"700",
@@ -525,7 +528,9 @@ export default {
             {
                "id":"619460723655053696",
                "name":"CGC/GF 086:2021",
-               "projectAbbreviation":"bbb",
+               "projectAbbreviation":[
+
+               ],
                "applicableRegion": [
                     {
                        "id":"701",
@@ -536,7 +541,12 @@ export default {
             {
                "id":"622539668016206208",
                "name":"SG8K-D",
-               "projectAbbreviation":"aaaa",
+               "projectAbbreviation":[
+                {
+                  "id":'1111',
+                  "name":'我是第一个项目'
+                }
+               ],
                "applicableRegion": [
                     {
                        "id":"702",
@@ -816,7 +826,8 @@ export default {
       let selectedStandards = type ? currentForm.standard : currentForm.data.standard
       let combinedProductLines = [];
       let combinedStandards = []
-      let combineProjectAbbreviation = ''
+      // let combineProjectAbbreviation = ''
+      let combineProjectAbbreviation = []
 
       selectedModels.forEach(modelId => {
         const productLinesForModel = this.dictionaries.productModel.find(p => p.id === modelId).productLine;  //产品型号所对应的产品线
@@ -827,16 +838,18 @@ export default {
         const applicableRegionForStandar =   this.dictionaries.standard.find(s =>s.id === standardId).applicableRegion
         const applicableRegionForProjectAbbreviation =   this.dictionaries.standard.find(s =>s.id === standardId).projectAbbreviation
         combinedStandards = combinedStandards.concat(applicableRegionForStandar)
+        combineProjectAbbreviation = combineProjectAbbreviation.concat(applicableRegionForProjectAbbreviation)
 
-        if(applicableRegionForProjectAbbreviation){ //防止取出来的字段是空
-          combineProjectAbbreviation = combineProjectAbbreviation + applicableRegionForProjectAbbreviation + ','
-        }
+
+        // if(applicableRegionForProjectAbbreviation){ //防止取出来的字段是空
+        //   combineProjectAbbreviation = combineProjectAbbreviation + applicableRegionForProjectAbbreviation + ','
+        // }
       })
 
       //以防重复  去重
       const uniqueProductLines = [...new Set(combinedProductLines)];
       const uniqueApplicableRegions = [...new Set(combinedStandards)]
-  
+      const uniqueProjectAbbreviation = [...new Set(combineProjectAbbreviation)]
       
       // 更新当前表单的 productLineCopy
       // currentForm.productLineCopy = uniqueProductLines;
@@ -850,7 +863,10 @@ export default {
       // 更新当前表单中的 productLine | applicableRegion | projectAbbreviation 字段
       type ? currentForm.productLine = uniqueProductLines.map(option => option.id) : currentForm.data.productLine = uniqueProductLines.map(option => option.id)
       type ? currentForm.applicableRegion = uniqueApplicableRegions.map(option => option.id) : currentForm.data.applicableRegion = uniqueApplicableRegions.map(option => option.id)
-      type ? currentForm.projectAbbreviation = combineProjectAbbreviation.slice(0, -1) : currentForm.data.projectAbbreviation = combineProjectAbbreviation.slice(0, -1)
+      type ? currentForm.projectAbbreviation = uniqueProjectAbbreviation.map(option => option.id) : currentForm.data.projectAbbreviation = uniqueProjectAbbreviation.map(option => option.id)
+
+
+      // type ? currentForm.projectAbbreviation = combineProjectAbbreviation.slice(0, -1) : currentForm.data.projectAbbreviation = combineProjectAbbreviation.slice(0, -1)
     }
   },
   },
