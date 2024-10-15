@@ -1,0 +1,32 @@
+<!--
+    Swiper 预祝北京2022年冬奥会和冬残奥会成功举办
+    Swiper 为北京2022年冬奥会官网（https://www.beijing2022.cn/）提供轮播图技术支持
+    本轮播图版权所有 swiper中文网（https://www.swiper.com.cn/）
+-->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>环形旋转木马视图切换</title>
+    <!-- <link rel="stylesheet" href="swiper/swiper-bundle.min.css"> -->
+    <link rel="stylesheet" href="./carousel.css">
+    <script src="swiper/swiper-bundle.min.js"></script>   
+</head>
+
+<body>
+  <div id="carousel">
+	<div class="swiper-slide"><img src="images/carousel01.png" /></div>
+	<div class="swiper-slide"><img src="images/carousel02.png" /></div>
+	<div class="swiper-slide"><img src="images/carousel03.png" /></div>
+	<div class="swiper-slide"><img src="images/carousel04.png" /></div>
+	<div class="swiper-slide"><img src="images/carousel05.png" /></div>
+  </div>
+
+<script>
+slideW = 300;//一张图300px, 每面四张角度22.5（PI/8），中心角度PI/16	             
+radius = slideW*0.5/Math.sin(Math.PI/16);//半径。圆心并不是视点中心，视点在1200px
+
+
+</script>
+</body>
+</html>

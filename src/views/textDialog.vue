@@ -251,7 +251,7 @@ export default {
             rolus:'',
             slot:'projectAbbreviation',
             type: 'multiple',
-            disabled:true,
+            // disabled:true, 
             options:[]
           },
           {
@@ -310,7 +310,7 @@ export default {
             rolus:'',
             slot:'productLine',
             type:'multiple',
-            disabled:true,
+            // disabled:true,
             options: [
                   { title: '启用', value: 1 },
                   { title: '禁用', value: 0 }
@@ -413,7 +413,7 @@ export default {
       // 左侧双向绑定表单
       formLeft: {
         certificateReportNumber: 'pdf文件',
-        projectAbbreviation: '',
+        projectAbbreviation: [],
         language: 'zh',
         productLine: [],
         standard: [],
@@ -677,7 +677,7 @@ export default {
         id: item.id,
         data: item,
         // 创建一个 productLine 的副本,防止全局的字典改变
-        productLineCopy: this.dictionaries.productLine.slice()
+        // productLineCopy: this.dictionaries.productLine.slice()
       }));
     },
     //  处理左侧字典
@@ -698,12 +698,12 @@ export default {
      getOptions() {
       return function (item, productLineCopy = this.dictionaries.productLine) {
               // console.log(item,'----------'); 
-              if (item.prop === 'productLine') {
-              return productLineCopy.map(line => ({
-                title: line.name,
-                value: line.id
-              }));
-            }
+            //   if (item.prop === 'productLine') {
+            //   return productLineCopy.map(line => ({
+            //     title: line.name,
+            //     value: line.id
+            //   }));
+            // }
               const dictionaryKey = item.prop;
               if (this.dictionaries[dictionaryKey]) {
                 return this.dictionaries[dictionaryKey].map(dictItem => ({
@@ -863,7 +863,7 @@ export default {
       // 更新当前表单中的 productLine | applicableRegion | projectAbbreviation 字段
       type ? currentForm.productLine = uniqueProductLines.map(option => option.id) : currentForm.data.productLine = uniqueProductLines.map(option => option.id)
       type ? currentForm.applicableRegion = uniqueApplicableRegions.map(option => option.id) : currentForm.data.applicableRegion = uniqueApplicableRegions.map(option => option.id)
-      type ? currentForm.projectAbbreviation = uniqueProjectAbbreviation.map(option => option.id) : currentForm.data.projectAbbreviation = uniqueProjectAbbreviation.map(option => option.id)
+      // type ? currentForm.projectAbbreviation = uniqueProjectAbbreviation.map(option => option.id) : currentForm.data.projectAbbreviation = uniqueProjectAbbreviation.map(option => option.id)
 
 
       // type ? currentForm.projectAbbreviation = combineProjectAbbreviation.slice(0, -1) : currentForm.data.projectAbbreviation = combineProjectAbbreviation.slice(0, -1)
