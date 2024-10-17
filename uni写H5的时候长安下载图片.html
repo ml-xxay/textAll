@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+
+
+       // 要是图片下载不了  就转成blob（二进制的形式）
+      const response = await fetch(state.selectedImageUrl)  // state.selectedImageUrl    这个替换成你要下载图片url
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        const blob = await response.blob()
+
+        const blobUrl = URL.createObjectURL(blob)
+
+        // 创建 <a> 元素
+        const link = document.createElement('a')
+        link.href = blobUrl
+        link.download = state.selectedName   //  你需要下载的文件名
+        link.click()
+        URL.revokeObjectURL(blobUrl)
+    </script>
+  </body>
+</html>
