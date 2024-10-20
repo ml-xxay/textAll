@@ -1,0 +1,94 @@
+@use 'sass:math';
+
+$imageWidth: 600px;
+$imageHeight: 400px;
+
+body,
+.box {
+  background: black;
+  // 视距
+  perspective: 2000px;
+}
+
+.cycle {
+  width: 100vw;
+  height: 400px;
+  margin-bottom: 10px;
+  transform-style: preserve-3d;
+  animation: rotate 30s infinite linear;
+  margin: 10px 0;
+
+  .item {
+    position: absolute;
+    border: 5px solid white;
+    // 禁止鼠标拖动
+    width: $imageWidth;
+    height: $imageHeight;
+    left: 50%;
+    top: 50%;
+    margin-left: -$imageWidth / 2;
+    margin-top: -$imageHeight / 2;
+    // 半径
+    $r: 1000px;
+    // 图片数量
+    $n: 10;
+    $pictureRadian: 360deg / $n;
+    // 当元素处于背面时，不可见
+    backface-visibility: hidden;
+    // 倒影
+    // -webkit-box-reflect: below 10px -webkit-linear-gradient(transparent, transparent
+    //       50%, rgba(255, 255, 255, 0.3));
+    @for $i from 0 through $n - 1 {
+      &:nth-child(#{$i + 1}) {
+        $deg: $pictureRadian * $i;
+        $x: math.sin($deg) * $r;
+        $z: math.cos($deg) * $r;
+        transform: translate3d(#{$x}, 0, #{$z}) rotateY(180deg + $deg);
+      }
+    }
+  }
+}
+
+.two {
+  width: 100vw;
+  height: 400px;
+  transform-style: preserve-3d;
+  animation: rotate 30s infinite linear;
+  .item {
+    position: absolute;
+    border: 5px solid white;
+    // 禁止鼠标拖动
+    width: $imageWidth;
+    height: $imageHeight;
+    left: 50%;
+    top: 50%;
+    margin-left: -$imageWidth / 2;
+    margin-top: -$imageHeight / 2;
+    // 半径
+    $r: 1000px;
+    // 图片数量
+    $n: 10;
+    $pictureRadian: 360deg / $n;
+    // 当元素处于背面时，不可见
+    backface-visibility: hidden;
+    // 倒影
+    // -webkit-box-reflect: below 10px -webkit-linear-gradient(transparent, transparent
+    //       50%, rgba(255, 255, 255, 0.3));
+    @for $i from 0 through $n - 1 {
+      &:nth-child(#{$i + 1}) {
+        $deg: $pictureRadian * $i;
+        $x: math.sin($deg) * $r;
+        $z: math.cos($deg) * $r;
+        transform: translate3d(#{$x}, 0, #{$z}) rotateY(180deg + $deg);
+      }
+    }
+  }
+}
+// @keyframes rotate {
+//   from {
+//     transform: rotateY(0deg);
+//   }
+//   to {
+//     transform: rotateY(360deg);
+//   }
+// }
