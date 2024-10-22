@@ -29,7 +29,7 @@ body,
     margin-left: -$imageWidth / 2;
     margin-top: -$imageHeight / 2;
     // 半径
-    $r: 1000px;
+    $r: 100px;
     // 图片数量
     $n: 10;
     $pictureRadian: 360deg / $n;
@@ -68,6 +68,7 @@ body,
     $r: 1000px;
     // 图片数量
     $n: 10;
+      /* 计算每个图片之间的弧度    为了确保每个图片均匀的分布在圆周上*/
     $pictureRadian: 360deg / $n;
     // 当元素处于背面时，不可见
     backface-visibility: hidden;
@@ -76,10 +77,10 @@ body,
     //       50%, rgba(255, 255, 255, 0.3));
     @for $i from 0 through $n - 1 {
       &:nth-child(#{$i + 1}) {
-        $deg: $pictureRadian * $i;
-        $x: math.sin($deg) * $r;
-        $z: math.cos($deg) * $r;
-        transform: translate3d(#{$x}, 0, #{$z}) rotateY(180deg + $deg);
+        $deg: $pictureRadian * $i;   // 得到了当前图片相对于起始位置（0度）的角度
+        $x: math.sin($deg) * $r;    //  我们得到了当前图片在3D空间中的X坐标
+        $z: math.cos($deg) * $r;   //   当前图片在3D空间中的Z坐标
+        transform: translate3d(#{$x}, 0, #{$z}) rotateY(180deg + $deg);   //图片就会被放置在以中心点为原点的3D坐标系中的正确位置上
       }
     }
   }
