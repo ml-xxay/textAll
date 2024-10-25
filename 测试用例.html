@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = [
+        {
+          '99284bc8824369fd6929389f': '本科',
+          '47f34bc4bd6de368deb51d77': '2023-10-24',
+          '23d0493bab8f6d2254ab0b3e': '2025-10-24',
+          '73b74c88a67793ee35f9378e': '计算机',
+          'd22440b5b6e73c5e9c0b75ef': '北大'
+        },
+        {
+          '99284bc8824369fd6929389f': '本科',
+          '47f34bc4bd6de368deb51d77': '2023-10-24',
+          '23d0493bab8f6d2254ab0b3e': '2025-10-24',
+          '73b74c88a67793ee35f9378e': '计算机',
+          'd22440b5b6e73c5e9c0b75ef': '北大'
+        },
+        {
+          '99284bc8824369fd6929389f': '本科',
+          '47f34bc4bd6de368deb51d77': '2021-10-24',
+          '23d0493bab8f6d2254ab0b3e': '2022-10-24',
+          '73b74c88a67793ee35f9378e': '计算机',
+          'd22440b5b6e73c5e9c0b75ef': '云南'
+        },
+        {
+          '99284bc8824369fd6929389f': '本科',
+          '47f34bc4bd6de368deb51d77': '2021-10-24',
+          '23d0493bab8f6d2254ab0b3e': '2022-10-24',
+          '73b74c88a67793ee35f9378e': '计算机',
+          'd22440b5b6e73c5e9c0b75ef': '云南1'
+        },
+        {
+          '99284bc8824369fd6929389f': '本科',
+          '47f34bc4bd6de368deb51d77': '2023-10-24',
+          '23d0493bab8f6d2254ab0b3e': '2025-10-24',
+          '73b74c88a67793ee35f9378e': '计算机',
+          'd22440b5b6e73c5e9c0b75ef': '清华'
+        },
+       
+      ];
+      let obj = {
+        result: true
+      };
+      let education = ['本科', '硕士研究生', '博士研究生', '博士后'];
+      // 99284bc8824369fd6929389f  （学历） 高中或同等学历  大专 本科  硕士研究生  博士研究生  博士后  初中    22354c8bad228fe727e35ec8 （学位证上传保存的数组）   9d1a4eb289cfafe155884790（无学位证原因）
+        if (arr.length > 0) {
+          arr.forEach((item) => {
+            debugger;
+            if (education.includes(item['99284bc8824369fd6929389f'])) {
+              if (
+                (typeof item['22354c8bad228fe727e35ec8'] === 'undefined' ||
+                  item['22354c8bad228fe727e35ec8'].length === 0) &&
+                !item['9d1a4eb289cfafe155884790']
+              ) {
+                obj.result = false;
+              }
+            }
+          });
+        }
+
+
+      //   47f34bc4bd6de368deb51d77（学习开始时间）   23d0493bab8f6d2254ab0b3e （学习结束时间）     d22440b5b6e73c5e9c0b75ef (学校名字)     73b74c88a67793ee35f9378e  （所学专业）
+
+
+      // 定义一个集合来存储拼接的字符串
+      let seenStrings = new Set();
+
+      arr.forEach((item) => {
+        // 提取四个字段
+        const start = item['47f34bc4bd6de368deb51d77'] || '';
+        const end = item['23d0493bab8f6d2254ab0b3e'] || '';
+        const school = item['d22440b5b6e73c5e9c0b75ef'] || '';
+        const major = item['73b74c88a67793ee35f9378e'] || '';
+
+        // 拼接成一个字符串
+        const combinedString = `${start}-${end}-${school}-${major}`;
+
+        // 检查是否已经存在于集合中
+        if (seenStrings.has(combinedString)) {
+          obj.result = false;
+          return; // 提前终止循环
+        }
+
+        // 添加到集合中
+        seenStrings.add(combinedString);
+      });
+
+      console.log(obj.result, '--------------------');
+
+    </script>
+  </body>
+</html>
