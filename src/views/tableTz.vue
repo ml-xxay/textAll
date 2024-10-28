@@ -57,40 +57,74 @@ export default {
         colLayout: {
           span: 6,
         },
-        formItems: []
+        formItems: [
+          //field 是要双向绑定所对应上去的字段  type 输入框类型  label 标头名称  value是输入框默认值
+          {
+            field: "id",
+            type: "input",
+            label: "id",
+            placeholder: "请输入id",
+            active:false
+          },
+          {
+            field: "v0",
+            type: "input",
+            label: "v0",
+            placeholder: "请输入v0",
+            active:false
+          } ,
+          {
+            field: "v1",
+            linHeight: {
+              lineHeight: "20px",
+            },
+            type: "select",
+            value: "自己决定默认值",
+            label: "v1",
+            placeholder: "请选择用户名",
+            active:false,
+            options: [
+              { title: "全部", value: 0 },
+              { title: "启用", value: 1 },
+              { title: "禁用", value: 2 },
+            ],
+          },
+        ],
       },
       // 表格配置
       tableHeadConfig: {
         tableHead: [
-          // {
-          //   colKey: "value",
-          //   colName: "差异项",
-          //   colChecked: true,
-          // },
-          // {
-          //   colName: "环网柜绝缘帽",
-          //   colKey: "rmUnitInsulatingCap",
-          //   colWidth: 150,
-          //   colChecked: true, //显隐
-          // },
-          // {
-          //   label: "id",
-          //   value: "id",
-          //   width: 150,
-          //   check: true,
-          // },
-          // {
-          //   label: "v1",
-          //   value: "v1",
-          //   width: 150,
-          //   check: true,
-          // },
+          {
+            colKey: "id",
+            colName: "差异项",
+            colChecked: true,
+          },
+          {
+            colName: "环网柜绝缘帽",
+            colKey: "v1",
+            colWidth: 150,
+            colChecked: true, //显隐
+          },
+      
         ],
         showSelectColumn: true, //多选项显示
         role: '', //角色
       },
       // 表格数据
-      tableData: [],
+      tableData: [
+      {
+          id: 1,
+          v0: "2016-05-02",
+          v1: "王1",
+          value:'1'
+        },
+        {
+          id: 2,
+          v0: "2016-05-02",
+          v1: 2,
+          value:'11'
+        },
+      ],
       // 弹窗配置
       modalConfig: {
         labelWidth: "120px",
@@ -122,10 +156,10 @@ export default {
   },
  async created() {
     // this.getRole('iprs_sale')
-    await this.getRole();
+    // await this.getRole();
     // 获取基本数据与字典数据之和
-    this.getDataAll();
-    this.getTableHeaderConfig(); //表格配置头
+    // this.getDataAll();
+    // this.getTableHeaderConfig(); //表格配置头
   },
 
   methods: {
