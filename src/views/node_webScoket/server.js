@@ -8,7 +8,7 @@ const server = http.createServer(app);
 const port = 3002;
 
 //创建WebSocketconst服务
-wss = new WebSocket.Server({ port }, () => {
+wss = new WebSocket.Server({ server }, () => {
   console.log('服务开启');
 });
 
@@ -41,8 +41,8 @@ wss.on('connection', connectHandle)
 
 
 
-server.listen(8888, () => {
-  console.log(`WebSocket服务器运行在 ${8888} 端口`);
+server.listen(port, () => {
+  console.log(`WebSocket服务器运行在 ${port} 端口`);
 });
 
 // 捕获启动错误（如端口被占用）
