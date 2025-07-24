@@ -1,9 +1,10 @@
 <template>
   <div>
+    <!-- action="http://www.liulongbin.top:3006/api/upload/avatar" -->
     <!-- 上传文件 -->
     <el-upload
       class="upload-demo"
-      action="http://www.liulongbin.top:3006/api/upload/avatar"
+      action="#"
       :on-progress="handleProgress"
       :on-success="handleSuccess"
       :on-change="handleChange"
@@ -15,17 +16,17 @@
     <!-- 进度条 -->
     <el-table border :data="files" stripe style="width: 800px">
       <el-table-column label="序号" type="index" width="100"></el-table-column>
-      <el-table-column prop="name" label="文件名" width="180">
+      <el-table-column prop="filename" label="文件名" width="180">
       </el-table-column>
-      <el-table-column prop="size" label="文件大小" width="180">
-        <template slot-scope="item">{{ sizeInfo(item.row.size) }}</template>
+      <el-table-column prop="total" label="文件大小" width="180">
+        <template slot-scope="item">{{ sizeInfo(item.row.total) }}</template>
       </el-table-column>
-      <el-table-column prop="percentage" label="进度">
+      <el-table-column prop="loaded" label="进度">
         <template slot-scope="item">
           <el-progress
             :text-inside="true"
             :stroke-width="18"
-            :percentage="quzheng(item.row.percentage)"
+            :percentage="quzheng(item.row.loaded)"
             status="success"
           ></el-progress>
         </template>
@@ -76,7 +77,9 @@ export default {
     },
     // 取整
     quzheng(percentage) {
-      return Math.ceil(percentage)
+      console.log(percentage);
+      
+      return Number(Math.ceil(percentage))
     },
   },
   created() {},

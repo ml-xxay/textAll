@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve --open",
+    "serve": "vue-cli-service serve",
     "package": "vue-cli-service build --target lib ./src/components/index.js --name modifypassword --dest modifypassword",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -20,6 +20,7 @@
     "mockjs": "^1.1.0",
     "moment": "^2.29.3",
     "sass-loader": "^7.1.0",
+    "spark-md5": "^3.0.2",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuedraggable": "^2.24.3",

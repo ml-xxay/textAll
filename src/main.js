@@ -20,7 +20,7 @@ import './assets/fonts/iconfont.css'
 // 处理日期插件  moment
 import moment from 'moment'
 Vue.config.productionTip = false
-import echarts from 'echarts'
+import * as echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 Vue.prototype.axios = axios;
 // Vue.prototype.$moment = moment //挂载到原型上  一遍别的组件使用

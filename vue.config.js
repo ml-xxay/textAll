@@ -9,12 +9,13 @@ module.exports = {
   publicPath: './',
   devServer: {
     disableHostCheck: true,
-    // proxy: {
-    //   '/custom': {
-    //     target: 'http://10.13.70.240:9091',
-    //     changeOrigin: true
-    //   }
-    // },
+    proxy: {
+      '/api': {
+        target: 'http://10.10.112.170:20012',
+        changeOrigin: true,
+        pathRewrite: { '^/api': '' },
+      }
+    },
   },
   // module: {
   //   rules: [
@@ -38,22 +39,21 @@ module.exports = {
       // alias 别名的意思
       alias: {
         // '@': 'src'  @对应的就是src  默认的
-        'assets': '@/assets',
-        'common': '@/common',
-        'components': '@/components',
-        'network': '@/network',
-        'views': '@/views'
-          // 脚手架4(cli4版本配置)
-          //   chainWebpack:(config)=>{
-          //     config.resolve.alias
-          //         //set第一个参数：设置的别名，第二个参数：设置的路径
-          //         .set('@',resolve('./src'))
-          //         .set('assets',resolve('.src/assets'))
-          //         .set('components',resolve('./src/components'))
-          //         .set('views',resolve('src/views'))
-          // }
-
-      }
-    }
-  }
+        assets: '@/assets',
+        common: '@/common',
+        components: '@/components',
+        network: '@/network',
+        views: '@/views',
+        // 脚手架4(cli4版本配置)
+        //   chainWebpack:(config)=>{
+        //     config.resolve.alias
+        //         //set第一个参数：设置的别名，第二个参数：设置的路径
+        //         .set('@',resolve('./src'))
+        //         .set('assets',resolve('.src/assets'))
+        //         .set('components',resolve('./src/components'))
+        //         .set('views',resolve('src/views'))
+        // }
+      },
+    },
+  },
 }

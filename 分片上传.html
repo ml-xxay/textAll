@@ -1,52 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <script src="https://cdn.bootcdn.net/ajax/libs/spark-md5/3.0.2/spark-md5.min.js"></script>
 
-    <!-- multiple 多选 -->
-    <!-- <input type="file" @change="changeFile" multiple/> -->
-    <input type="file" @change="changeFile" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
 
-    <!-- <script>
-        //简单测试
-      const inputDom = document.querySelector("input"); // 获取input文件标签的dom元素
-      inputDom.onchange = (e) => {
-        console.log(e.target.result);
-        // console.log(inputDom.files,'--------------inputDom.files-----------');
+<body>
+  <script src="https://cdn.bootcdn.net/ajax/libs/spark-md5/3.0.2/spark-md5.min.js"></script>
 
-        let file = inputDom.files[0]; // 拿到文件 这个写法是固定的  file包含文件名name 和文件大小size
-        let spark = new SparkMD5.ArrayBuffer(); // 实例化spark-md5
-        let fileReader = new FileReader(); // 实例化文件阅读器
-        fileReader.onload = (e) => {
-          spark.append(e.target.result); // 添加到spark算法中计算
-          let hash = spark.end(); // 计算完成得到hash结果
-          console.log("文件的hash值为:", hash);
-        };
-        fileReader.readAsArrayBuffer(file); // 开始阅读这个文件，阅读完成触发onload方法
+  <!-- multiple 多选 -->
+  <!-- <input type="file" @change="changeFile" multiple/> -->
+  <input type="file" @change="changeFile" />
+  <button @click="upload">上传</button>
+  <!-- <script>
+    //简单测试  单文件读取
+    const inputDom = document.querySelector("input"); // 获取input文件标签的dom元素
+    inputDom.onchange = (e) => {
+      console.log(e.target.files);
+      // console.log(inputDom.files,'--------------inputDom.files-----------');
+
+      let file = inputDom.files[0]; // 拿到文件 这个写法是固定的  file包含文件名name 和文件大小size
+      let spark = new SparkMD5.ArrayBuffer(); // 实例化spark-md5
+      let fileReader = new FileReader(); // 实例化文件阅读器
+      fileReader.onload = (e) => {
+        console.log(e.target.result)
+        spark.append(e.target.result); // 添加到spark算法中计算
+        let hash = spark.end(); // 计算完成得到hash结果
+        console.log("文件的hash值为:", hash);
       };
-    </script> -->
+      fileReader.readAsArrayBuffer(file); // 开始阅读这个文件，阅读完成触发onload方法
+    };
+  </script> -->
 
-    <script>
-      const inputDom = document.querySelector("input"); // 获取input文件标签的dom元素
 
-      inputDom.onchange = (e) => {
-        let file = inputDom.files[0]; // 拿到文件
-        function sliceFn(file, chunkSize = 1 * 1024 * 1024) {//(1 * 1024 * 1024 就是1048576-->1MB)
-          const result = [];
-          // 从第0字节开始切割，一次切割1 * 1024 * 1024字节 (就是1MB 1048576)
-          for (let i = 0; i < file.size; i = i + chunkSize) {
-            result.push(file.slice(i, i + chunkSize));
+
+
+  <script>
+    //分片读取 效率好
+
+    const inputDom = document.querySelector("input"); // 获取input文件标签的dom元素
+
+    let size = 10 * 1024 * 1024;
+    inputDom.onchange = async (e) => {
+      let file = inputDom.files[0]; // 拿到文件
+
+      const chunks = sliceFn(file, size);
+      console.log("文件分片成数组", chunks);
+
+      const result = await hash(chunks);
+      console.log("文件的hash值为:", result);
+
+    };
+
+    //计算整个文件的hash 生成文件唯一hash值。  不能用一个文件生成唯一的标识（否则要读取文件，万一这个文件是个很大的，内存吃不消，很卡），使用增量算法，分块生成每一个hash值，
+    // 解释说明，我们修改一张表的数据，根据什么修改，可以根据id这个唯一的标识修改，生程hash就是这个文件的唯一值
+    function hash(chunks) {
+      return new Promise((resolve, reject) => {
+        // let currentChunk = 0 // 准备从第0块开始读
+
+
+        let spark = new SparkMD5.ArrayBuffer() // 实例化spark-md5
+        //_read  分块函数，读第几个分块
+        function _read(i) {
+          if (i >= chunks.length) { //读取第几块，如果大于分块的数量，结束
+            resolve(spark.end()) // spark.end()   得到的文件hash值
+            return
           }
-          return result;
+          const blob = chunks[i] //每一个块
+          let reader = new FileReader() //FileReader读取文件的类
+          reader.readAsArrayBuffer(blob) //读取字节  读取是异步的，所以我们可以通过reader的onload事件来获取读取的结果
+          reader.onload = e => {
+            progressCallbackFn(Math.ceil((i + 1) / chunks.length * 100)) //抛出一个函数，用于告知进度
+            // console.log(e.target.result)  
+            const bytes = e.target.result  //e.target.result是读取的结果  读取到的字节数组
+            spark.append(bytes) //把读取到的字节加到增量运算中
+            _read(i + 1)
+          }
+
         }
-        const chunks = sliceFn(file);
-        console.log("文件分片成数组", chunks);
-      };
-    </script>
-  </body>
+
+        _read(0)
+
+      })
+    }
+
+    //处理文件上传的进度
+    function progressCallbackFn(progress) {
+      console.log('上传进度', progress)
+    }
+
+    //文件分片 //(1 * 1024 * 1024 就是1048576 1MB)
+    function sliceFn(file, chunkSize = 1 * 1024 * 1024) {
+      const result = [];
+      // 从第0字节开始切割，一次切割1 * 1024 * 1024字节 (就是1MB 1048576)
+      for (let i = 0; i < file.size; i = i + chunkSize) {
+        result.push(file.slice(i, i + chunkSize));
+      }
+      return result;
+    }  
+  </script>
+
+</body>
+
 </html>
