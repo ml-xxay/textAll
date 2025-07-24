@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    const ws = new WebSocket('ws://localhost:3002')
+    // 连接建立时触发
+    ws.onopen = () => {
+      console.log('✅ 已连接到 WebSocket 服务器');
+      ws.send('Hello Server!');
+    };
+
+    // 接收消息
+    ws.onmessage = (event) => {
+      console.log('📩 收到来自服务器的消息:', event.data);
+    };
+
+    // 错误处理
+    ws.onerror = (error) => {
+      console.error('⚠️ WebSocket Error:', error);
+    };
+
+    // 连接关闭
+    ws.onclose = (e) => {
+      console.log('🔌 连接已关闭', e);
+    };
+
+  </script>
+</body>
+
+</html>
