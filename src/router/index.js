@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 const Home = () => import('../views/Home.vue') //vuex用法
 const Data = () => import('../views/Date.vue') //echarts各种示例
 const Upload = () => import('../views/Upload.vue') //上传文件
-const Bigupload = () => import('../views/bigupload.vue') //上传文件
+const Bigupload = () => import('../views/bigupload.vue') //大文件 上传文件
 const ExportExcel = () => import('../views/ExportExcel.vue') //导出excel
 const Table = () => import('../views/biaoge.vue') //封装的表格
 const donwphone = () => import('../views/donwphone.vue') //下载图片
