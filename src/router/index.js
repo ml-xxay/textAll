@@ -15,12 +15,16 @@ const atils = () => import('../views/atils.vue') //雷达图
 const cs = () => import('../views/cs.vue') //测试模块导入
 const dialog = () => import('../views/textDialog.vue') //测试自定义弹窗
 const glform = () => import('../views/glform.vue') //测试隔离数据是否响应式
+const Ld = () => import('../views/ld.vue') //左右联动效果
+
+
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    redirect: '/bigupload',
+    redirect: '/ld',
+    // redirect: '/bigupload',
     // redirect: '/dialog',
     // redirect: '/table',
     // redirect: "/tabletz",
@@ -99,6 +103,11 @@ const routes = [
     path: '/tabletz',
     name: 'tabletz',
     component: tableTz,
+  },
+  {
+    path: '/ld',
+    name: 'ld',
+    component: Ld,
   },
 ]
 
